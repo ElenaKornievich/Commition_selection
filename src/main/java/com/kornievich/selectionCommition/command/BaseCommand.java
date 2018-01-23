@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface BaseCommand {
     String execute(HttpServletRequest request, HttpServletResponse response);
-
+    String getPage(HttpServletRequest request);
 
 }

@@ -23,7 +23,10 @@ public class Controller extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("/WEB-INF/jsp/authorization.jsp").forward(request,response);
+        CommandFactory commandFactory=new CommandFactory();
+        BaseCommand baseCommand= commandFactory.defineCommand(request);
+        String page=baseCommand.getPage(request);
+        request.getRequestDispatcher(page).forward(request, response);
 
     }
 
@@ -31,7 +34,7 @@ public class Controller extends HttpServlet {
         HttpSession session;
 
         CommandFactory commandFactory=new CommandFactory();
-        commandFactory.defineCommand(request);
+        //commandFactory.defineCommand(request);
         BaseCommand baseCommand= commandFactory.defineCommand(request);
         String page= baseCommand.execute(request,response);
 

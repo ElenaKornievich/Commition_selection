@@ -32,6 +32,11 @@ public class RegistrationCommand implements BaseCommand {
         }return page;
     }
 
+    @Override
+    public String getPage(HttpServletRequest request) {
+        return null;
+    }
+
     public static RegistrationCommand getInstance() {
         return instance;
     }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Fox
@@ -29,5 +30,10 @@
             </small>
     </table>
 </form>
+<table>
+    <c:forEach var = "i" items="${users}">
+        Item <c:out value = "${i.login}"/>
+    </c:forEach>
+</table>
 </body>
 </html>

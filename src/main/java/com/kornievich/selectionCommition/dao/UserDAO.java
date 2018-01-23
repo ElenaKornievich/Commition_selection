@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserDAO {
@@ -35,6 +36,45 @@ public class UserDAO {
         //DriverManager.registerDriver(new Driver());
 
         return DriverManager.getConnection(url, user, pass);
+    }
+
+    public ArrayList<User> readUser(){
+        Connection cn=null;
+        ArrayList<User> users=new ArrayList<>();
+        try {
+
+            try {
+                cn = ConnectionPool.getInstance().getConnection();
+            } catch (InterruptedException | ConnectionUnavailException e) {
+                e.printStackTrace();
+            }
+            if (cn != null) {
+                Statement statement=cn.createStatement();
+
+               ResultSet resultSet=statement.executeQuery("SELECT * FROM selection_commition.users");
+
+               while (resultSet.next()){
+                   //System.out.println(resultSet.getString(4));
+                   User user=new User(resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()) );
+               users.add(user);
+               }
+               return users;
+            } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
+
+        } catch (SQLException e) {
+            System.err.println("DB connection error: " + e);
+        } finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
+        }
+        return null;
     }
 
     public User create(String login, String password) throws SQLException, ClassNotFoundException {

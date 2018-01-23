@@ -14,8 +14,14 @@ public class LogoutCommand implements BaseCommand {
         return instance;
     }
 
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
+
+    @Override
+    public String getPage(HttpServletRequest request) {
         return null;
     }
 }

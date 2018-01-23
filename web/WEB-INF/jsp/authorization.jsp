@@ -1,11 +1,20 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
+
+
 <%@include file="header.jsp"%>
 <link rel="stylesheet" href="/css/authorization.css" type="text/css">
 <title>Login</title>
 <div class="wrapper">
-<form class="form" name="loginForm" >
+    <table>
+        <c:forEach var = "i" items="${users}">
+            Item <c:out value = "${i.login}"/>
+        </c:forEach>
+    </table>
+
+ <form class="form" name="loginForm" >
     <input type="hidden" name="command" value="login" />
    <p>Login:</p>
     <input type="text" name="login" minlength="4" maxlength="42" value=""/>
@@ -19,8 +28,9 @@
     ${nullPage}
     <br/>
     <input class="submit" formmethod="post" formaction="controller" type="submit" value="Log in"/>
-    <input class="submit" formmethod="get" value="Registration" type="submit" formaction="registration"/>
+    <input class="submit" formmethod="get" value="registration" type="submit" formaction="controller"/>
 </form><hr/>
+
 </div>
 
 </body></html>

@@ -15,4 +15,9 @@ public class EmptyCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
+
+    @Override
+    public String getPage(HttpServletRequest request) {
+        return null;
+    }
 }

@@ -6,5 +6,6 @@
 <input type="text" name="user" value="">, hello!
 <hr/>
 kdkdd
+
 <a href="controller?command=logout">Logout</a>
 </body></html>
