@@ -5,20 +5,26 @@ import com.kornievich.selectionCommition.dao.UserDAO;
 import java.sql.SQLException;
 
 public class User {
+    private int id;
     private String login;
     private String password;
     private Enum role;
 
-    public User( String login, String password, Enum role) {
-
+    public User(int id, String login, String password, Enum role) {
+        this.id=id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
-    public void create() throws SQLException, ClassNotFoundException {
-        UserDAO userDAO =new UserDAO();
-        userDAO.create(login, password);
+
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getLogin() {
         return login;
     }

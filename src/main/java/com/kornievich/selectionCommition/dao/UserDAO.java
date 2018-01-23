@@ -6,7 +6,9 @@ import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.pool.ConnectionPool;
 import com.mysql.jdbc.Driver;
+import sun.dc.pr.PRError;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,31 +18,40 @@ import java.util.ResourceBundle;
 
 public class UserDAO {
 
-    private static final Driver DRIVER;
+    private static final String CHANGE_ROLE = "UPDATE selection_commition.users SET " +
+            "selection_commition.users.Role=? WHERE UserID=?;";
+    private static final String READ_USERS = "SELECT * FROM selection_commition.users";
+    private static final String FINE_USER_BY_ID = "SELECT * FROM selection_commition.users WHERE UserID=?";
+    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM selection_commition.users WHERE Login=?";
+    private static final String CREATE_USER = "INSERT INTO selection_commition.users (Login, Password, Role) VALUES (?, ?,'entrant')";
+    private static final String READ_USER = "SELECT * FROM selection_commition.users WHERE users.Login=? AND users.Password=?";
+    private static final String UPDATE_USER = "UPDATE selection_commition.users SET selection_commition.users.Login = ?, " +
+            "selection_commition.users.Password = ?, " +
+            "selection_commition.users.Role=? WHERE UserID=?;";
+    private static final String DELETE_USER = "DELETE FROM selection_commition.users WHERE selection_commition.users.UserID=?";
 
-    static {
+    public boolean changeRole(User user, Roles role) {
+        Connection cn = null;
         try {
-            DRIVER = new Driver();
+            cn = ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement = cn.prepareStatement(CHANGE_ROLE);
+            preparedStatement.setString(1, role.getText());
+            preparedStatement.setInt(2, user.getId());
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } catch (SQLException e) {
-            throw new ExceptionInInitializerError(e);
+            e.printStackTrace();
+        } catch (ConnectionUnavailException e) {
+            e.printStackTrace();
         }
+        return false;
+
     }
 
-
-    public static Connection getConnection() throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        DriverManager.registerDriver(new Driver());
-        ResourceBundle resource = ResourceBundle.getBundle("database");
-        String url = resource.getString("db.url");
-        String user = resource.getString("db.user");
-        String pass = resource.getString("db.password");
-        //DriverManager.registerDriver(new Driver());
-
-        return DriverManager.getConnection(url, user, pass);
-    }
-
-    public ArrayList<User> readUser(){
-        Connection cn=null;
-        ArrayList<User> users=new ArrayList<>();
+    public ArrayList<User> readUsers() {
+        Connection cn = null;
+        ArrayList<User> users = new ArrayList<>();
         try {
 
             try {
@@ -49,16 +60,16 @@ public class UserDAO {
                 e.printStackTrace();
             }
             if (cn != null) {
-                Statement statement=cn.createStatement();
+                Statement statement = cn.createStatement();
 
-               ResultSet resultSet=statement.executeQuery("SELECT * FROM selection_commition.users");
+                ResultSet resultSet = statement.executeQuery(READ_USERS);
 
-               while (resultSet.next()){
-                   //System.out.println(resultSet.getString(4));
-                   User user=new User(resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()) );
-               users.add(user);
-               }
-               return users;
+                while (resultSet.next()) {
+                    //System.out.println(resultSet.getString(4));
+                    User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
+                    users.add(user);
+                }
+                return users;
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
 
         } catch (SQLException e) {
@@ -77,6 +88,32 @@ public class UserDAO {
         return null;
     }
 
+    private User createUser(ResultSet resultSet) {
+        try {
+            User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException {
+        Connection cn = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = cn.prepareStatement(FINE_USER_BY_ID);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return createUser(resultSet);
+    }
+
+    public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException {
+        Connection cn = ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement = cn.prepareStatement(FIND_USER_BY_LOGIN);
+        preparedStatement.setString(1, login);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return createUser(resultSet);
+    }
+
     public User create(String login, String password) throws SQLException, ClassNotFoundException {
         // DriverManager.registerDriver(DRIVER);
         Connection cn = null;
@@ -90,14 +127,19 @@ public class UserDAO {
             }
             if (cn != null) {
                 PreparedStatement preparedStatement =
-                        cn.prepareStatement("INSERT INTO selection_commition.users (Login, Password, Role) VALUES (?, ?,'entrant')");
+                        cn.prepareStatement(CREATE_USER);
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, password);
                 preparedStatement.executeUpdate();
+                return findUserByLogin(login);
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
 
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ConnectionUnavailException e) {
+            e.printStackTrace();
         } finally {
 
             if (cn != null) {
@@ -109,7 +151,8 @@ public class UserDAO {
             }
 
         }
-        return new User(login, password, Roles.ENTRANT);
+
+        return null;
     }
 
     public User read(String login, String password) {
@@ -123,15 +166,13 @@ public class UserDAO {
             }
             if (cn != null) {
                 PreparedStatement preparedStatement =
-                        cn.prepareStatement("SELECT * FROM selection_commition.users WHERE users.Login=? AND users.Password=?");
+                        cn.prepareStatement(READ_USER);
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, password);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 // System.out.println("эт тип резалтсет"+ resultSet.getString(2));
                 if (resultSet.next()) {
-                    System.out.println(resultSet.getString(2));
-
-                    user = new User(resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
+                    user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
                 } else return null;
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
@@ -160,12 +201,11 @@ public class UserDAO {
             }
             if (cn != null) {
                 PreparedStatement preparedStatement =
-                        cn.prepareStatement("UPDATE selection_commition.users SET selection_commition.users.Login = ?, " +
-                                "selection_commition.users.Password = ?, " +
-                                "selection_commition.users.Role=?;");
+                        cn.prepareStatement(UPDATE_USER);
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setString(3, user.getRole().toString());
+                preparedStatement.setInt(4, user.getId());
                 preparedStatement.executeQuery();
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
@@ -184,7 +224,7 @@ public class UserDAO {
         }
     }
 
-    public void delete(User user) {
+    public User delete(User user) {
         Connection cn = null;
         try {
             try {
@@ -194,9 +234,10 @@ public class UserDAO {
             }
             if (cn != null) {
                 PreparedStatement preparedStatement =
-                        cn.prepareStatement("DELETE FROM selection_commition.users WHERE selection_commition.users.Login=?");
-                preparedStatement.setString(1, user.getLogin());
+                        cn.prepareStatement(DELETE_USER);
+                preparedStatement.setInt(1, user.getId());
                 preparedStatement.executeQuery();
+                return null;
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
@@ -212,5 +253,6 @@ public class UserDAO {
 
 
         }
+        return user;
     }
 }
