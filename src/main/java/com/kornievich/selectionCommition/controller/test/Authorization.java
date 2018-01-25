@@ -1,6 +1,6 @@
 package com.kornievich.selectionCommition.controller.test;
 
-import com.kornievich.selectionCommition.dao.UserDAO;
+import com.kornievich.selectionCommition.dao.impl.UserDAO;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

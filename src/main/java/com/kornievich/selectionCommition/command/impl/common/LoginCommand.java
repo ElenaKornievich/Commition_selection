@@ -1,7 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.dao.UserDAO;
+import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.service.UserService;
 
@@ -25,7 +25,7 @@ public class LoginCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         UserDAO userDAO=new UserDAO();
-        ArrayList<User> users = userDAO.readUser();
+        ArrayList<User> users = userDAO.readUsers();
         String a="loshik";
         request.setAttribute("users", users);
         String login = request.getParameter("login");
@@ -50,7 +50,7 @@ public class LoginCommand implements BaseCommand {
    @Override
     public String getPage(HttpServletRequest request) {
        UserDAO userDAO=new UserDAO();
-       ArrayList<User> users = userDAO.readUser();
+       ArrayList<User> users = userDAO.readUsers();
        //String a="loshik";
        request.setAttribute("users", users);
         String page="WEB-INF/jsp/registration.jsp";

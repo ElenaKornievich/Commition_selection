@@ -1,6 +1,6 @@
 package com.kornievich.selectionCommition.service;
 
-import com.kornievich.selectionCommition.dao.UserDAO;
+import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
 
 import java.sql.SQLException;

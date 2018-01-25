@@ -1,17 +1,22 @@
 package com.kornievich.selectionCommition.dao;
 
+import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface IUserDAO {
-    void addUser(User user);
-    User findUser(String userLogin);
-    User findUserById(long userId);
-    void updateUserInfo(User user);
-    void deleteProfilePicture(long userId, String defaultImage);
-    void assignRoleToUser(long userId, String role);
-    ArrayList<HashMap<User, ArrayList<Integer>>> showUserTable();
+
+    public boolean changeRole(User user, Roles role);
+    public ArrayList<User> readUsers();
+    public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException;
+    public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException;
+    public User create(String login, String password) throws SQLException, ClassNotFoundException;
+    public User read(String login, String password);
+    public void update(User user);
+    public User delete(User user);
 
 }

@@ -1,9 +1,5 @@
 package com.kornievich.selectionCommition.entity;
 
-import com.kornievich.selectionCommition.dao.UserDAO;
-
-import java.sql.SQLException;
-
 public class User {
     private int id;
     private String login;

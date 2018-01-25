@@ -1,7 +1,8 @@
-package com.kornievich.selectionCommition.dao;
+package com.kornievich.selectionCommition.dao.impl;
 
 
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.dao.IUserDAO;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.pool.ConnectionPool;
@@ -16,7 +17,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class UserDAO {
+public class UserDAO implements IUserDAO {
 
     private static final String CHANGE_ROLE = "UPDATE selection_commition.users SET " +
             "selection_commition.users.Role=? WHERE UserID=?;";
@@ -90,6 +91,7 @@ public class UserDAO {
 
     private User createUser(ResultSet resultSet) {
         try {
+            resultSet.next();
             User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
             return user;
         } catch (SQLException e) {
@@ -236,7 +238,7 @@ public class UserDAO {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(DELETE_USER);
                 preparedStatement.setInt(1, user.getId());
-                preparedStatement.executeQuery();
+                preparedStatement.executeUpdate();
                 return null;
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
