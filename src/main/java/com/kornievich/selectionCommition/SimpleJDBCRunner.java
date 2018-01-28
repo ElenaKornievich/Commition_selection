@@ -13,14 +13,14 @@ public class SimpleJDBCRunner {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
        // User user = new User(6, "ignat", , Roles.ENTRANT);
-        Faculty faculty = new Faculty(3, "Seio", "2018-12-12", "2018-11-11");
-        FacultyDAO facultyDAO=new FacultyDAO();
+      //  Faculty faculty = new Faculty(3, "Seio", "2018-12-12", "2018-11-11");
+        //FacultyDAO facultyDAO=new FacultyDAO();
        // facultyDAO.create(faculty);
-        Speciality speciality=new Speciality(3,"mn", 2,12, 12);
-        SpecialityDAO specialityDAO = new SpecialityDAO();
+        //Speciality speciality=new Speciality(3,"mn", 2,12, 12);
+        //SpecialityDAO specialityDAO = new SpecialityDAO();
        // specialityDAO.create(speciality);
-        facultyDAO.delete(faculty);
-        FacultySubjectDAO facultySubjectDAO=new FacultySubjectDAO();
+        //facultyDAO.delete(faculty);
+        //FacultySubjectDAO facultySubjectDAO=new FacultySubjectDAO();
        // System.out.println(facultySubjectDAO.findBySubjectId(2));
         /*FacultySubject facultySubject=new FacultySubject(3,1);
         FacultySubject facultySubject2=new FacultySubject(3,2);
@@ -39,7 +39,8 @@ public class SimpleJDBCRunner {
         EntrantDAO entrantDAO =new EntrantDAO();
         entrantDAO.delete(entrant);*/
         //System.out.println(entrantDAO.findEntrantByName("Elena"));
-
+        SpecialityDAO specialityDAO=new SpecialityDAO();
+        System.out.println(specialityDAO.findSpecialityByName("1").getId());
 
 
     }

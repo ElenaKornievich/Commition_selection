@@ -10,6 +10,6 @@ public interface ISpecialityDAO {
     boolean update(Speciality speciality);
     Speciality delete(Speciality speciality);
     Speciality findSpecialityById(int id);
-    ArrayList<Speciality> findSpecialityByName(String name);
+    Speciality findSpecialityByName(String name);
 
 }

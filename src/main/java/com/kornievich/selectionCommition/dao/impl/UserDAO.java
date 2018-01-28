@@ -45,6 +45,16 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
         return false;
 
@@ -54,12 +64,7 @@ public class UserDAO implements IUserDAO {
         Connection cn = null;
         ArrayList<User> users = new ArrayList<>();
         try {
-
-            try {
                 cn = ConnectionPool.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
             if (cn != null) {
                 Statement statement = cn.createStatement();
 
@@ -75,6 +80,10 @@ public class UserDAO implements IUserDAO {
 
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ConnectionUnavailException e) {
+            e.printStackTrace();
         } finally {
 
             if (cn != null) {
@@ -100,12 +109,33 @@ public class UserDAO implements IUserDAO {
         return null;
     }
 
-    public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException {
-        Connection cn = ConnectionPool.getInstance().getConnection();
+    public User findUserById(int id){
+        Connection cn = null;
+        try {
+            cn = ConnectionPool.getInstance().getConnection();
+
         PreparedStatement preparedStatement = cn.prepareStatement(FINE_USER_BY_ID);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         return createUser(resultSet);
+        } catch (InterruptedException e) {
+        e.printStackTrace();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } catch (ConnectionUnavailException e) {
+        e.printStackTrace();
+    }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
+        }
+        return null;
     }
 
     public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException {
@@ -120,13 +150,8 @@ public class UserDAO implements IUserDAO {
         // DriverManager.registerDriver(DRIVER);
         Connection cn = null;
         //Statement st = null;
-        try {
-
             try {
                 cn = ConnectionPool.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(CREATE_USER);

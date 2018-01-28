@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +10,12 @@
     <div class="container">
         <div id="navbar">
             <ul class="navmenu">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="login"><a href="authorization">Log in</a> </li>
+                <li><a href="main.jsp">Главная</a></li>
+                <li><a href="">Очередь</a></li>
+                <li><a href="faculty.jsp">О Факультетах</a></li>
+                <li><a href="contact.jsp">Контакты</a></li>
+                <li class="login"><a href="authorization.jsp">Вход</a> </li>
+                <li class="login"><a href="registration.jsp">Регистрация</a> </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

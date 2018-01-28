@@ -21,20 +21,26 @@ public class ConnectionPool {
         }
         return instance;
     }
-    private BlockingQueue<Connection> pool = new ArrayBlockingQueue<Connection>(10);
-    private AtomicInteger connCount = new AtomicInteger();
+    public ConnectionPool(){};
+    private BlockingQueue<Connection> pool = new ArrayBlockingQueue<Connection>(15);
+    private final AtomicInteger connCount = new AtomicInteger();
 
     public Connection getConnection() throws InterruptedException, SQLException, ConnectionUnavailException {
         Connection conn = pool.poll(1, TimeUnit.SECONDS);
         if (conn == null) {
             synchronized (connCount) {
-                if (connCount.get() < 10) {
+                if (connCount.get() < 15) {
                     conn = newConnection();
                     pool.offer(conn);
                     connCount.incrementAndGet();
                 }
             }
         }
+        else  {
+            System.out.println("connection not NULL");
+            return  newConnection();
+        }
+
             if (conn == null) {
                 throw new ConnectionUnavailException();
             } else {

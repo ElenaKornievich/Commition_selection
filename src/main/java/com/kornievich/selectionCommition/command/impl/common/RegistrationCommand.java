@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +18,27 @@ public class RegistrationCommand implements BaseCommand {
         String page = null;
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        String surname=request.getParameter("surname");
+        String firstName=request.getParameter("firstName");
+        String lastName=request.getParameter("lastName");
+        String pasportSeria=request.getParameter("pasportSeria");
+        int pasportNumber=Integer.valueOf(request.getParameter("pasportNomer"));
+        String dataOfIssue=request.getParameter("dataOfIssue");
+        String identificationNumber = request.getParameter("identificationNumber");
+        String dataOfBirth = request.getParameter("dataOfBirth");
+        String nationality = request.getParameter("nationality");
+        String residenceAddress = request.getParameter("residenceAddress");
+        double scope =Double.valueOf(request.getParameter("scope"));
+        boolean goldMedal =Boolean.valueOf(request.getParameter("goldMedal"));
+        String email = request.getParameter("email");
+        String telephoneNumber = request.getParameter("telephoneNumber");
+        String specialityName = request.getParameter("specialityName");
         try {
            // User user = new User(login, password, Roles.ENTRANT);
-            boolean add = UserService.getInstance().addUser(login, password);
-            if (add) {
+            User add = UserService.getInstance().addUser(login, password, specialityName, pasportSeria,
+                    pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,
+                    dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
+            if (add!=null) {
                 page = "WEB-INF/jsp/main.jsp";
             }
             //  request.getSession().setAttribute("", user);

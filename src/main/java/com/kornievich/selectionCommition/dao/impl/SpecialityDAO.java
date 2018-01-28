@@ -1,7 +1,6 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.ISpecialityDAO;
-import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.Speciality;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.pool.ConnectionPool;
@@ -13,7 +12,7 @@ public class SpecialityDAO implements ISpecialityDAO {
 
     private static final String READ_SPECIALITY_ALL = "SELECT * FROM selection_commition.specialties";
     private static final String FIND_SPECIALITY_BY_ID = "SELECT * FROM selection_commition.specialties WHERE SpecialtyID=?";
-    private static final String FIND_SPECIALITY_BY_NAME = "SELECT * FROM selection_commition.faculties WHERE FacultyName=?";
+    private static final String FIND_SPECIALITY_BY_NAME = "SELECT * FROM selection_commition.specialties WHERE SpecialtyName=?";
     private static final String CREATE_SPECIALITY = "INSERT INTO selection_commition.specialties (SpecialtyID , SpecialtyName , FacultyID, NumberOfBudgetPlaces, NumberOfPaidPlaces) VALUES (?,?,?,?,?)";
     private static final String UPDATE_SPECIALITY = "UPDATE selection_commition.specialties SET selection_commition.specialties.SpecialtyName = ?, " +
             "selection_commition.specialties.FacultyID=?, selection_commition.specialties.NumberOfBudgetPlaces=?," +
@@ -41,8 +40,9 @@ public class SpecialityDAO implements ISpecialityDAO {
 
     @Override
     public boolean create(Speciality speciality) {
+        Connection cn=null;
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SPECIALITY);
             preparedStatement.setInt(1, speciality.getId());
             preparedStatement.setString(2, speciality.getName());
@@ -58,6 +58,16 @@ public class SpecialityDAO implements ISpecialityDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
         return false;
     }
@@ -77,6 +87,16 @@ public class SpecialityDAO implements ISpecialityDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
 
         return null;
@@ -84,8 +104,9 @@ public class SpecialityDAO implements ISpecialityDAO {
 
     @Override
     public boolean update(Speciality speciality) {
+        Connection cn=null;
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_SPECIALITY);
 
             preparedStatement.setString(1, speciality.getName());
@@ -102,14 +123,25 @@ public class SpecialityDAO implements ISpecialityDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
         return false;
     }
 
     @Override
     public Speciality delete(Speciality speciality) {
+        Connection cn=null;
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            cn=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_SPECIALITY);
             preparedStatement.setInt(1, speciality.getId());
             preparedStatement.executeUpdate();
@@ -120,14 +152,25 @@ public class SpecialityDAO implements ISpecialityDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
         return speciality;
     }
 
     @Override
     public Speciality findSpecialityById(int id) {
+        Connection cn=null;
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            cn=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_SPECIALITY_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -138,25 +181,49 @@ public class SpecialityDAO implements ISpecialityDAO {
             e.printStackTrace();
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
+        }finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
         }
         return null;
 
     }
 
     @Override
-    public ArrayList<Speciality> findSpecialityByName(String name) {try {
-        ArrayList<Speciality> listSpeciality;
-        Connection cn=ConnectionPool.getInstance().getConnection();
+    public Speciality findSpecialityByName(String name) {
+        Connection cn=null;
+        try {
+       cn=ConnectionPool.getInstance().getConnection();
         PreparedStatement preparedStatement=cn.prepareStatement(FIND_SPECIALITY_BY_NAME);
         preparedStatement.setString(1, name);
         ResultSet resultSet = preparedStatement.executeQuery();
-        return createSpecialities(resultSet);
+        Speciality speciality= createSpeciality(resultSet);
+        return speciality;
     } catch (InterruptedException e) {
         e.printStackTrace();
     } catch (SQLException e) {
         e.printStackTrace();
     } catch (ConnectionUnavailException e) {
         e.printStackTrace();
+    }
+    finally {
+
+        if (cn != null) {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                System.err.println("Сonnection close error: " + e);
+            }
+        }
+
+
     }
         return null;
     }
