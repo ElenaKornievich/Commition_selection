@@ -10,12 +10,13 @@
     <div class="container">
         <div id="navbar">
             <ul class="navmenu">
-                <li><a href="main.jsp">Главная</a></li>
-                <li><a href="">Очередь</a></li>
-                <li><a href="faculty.jsp">О Факультетах</a></li>
-                <li><a href="contact.jsp">Контакты</a></li>
-                <li class="login"><a href="authorization.jsp">Вход</a> </li>
-                <li class="login"><a href="registration.jsp">Регистрация</a> </li>
+                <li><a href="controller?command=main">Главная</a></li>
+                <li><a href="controller?command=personalArea">Личный кабинет</a></li>
+                <li><a href="controller?command=queue">Очередь</a></li>
+                <li><a href="controller?command=main">О Факультетах</a></li>
+                <li><a href="controller?command=contact">Контакты</a></li>
+                <li class="login"><a href="controller?command=login">Вход</a> </li>
+                <li class="login"><a href="controller?command=registration">Регистрация</a> </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

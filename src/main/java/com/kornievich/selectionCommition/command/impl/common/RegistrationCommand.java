@@ -52,7 +52,8 @@ public class RegistrationCommand implements BaseCommand {
 
     @Override
     public String getPage(HttpServletRequest request) {
-        return null;
+
+        return "WEB-INF/jsp/registration.jsp";
     }
 
     public static RegistrationCommand getInstance() {

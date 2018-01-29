@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.service.UserService;
@@ -10,17 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class LoginCommand implements BaseCommand {
+public class MainCommand implements BaseCommand {
+    private static MainCommand instance = new MainCommand();
 
-
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
-
-    private static LoginCommand instance = new LoginCommand();
-
-    public LoginCommand() {
+    public MainCommand() {
     }
 
-    ;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -33,7 +29,7 @@ public class LoginCommand implements BaseCommand {
         String password = request.getParameter("password");
         try {
             User user = UserService.getInstance().findUser(login, password);
-           // request.getSession().setAttribute("users", user.getLogin());
+            // request.getSession().setAttribute("users", user.getLogin());
             if (user != null) {
                 if(user.getRole()== Roles.ADMIN){
                     page = "WEB-INF/jsp/admin/personalArea.jsp";
@@ -52,23 +48,23 @@ public class LoginCommand implements BaseCommand {
         }
         return page;
     }
-   @Override
+    @Override
     public String getPage(HttpServletRequest request) {
-       UserDAO userDAO=new UserDAO();
-       ArrayList<User> users = userDAO.readUsers();
-       //String a="loshik";
-       request.setAttribute("users", users);
-        String page="WEB-INF/jsp/authorization.jsp";
-        return page;
+        RequestsDAO requestsDAO = new RequestsDAO();
+        ArrayList<Integer> entrant;
+        ArrayList<Integer> allIdSpesiality = requestsDAO.allIdSpesialty();
+        entrant= requestsDAO.allScoreBySpesialty(1);
+        request.setAttribute("entrant", entrant);
+        request.setAttribute("spesiality", allIdSpesiality);
+        return "WEB-INF/jsp/main.jsp";
 
     }
-
     @Override
     public String toString() {
         return super.toString();
     }
 
-    public static LoginCommand getInstance() {
+    public static MainCommand getInstance() {
         return instance;
     }
 }

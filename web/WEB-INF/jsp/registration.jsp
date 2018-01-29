@@ -1,18 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Fox
-  Date: 22.12.2017
-  Time: 0:34
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Форма регистрации посетителей</title>
-</head>
-<body>
+<%@include file="header.jsp"%>
+
+<h1>Тут все контакты и ссылки (посмотреть на мехматовские)</h1>
+<table>
+    <c:forEach var = "i" items="${entrant}">
+        : <c:out value = "${i}"/>
+    </c:forEach>
+</table>
 <h1>Регистрация посетителей</h1>
 
 <form  name="registrationPage">
