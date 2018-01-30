@@ -10,12 +10,11 @@
 
 
 <div class="nav">
-<input type="hidden" value="null" name="navParameter"/>
     <form name="change" action="controller" method="get">
     <input type="hidden" name="command" value="change" />
     <br/><input name="navParameter" value="changePersonalInformation" type="submit" ></form>
 
-    <form name="speciality" action="controller" method="get">
+    <form name="changeSpeciality" action="controller" method="get">
         <input type="hidden" name="command" value="changeSpeciality" />
         <br/><input value="changeSpeciality" type="submit" name="speciality" >
     </form>
@@ -34,7 +33,7 @@
             <%@include file="formChangePersonalInformation.jsp"%>
         </c:when>
         <c:when test="${nav == 2}">
-            hjghgkh
+            <%@include file="changeSpesialty.jsp"%>
         </c:when>
         <c:when test="${nav == 3}">
             <%@include file="aboutMe.jsp"%>

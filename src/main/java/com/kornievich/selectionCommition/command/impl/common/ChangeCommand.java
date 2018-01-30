@@ -42,14 +42,8 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        if(request.getParameter("navParameter").equals("changePersonalInformation")){
-        request.getSession().setAttribute("nav", 1);}
-        if(request.getParameter("navParameter").equals("changeSpeciality")){
-            request.getSession().setAttribute("nav", 2);}
-        if(request.getParameter("navParameter").equals("aboutMe")){
-            request.getSession().setAttribute("nav", 3);}
-        if(request.getParameter("navParameter").equals("null")){
-            request.getSession().setAttribute("nav", 0);}
+
+        request.setAttribute("nav", 1);
         return "WEB-INF/jsp/entrant/personalArea.jsp";
 
     }

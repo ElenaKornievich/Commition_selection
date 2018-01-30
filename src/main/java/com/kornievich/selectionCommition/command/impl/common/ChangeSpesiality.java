@@ -21,7 +21,7 @@ public class ChangeSpesiality implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.getSession().setAttribute("nav", 2);
+        request.setAttribute("nav", 2);
         return "WEB-INF/jsp/entrant/personalArea.jsp";
 
     }
