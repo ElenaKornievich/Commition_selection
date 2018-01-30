@@ -1,32 +1,29 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.Roles;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.User;
-import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
-public class FacultyCommand implements BaseCommand {
+public class AboutCommand implements BaseCommand{
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
-    private static FacultyCommand instance = new FacultyCommand();
+    private static AboutCommand instance = new AboutCommand();
 
-    public FacultyCommand() {
+    public AboutCommand() {
     }
 
     ;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-       return null;
+        return null;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "WEB-INF/jsp/faculty.jsp";
+
+        request.getSession().setAttribute("nav", 3);
+        return "WEB-INF/jsp/entrant/personalArea.jsp";
 
     }
 
@@ -35,8 +32,9 @@ public class FacultyCommand implements BaseCommand {
         return super.toString();
     }
 
-    public static FacultyCommand getInstance() {
+    public static AboutCommand getInstance() {
         return instance;
     }
 
 }
+

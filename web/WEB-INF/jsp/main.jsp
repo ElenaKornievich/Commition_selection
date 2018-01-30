@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
-<html>
+
+
+<%@include file="header.jsp"%>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +14,7 @@
 
     <script src="/bootstrap/js/bootstrap.js"></script>
     <script src="/js/jquery-3.2.1.min.js"></script>
-<body>
-<nav class="menu">
-    <div class="container">
-        <div id="navbar">
-            <ul class="navmenu">
-                <li class="active"><a href="#">Главная</a></li>
-                <li><a href="#about">Рейтинг</a></li>
-                <li><a href="#contact">Факультеты</a></li>
-                <li><a href="#contact">Контакты</a></li>
-                <li class="login"><a href="authorization">Вход</a> </li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
-
+</head>
 <div class="container">
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

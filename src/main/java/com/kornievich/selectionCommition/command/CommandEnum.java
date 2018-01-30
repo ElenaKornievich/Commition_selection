@@ -8,7 +8,12 @@ public enum CommandEnum {
     REGISTRATION(RegistrationCommand.getInstance()),
     MAIN(MainCommand.getInstance()),
     CONTACT(ContactCommand.getInstance()),
-    QUEUE(QueueCommand.getInstance());
+    QUEUE(QueueCommand.getInstance()),
+    FACULTY(FacultyCommand.getInstance()),
+    MMF(MMFCommand.getInstance()),
+    CHANGE(ChangeCommand.getInstance()),
+    CHANGESPECIALITY(ChangeSpesiality.getInstance()),
+    ABOUT(AboutCommand.getInstance());
 
     BaseCommand command;
     CommandEnum(BaseCommand instance){

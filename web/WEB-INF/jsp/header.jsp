@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"></head>
 <body>
 <nav class="menu">
     <div class="container">
@@ -13,9 +13,10 @@
                 <li><a href="controller?command=main">Главная</a></li>
                 <li><a href="controller?command=personalArea">Личный кабинет</a></li>
                 <li><a href="controller?command=queue">Очередь</a></li>
-                <li><a href="controller?command=main">О Факультетах</a></li>
+                <li><a href="controller?command=faculty">О Факультетах</a></li>
                 <li><a href="controller?command=contact">Контакты</a></li>
-                <li class="login"><a href="controller?command=login">Вход</a> </li>
+                <li><c:if test="${empty user}"><a href="controller?command=login">Вход</a></c:if></li>
+                <li><c:if test="${not empty user}"><a href="controller?command=logout">Выход</a></c:if></li>
                 <li class="login"><a href="controller?command=registration">Регистрация</a> </li>
             </ul>
         </div><!--/.nav-collapse -->

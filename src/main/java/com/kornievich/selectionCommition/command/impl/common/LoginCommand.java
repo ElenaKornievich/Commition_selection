@@ -33,12 +33,17 @@ public class LoginCommand implements BaseCommand {
         String password = request.getParameter("password");
         try {
             User user = UserService.getInstance().findUser(login, password);
-           // request.getSession().setAttribute("users", user.getLogin());
+            request.getSession().setAttribute("user", user.getLogin());
+            request.getSession().setAttribute("id", user.getId());
             if (user != null) {
                 if(user.getRole()== Roles.ADMIN){
+                    request.getSession().setAttribute("role", "admin");
                     page = "WEB-INF/jsp/admin/personalArea.jsp";
                 }
-                else page= "WEB-INF/jsp/entrant/personalArea.jsp";
+                else {
+                    request.getSession().setAttribute("role", "entrant");
+                    page= "WEB-INF/jsp/entrant/personalArea.jsp";
+                }
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
 
@@ -58,6 +63,8 @@ public class LoginCommand implements BaseCommand {
        ArrayList<User> users = userDAO.readUsers();
        //String a="loshik";
        request.setAttribute("users", users);
+       String login="logon";
+       request.getSession().setAttribute("login", login);
         String page="WEB-INF/jsp/authorization.jsp";
         return page;
 
