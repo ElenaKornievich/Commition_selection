@@ -38,7 +38,8 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
         EntrantDAO entrantDAO = new EntrantDAO();
         entrantDAO.update(entrant);
 
-        return null;
+        request.setAttribute("nav", 0);
+        return "WEB-INF/jsp/entrant/personalArea.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {

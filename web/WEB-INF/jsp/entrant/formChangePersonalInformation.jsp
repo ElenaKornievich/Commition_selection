@@ -2,9 +2,9 @@
 
 <form  name="changePersonalInformation" action="controller" method="post">
     <input type="hidden" name="command" value="change">
-surname: <input type="text" name="surname" size="15"><br>
-firstName: <input type="text" name="firstName" size="15"><br>
-lastName: <input type="text" name="lastName" size="15"><br>
+surname: <input type="text" value="${surname}" name="surname" size="15"><br>
+firstName: <input type="text" value="=${firstName}" name="firstName" size="15"><br>
+lastName: <input type="text" value="${lastName}" name="lastName" size="15"><br>
 pasportSeria: <input type="text" name="pasportSeria" size="10"><br>
 pasportNomer: <input type="text" name="pasportNomer" size="10"><br>
 DataOfIssue: <input type="text" name="dataOfIssue" size="10"><br>

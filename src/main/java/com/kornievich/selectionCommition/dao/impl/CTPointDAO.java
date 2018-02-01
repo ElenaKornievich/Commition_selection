@@ -19,6 +19,7 @@ public class CTPointDAO implements ICTPointDAO {
     private static final String FIND_CTPOINT_BY_ENTRANT_ID = "SELECT * FROM selection_commition.ctpoints WHERE EntrantId=?";
     private static final String FIND_CTPOINT_BY_SUBJECT_ID = "SELECT * FROM selection_commition.ctpoints WHERE SubjectId=?";
 
+
     @Override
     public boolean create(CTPoint ctPoint) {
         try {
@@ -51,7 +52,7 @@ public class CTPointDAO implements ICTPointDAO {
     }
     private CTPoint createCTPoint(ResultSet resultSet) throws SQLException {
         resultSet.next();
-            return new CTPoint(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
+            return new CTPoint(resultSet.getInt(2), resultSet.getInt(1), resultSet.getInt(3));
     }
 
     @Override

@@ -5,21 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"></head>
+<link rel="stylesheet" type="text/css" href="/SemanticUI/semantic.min.css">
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<script src="/SemanticUI/semantic.min.js"></script>
 <body>
-<nav class="menu">
-    <div class="container">
-        <div id="navbar">
-            <ul class="navmenu">
-                <li><a href="controller?command=main">Главная</a></li>
-                <li><a href="controller?command=personalArea">Личный кабинет</a></li>
-                <li><a href="controller?command=queue">Очередь</a></li>
-                <li><a href="controller?command=faculty">О Факультетах</a></li>
-                <li><a href="controller?command=contact">Контакты</a></li>
-                <li><c:if test="${empty user}"><a href="controller?command=login">Вход</a></c:if></li>
-                <li><c:if test="${not empty user}"><a href="controller?command=logout">Выход</a></c:if></li>
-                <li class="login"><a href="controller?command=registration">Регистрация</a> </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+
+<div class="ui attached stackable menu">
+    <div class="ui container">
+        <a class="item">
+            <i class="home icon"></i> Home
+        </a>
+        <a href="controller?command=main" class="item">
+            <i class="grid layout icon"></i> Главная
+        </a>
+        <a href="controller?command=personalArea" class="item">
+            <i class="mail icon"></i> Личный кабинет
+        </a>
+        <a href="controller?command=queue" class="item">
+            Очередь
+        </a>
+        <a href="controller?command=faculty" class="item">
+            О Факультетах
+        </a>
+        <a href="controller?command=contact" class="item">
+            Контакты
+        </a>
+        <c:set var = "user" scope = "session" value = "${user}"/>
+        <c:if test="${empty user}"><a href="controller?command=login" class="item">Вход</a>
+
+        <a href="controller?command=registration" class="item">Регистрация</a></c:if>
+        <c:if test="${not empty user}"><a href="controller?command=logout" class="item">Выход</a></c:if>
+        <div class="ui simple dropdown item">
+            More
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item"><i class="edit icon"></i> Edit Profile</a>
+                <a class="item"><i class="globe icon"></i> Choose Language</a>
+                <a class="item"><i class="settings icon"></i> Account Settings</a>
+            </div>
+        </div>
+        <div class="right item">
+            <div class="ui input"><input type="text" placeholder="Search..."></div>
+        </div>
     </div>
-</nav>
+</div>
+
+
 
