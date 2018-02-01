@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <html>
+
 
 
     <%@include file="../header.jsp"%>
@@ -11,9 +13,10 @@
             <br/><input name="navParameter" value="changeEntrant" type="submit" >
         </form>
 
-        <form name="changeSpeciality" action="controller" method="get">
-            <input type="hidden" name="command" value="changeSpeciality" />
-            <br/><input value="changeSpeciality" type="submit" name="speciality" >
+        <form name="changeAdmin" action="controller" method="get">
+            <input type="hidden" name="command" value="changeAdmin" />
+
+            <br/><input value="changeAdmin" type="submit"  >
         </form>
 
         <form name="about" action="controller" method="get">
@@ -29,7 +32,7 @@
                 <%@include file="changeEntrant.jsp"%>
             </c:when>
             <c:when test="${nav == 2}">
-               List 2
+                <%@include file="changeAdminInformation.jsp"%>
             </c:when>
             <c:when test="${nav == 3}">
                 list 3

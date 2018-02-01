@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Fox
-  Date: 01.02.2018
-  Time: 11:01
-  To change this template use File | Settings | File Templates.
---%>
-
 <link rel="stylesheet" type="text/css" href="/SemanticUI/semantic.min.css">
 <script
         src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -34,6 +26,12 @@
         <div class="title active">
             <i class="dropdown icon"></i>
                 ${entrant.getSurname()} ${entrant.getFirstName()} ${ entrant.getLastName()}
+
+            <div class="ui buttons">
+                <input class="ui button" value="Редактировать">Редактировать</input>
+                <input class="ui button" value="Удалить">Удалить</input>
+                <input class="ui button" value="Что-то ещё">Что-то ещё</input>
+            </div>
         </div>
 
         <div class="content active">
@@ -56,6 +54,8 @@
                 <tr><td>Балл аттестата</td><td>${entrant.getScore()}</td></tr>
                 <tr><td>Есть/нет золотая медаль</td><td>${entrant.isGoldMedal()}</td></tr>
                 <tr><td>Почта</td><td>${entrant.getEmail()}</td></tr>
+
+
             <div class="ui buttons">
                 <c:url value="controller?command=changeEntrant" var="change">
                     <c:param name="changeEntrantParam" value="${entrant.getId()}"/>

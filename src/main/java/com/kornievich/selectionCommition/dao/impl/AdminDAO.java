@@ -15,7 +15,7 @@ public class AdminDAO implements IAdminDAO {
     private static final String FIND_ADMIN_BY_NAME = "SELECT * FROM selection_commition.admins WHERE FirstName=?";
     private static final String CREATE_ADMIN = "INSERT INTO selection_commition.admins (AdminId, Surname, FirstName, LastName) VALUES (?,?,?,?)";
     private static final String UPDATE_ADMIN = "UPDATE selection_commition.admins SET selection_commition.admins.Surname = ?, " +
-            "selection_commition.admins.FirstName=?, selection_commition.admins.LastName WHERE AdminID=?;";
+            "selection_commition.admins.FirstName=?, selection_commition.admins.LastName=? WHERE selection_commition.admins.AdminID=?";
     private static final String DELETE_ADMIN = "DELETE FROM selection_commition.admins WHERE selection_commition.admins.AdminsID=?";
 
 
@@ -101,6 +101,7 @@ public class AdminDAO implements IAdminDAO {
             preparedStatement.setString(1, admin.getSurname());
             preparedStatement.setString(2, admin.getFirstName());
             preparedStatement.setString(3, admin.getSecondName());
+            preparedStatement.setInt(4, admin.getId());
             preparedStatement.executeUpdate();
             return true;
         } catch (InterruptedException e) {

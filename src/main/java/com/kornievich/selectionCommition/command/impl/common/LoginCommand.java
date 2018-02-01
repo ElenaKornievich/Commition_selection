@@ -2,9 +2,11 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
+import com.kornievich.selectionCommition.entity.Admin;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.service.UserService;
@@ -26,9 +28,9 @@ public class LoginCommand implements BaseCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
-        UserDAO userDAO=new UserDAO();
+        UserDAO userDAO = new UserDAO();
         ArrayList<User> users = userDAO.readUsers();
-        EntrantDAO entrantDAO=new EntrantDAO();
+        EntrantDAO entrantDAO = new EntrantDAO();
         ArrayList<Entrant> entrants = entrantDAO.readEntrant();
         request.getSession().setAttribute("users", users);
         String login = request.getParameter("login");
@@ -38,13 +40,15 @@ public class LoginCommand implements BaseCommand {
             request.getSession().setAttribute("user", user.getLogin());
             request.getSession().setAttribute("id", user.getId());
             if (user != null) {
-                if(user.getRole()== Roles.ADMIN){
+                if (user.getRole() == Roles.ADMIN) {
                     request.getSession().setAttribute("entrants", entrants);
                     request.getSession().setAttribute("role", "admin");
+                    AdminDAO adminDAO = new AdminDAO();
+                    Admin admin = adminDAO.findAdminById(user.getId());
+                    request.getSession().setAttribute("admin", admin);
                     page = "WEB-INF/jsp/admin/adminPanel.jsp";
-                }
-                else {
-                    Entrant entrant=entrantDAO.findEntrantById(user.getId());
+                } else {
+                    Entrant entrant = entrantDAO.findEntrantById(user.getId());
                     request.getSession().setAttribute("surname", entrant.getSurname());
                     request.getSession().setAttribute("firstName", entrant.getFirstName());
                     request.getSession().setAttribute("lastName", entrant.getLastName());
@@ -59,11 +63,11 @@ public class LoginCommand implements BaseCommand {
                     request.getSession().setAttribute("goldMedal", entrant.isGoldMedal());
                     request.getSession().setAttribute("email", entrant.getEmail());
                     request.getSession().setAttribute("telephoneNumber", entrant.getTelephoneNumber());
-                    SpecialityDAO specialityDAO=new SpecialityDAO();
-                    request.getSession().setAttribute("specialityName",specialityDAO.findSpecialityById(entrant.getSpecialityId()));
+                    SpecialityDAO specialityDAO = new SpecialityDAO();
+                    request.getSession().setAttribute("specialityName", specialityDAO.findSpecialityById(entrant.getSpecialityId()));
 
                     request.getSession().setAttribute("role", "entrant");
-                    page= "WEB-INF/jsp/entrant/personalArea.jsp";
+                    page = "WEB-INF/jsp/entrant/personalArea.jsp";
                 }
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
@@ -78,14 +82,15 @@ public class LoginCommand implements BaseCommand {
         }
         return page;
     }
-   @Override
+
+    @Override
     public String getPage(HttpServletRequest request) {
-       UserDAO userDAO=new UserDAO();
-       ArrayList<User> users = userDAO.readUsers();
-       request.setAttribute("users", users);
-       String login="logon";
-       request.getSession().setAttribute("login", login);
-        String page="WEB-INF/jsp/authorization.jsp";
+        UserDAO userDAO = new UserDAO();
+        ArrayList<User> users = userDAO.readUsers();
+        request.setAttribute("users", users);
+        String login = "logon";
+        request.getSession().setAttribute("login", login);
+        String page = "WEB-INF/jsp/authorization.jsp";
         return page;
 
     }
