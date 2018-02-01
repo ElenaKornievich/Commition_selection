@@ -23,6 +23,11 @@
             <input type="hidden" name="command" value="about" />
             <br/><input value="aboutMe" type="submit" name="navParameter">
         </form>
+
+        <form name="createAdmin" action="controller" method="get">
+            <input type="hidden" name="command" value="createAdmin" />
+            <br/><input value="createAdmin" type="submit" name="navParameter">
+        </form>
     </div>
     <div>
 
@@ -39,6 +44,9 @@
             </c:when>
             <c:when test="${nav == 4}">
                 <%@include file="pointCTEntrant.jsp"%>
+            </c:when>
+            <c:when test="${nav == 5}">
+                <%@include file="createAdmin.jsp"%>
             </c:when>
             <c:otherwise>
                 Не выбрано ни одно условие.

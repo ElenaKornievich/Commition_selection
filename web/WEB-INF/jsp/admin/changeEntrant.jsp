@@ -28,9 +28,13 @@
                 ${entrant.getSurname()} ${entrant.getFirstName()} ${ entrant.getLastName()}
 
             <div class="ui buttons">
-                <input class="ui button" value="Редактировать">Редактировать</input>
-                <input class="ui button" value="Удалить">Удалить</input>
-                <input class="ui button" value="Что-то ещё">Что-то ещё</input>
+
+                <form name="deleteEntrant" action="controller" method="post">
+                    <input type="hidden" name="command" value="deleteEntrant"/>
+                    <input type="hidden" name="idEntrant" value="${entrant.getId()}"/>
+                <input class="ui button" type="submit" value="Удалить">Удалить</input>
+                </form>
+
             </div>
         </div>
 

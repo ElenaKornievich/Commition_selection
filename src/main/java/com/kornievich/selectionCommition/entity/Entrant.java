@@ -40,6 +40,25 @@ public class Entrant {
         this.goldMedal = goldMedal;
         this.email = email;
     }
+    public Entrant(int id, String dateOfFilling, String pasportSeries, int passportNumber, String surname, String firstName, String lastName, String dateOfIssue, String identificationNumber, String dateOfBirth, String nationality, String telephoneNumber, String residenceAddress, double score, boolean goldMedal, String email) {
+        this.id = id;
+        this.dateOfFilling = dateOfFilling;
+        this.specialityId = 0;
+                this.pasportSeries = pasportSeries;
+        this.passportNumber = passportNumber;
+        this.surname = surname;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfIssue = dateOfIssue;
+        this.identificationNumber = identificationNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.nationality = nationality;
+        this.telephoneNumber = telephoneNumber;
+        this.residenceAddress = residenceAddress;
+        this.score = score;
+        this.goldMedal = goldMedal;
+        this.email = email;
+    }
 
     public int getId() {
         return id;

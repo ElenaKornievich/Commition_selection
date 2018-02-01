@@ -17,6 +17,8 @@ public class EntrantDAO implements IEntrantDAO {
     private static final String FIND_ENTRANT_BY_ID = "SELECT * FROM selection_commition.entrants WHERE EntrantID=?";
     private static final String FIND_ENTRANT_BY_NAME = "SELECT * FROM selection_commition.entrants WHERE entrants.FirstName=?";
     private static final String READ_ENTRANT = "SELECT * FROM entrants";
+    private static final String CHANGE_SPECIALITY = "UPDATE selection_commition.entrants SET selection_commition.entrants.SpecialtyID=?" +
+            " WHERE selection_commition.entrants.EntrantID=?";
     private static final String UPDATE_ENTRANT = "UPDATE selection_commition.entrants SET selection_commition.entrants.DateOfFiling = ?, " +
             "selection_commition.entrants.SpecialtyID = ?, " +
             "selection_commition.entrants.PassportSeries=?, selection_commition.entrants.PassportNumber=?, " +
@@ -163,7 +165,47 @@ public class EntrantDAO implements IEntrantDAO {
     }
 
     @Override
-    public Entrant delete(Entrant entrant) {
+    public boolean changeSpeciality(int entrantId, int specialityId) {
+        Connection cn = null;
+        try {
+
+            try {
+                cn = ConnectionPool.getInstance().getConnection();
+            } catch (InterruptedException | ConnectionUnavailException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (cn != null) {
+                PreparedStatement preparedStatement =
+                        cn.prepareStatement(CHANGE_SPECIALITY);
+                preparedStatement.setInt(1, specialityId);
+                preparedStatement.setInt(2, entrantId);
+
+                preparedStatement.executeUpdate();
+                return true;
+            } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    System.err.println("Сonnection close error: " + e);
+                }
+            }
+
+
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean delete(int id) {
         Connection cn = null;
             try {
                 cn = ConnectionPool.getInstance().getConnection();
@@ -171,9 +213,9 @@ public class EntrantDAO implements IEntrantDAO {
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(DELETE_ENTRANT);
-                preparedStatement.setInt(1, entrant.getId());
+                preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
-                return null;
+                return true;
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
@@ -190,7 +232,7 @@ public class EntrantDAO implements IEntrantDAO {
             }
 
         }
-        return entrant;
+        return false;
     }
 
     private ArrayList<Entrant> createEntrants(ResultSet resultSet) throws SQLException {

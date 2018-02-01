@@ -27,15 +27,15 @@ public class UserService {
     }
 
 
-    public User addUser(String login, String password, String specialityName, String pasportSeria,
+    public User addUser(String login, String password, String pasportSeria,
                            int pasportNumber, String surname, String firstName, String lastName, String dataOfIssue, String identificationNumber,
                            String dataOfBirth, String nationality, String telephoneNumber, String residenceAddress, double scope, boolean goldMedal, String email){
 
         try {
-            SpecialityDAO specialityDAO=new SpecialityDAO();
-            int specialityId = specialityDAO.findSpecialityByName(specialityName).getId();
+           // SpecialityDAO specialityDAO=new SpecialityDAO();
+           // int specialityId = specialityDAO.findSpecialityByName(specialityName).getId();
           User user=userDAO.create(login, password);
-            Entrant entrant = new Entrant(user.getId(), "2018-12-12" , specialityId, pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
+            Entrant entrant = new Entrant(user.getId(), "2018-12-12" , pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
                     identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
             EntrantDAO entrantDAO=new EntrantDAO();
             System.out.println(entrant.toString());

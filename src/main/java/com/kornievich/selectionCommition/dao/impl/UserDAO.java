@@ -31,12 +31,12 @@ public class UserDAO implements IUserDAO {
             "selection_commition.users.Role=? WHERE UserID=?;";
     private static final String DELETE_USER = "DELETE FROM selection_commition.users WHERE selection_commition.users.UserID=?";
 
-    public boolean changeRole(User user, Roles role) {
+    public boolean changeRole(User user, String role) {
         Connection cn = null;
         try {
             cn = ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement = cn.prepareStatement(CHANGE_ROLE);
-            preparedStatement.setString(1, role.getText());
+            preparedStatement.setString(1, role);
             preparedStatement.setInt(2, user.getId());
             return true;
         } catch (InterruptedException e) {

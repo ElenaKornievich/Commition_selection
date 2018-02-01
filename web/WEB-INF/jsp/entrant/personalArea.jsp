@@ -33,7 +33,7 @@
             <%@include file="formChangePersonalInformation.jsp"%>
         </c:when>
         <c:when test="${nav == 2}">
-            <%@include file="changeSpesialty.jsp"%>
+            <%@include file="changeSpecialty.jsp"%>
         </c:when>
         <c:when test="${nav == 3}">
             <%@include file="aboutMe.jsp"%>

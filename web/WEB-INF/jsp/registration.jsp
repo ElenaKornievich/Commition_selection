@@ -30,12 +30,30 @@
     GoldMedal: <input type="text" name="goldMedal" size="10"><br>
     Email: <input type="text" name="email" size="10"><br>
     TelephoneNumber: <input type="text" name="telephoneNumber" size="10"><br>
-    specialityName: <input type="text"  name="specialityName" size="10"><br>
-    <select  name="spjjecialityName" >
-        <option>1</option>
-        <option>Veb</option>
+    <div>
+    <select name="subjectOneId">
+        <c:forEach var="subject" items="${subjects}" >
+        <option value="${subject.getId()}">${subject.getName()}</option>
+        </c:forEach>
     </select>
-
+    <input type="text" name="subjectOneValue" value="">
+    </div>
+    <div>
+    <select name="subjectTwoId">
+        <c:forEach var="subject" items="${subjects}" >
+            <option value="${subject.getId()}">${subject.getName()}</option>
+        </c:forEach>
+    </select>
+    <input type="text" name="subjectTwoValue" value="">
+    </div>
+    <div>
+    <select name="subjectThreeId">
+        <c:forEach var="subject" items="${subjects}" >
+            <option value="${subject.getId()}">${subject.getName()}</option>
+        </c:forEach>
+    </select>
+    <input type="text" name="subjectThreeValue" value="">
+    </div>
     <p>
     <table>
         <tr>

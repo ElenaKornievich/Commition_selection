@@ -1,9 +1,6 @@
 package com.kornievich.selectionCommition.command;
 
-import com.kornievich.selectionCommition.command.impl.admin.AdminPanelCommand;
-import com.kornievich.selectionCommition.command.impl.admin.ChangeAdminCommand;
-import com.kornievich.selectionCommition.command.impl.admin.ChangeButtonCommand;
-import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
+import com.kornievich.selectionCommition.command.impl.admin.*;
 import com.kornievich.selectionCommition.command.impl.common.*;
 
 public enum CommandEnum {
@@ -16,13 +13,15 @@ public enum CommandEnum {
     FACULTY(FacultyCommand.getInstance()),
     MMF(MMFCommand.getInstance()),
     CHANGE(ChangeCommand.getInstance()),
-    CHANGESPECIALITY(ChangeSpesiality.getInstance()),
+    CHANGESPECIALITY(ChangeSpeciality.getInstance()),
     ABOUT(AboutCommand.getInstance()),
     TEST(TestCommand.getInstance()),
     CHANGEENTRANT(ChangeEntrantCommand.getInstance()),
     CHANGEBUTTON(ChangeButtonCommand.getInstance()),
     CHANGEADMIN(ChangeAdminCommand.getInstance()),
-    ADMINPANEL(AdminPanelCommand.getInstance());
+    ADMINPANEL(AdminPanelCommand.getInstance()),
+    DELETEENTRANT(DeleteEntrantCommand.getInstance()),
+    CREATEADMIN(CreateAdminCommand.getInstance());
 
     BaseCommand command;
     CommandEnum(BaseCommand instance){

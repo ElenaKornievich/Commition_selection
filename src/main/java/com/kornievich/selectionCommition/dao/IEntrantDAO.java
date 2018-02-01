@@ -14,6 +14,7 @@ public interface IEntrantDAO {
     public Entrant findEntrantById(int id);
     public ArrayList<Entrant> findEntrantByName(String name);
     public boolean update(Entrant entrant);
-    public Entrant delete(Entrant entrant);
+    public boolean delete(int id);
     public ArrayList<Entrant> readEntrant();
+    public boolean changeSpeciality(int entrantId, int specialityId);
 }

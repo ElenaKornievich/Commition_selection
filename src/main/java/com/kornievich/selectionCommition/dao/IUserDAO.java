@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public interface IUserDAO {
 
-    public boolean changeRole(User user, Roles role);
+    public boolean changeRole(User user, String role);
     public ArrayList<User> readUsers();
     public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException;
     public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException;
