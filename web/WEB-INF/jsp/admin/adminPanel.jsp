@@ -29,6 +29,16 @@
             <br/><input value="createFaculty" type="submit" name="navParameter">
         </form>
 
+        <form name="createSubject" action="controller" method="get">
+            <input type="hidden" name="command" value="createSubject" />
+            <br/><input value="createSubject" type="submit" name="navParameter">
+        </form>
+
+        <form name="createSpeciality" action="controller" method="get">
+            <input type="hidden" name="command" value="createSpeciality" />
+            <br/><input value="createSpeciality" type="submit" name="navParameter">
+        </form>
+
         <form name="createAdmin" action="controller" method="get">
             <input type="hidden" name="command" value="createAdmin" />
             <br/><input value="createAdmin" type="submit" name="navParameter">
@@ -55,6 +65,12 @@
             </c:when>
             <c:when test="${nav == 6}">
                 <%@include file="createFaculty.jsp"%>
+            </c:when>
+            <c:when test="${nav == 7}">
+                <%@include file="createSubject.jsp"%>
+            </c:when>
+            <c:when test="${nav == 8}">
+                <%@include file="createSpeciality.jsp"%>
             </c:when>
             <c:otherwise>
                 Не выбрано ни одно условие.

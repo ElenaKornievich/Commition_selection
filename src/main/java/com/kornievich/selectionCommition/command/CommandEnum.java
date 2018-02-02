@@ -22,7 +22,9 @@ public enum CommandEnum {
     ADMINPANEL(AdminPanelCommand.getInstance()),
     DELETEENTRANT(DeleteEntrantCommand.getInstance()),
     CREATEADMIN(CreateAdminCommand.getInstance()),
-    CREATEFACULTY(CreateFacultyCommand.getInstance());
+    CREATEFACULTY(CreateFacultyCommand.getInstance()),
+    CREATESUBJECT(CreateSubjectCommand.getInstance()),
+    CREATESPECIALITY(CreateSpecialityCommand.getInstance());
 
     BaseCommand command;
     CommandEnum(BaseCommand instance){
