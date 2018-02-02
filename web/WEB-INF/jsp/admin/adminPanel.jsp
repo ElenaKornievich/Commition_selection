@@ -24,6 +24,11 @@
             <br/><input value="aboutMe" type="submit" name="navParameter">
         </form>
 
+        <form name="createFaculty" action="controller" method="get">
+            <input type="hidden" name="command" value="createFaculty" />
+            <br/><input value="createFaculty" type="submit" name="navParameter">
+        </form>
+
         <form name="createAdmin" action="controller" method="get">
             <input type="hidden" name="command" value="createAdmin" />
             <br/><input value="createAdmin" type="submit" name="navParameter">
@@ -47,6 +52,9 @@
             </c:when>
             <c:when test="${nav == 5}">
                 <%@include file="createAdmin.jsp"%>
+            </c:when>
+            <c:when test="${nav == 6}">
+                <%@include file="createFaculty.jsp"%>
             </c:when>
             <c:otherwise>
                 Не выбрано ни одно условие.

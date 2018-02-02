@@ -39,19 +39,17 @@ public class SpecialityDAO implements ISpecialityDAO {
 
 
     @Override
-    public boolean create(Speciality speciality) {
+    public Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace) {
         Connection cn=null;
         try {
             cn= ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SPECIALITY);
-            preparedStatement.setInt(1, speciality.getId());
-            preparedStatement.setString(2, speciality.getName());
-            preparedStatement.setInt(3,speciality.getFacultyId());
-            preparedStatement.setInt(4, speciality.getNumberBudgetPlace());
-            preparedStatement.setInt(5, speciality.getNumberPaidPlace());
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, facultyId);
+            preparedStatement.setInt(3, numberOfBudgetPlace);
+            preparedStatement.setInt(4, numberOfPainPlace);
             preparedStatement.executeUpdate();
-            return true;
-
+            return findSpecialityByName(name);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -69,7 +67,7 @@ public class SpecialityDAO implements ISpecialityDAO {
             }
 
         }
-        return false;
+        return null;
     }
 
     @Override

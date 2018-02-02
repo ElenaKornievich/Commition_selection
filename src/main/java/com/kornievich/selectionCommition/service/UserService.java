@@ -5,8 +5,10 @@ import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UserService {
@@ -20,8 +22,6 @@ public class UserService {
        userDAO =new UserDAO();
 
     }
-
-
     public static UserService getInstance() {
         return instance;
     }
@@ -49,8 +49,26 @@ public class UserService {
     }
     public User findUser(String login, String password){
         EntrantDAO entrantDAO = new EntrantDAO();
-        UserDAO userDAO =new UserDAO();
         return userDAO.read(login, password);
+    }
+    public boolean changeRole(User user, String role){
+        return userDAO.changeRole(user, role);
+    }
+    public ArrayList<User> readUsers(){
+        return userDAO.readUsers();
+    }
+    public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException{
+        return userDAO.findUserById(id);
+    }
+    public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException{
+        return userDAO.findUserByLogin(login);
+    }
+
+    public void update(User user){
+         userDAO.update(user);
+    }
+    public User delete(User user){
+        return userDAO.delete(user);
     }
 
 

@@ -13,7 +13,7 @@ public class SubjectDAO  implements ISubjectDAO{
     private static final String READ_SUBJECT_ALL = "SELECT * FROM selection_commition.subjects";
     private static final String FIND_SUBJECT_BY_ID = "SELECT * FROM selection_commition.subjects WHERE SubjectID=?";
     private static final String FIND_SUBJECT_BY_NAME = "SELECT * FROM selection_commition.subjects WHERE SubjectName=?";
-    private static final String CREATE_SUBJECT = "INSERT INTO selection_commition.subjects (SubjectID, SubjectName ) VALUES (?,?)";
+    private static final String CREATE_SUBJECT = "INSERT INTO selection_commition.subjects (SubjectName ) VALUES (?)";
     private static final String DELETE_SUBJECT = "DELETE FROM selection_commition.subjects WHERE selection_commition.subjects.SubjectID=? ";
     private static final String UPDATE_SUBJECT_NAME = "UPDATE selection_commition.subjects SET selection_commition.subjects.SubjectName = ? WHERE SubjectID=?;";
     private static final String UPDATE_SUBJECT_ID = "UPDATE selection_commition.subjects SET selection_commition.subjects.SubjectID = ? WHERE SubjectName=?;";
@@ -34,14 +34,14 @@ public class SubjectDAO  implements ISubjectDAO{
     }
 
     @Override
-    public boolean create(Subject subject) {
+    public Subject create(String name) {
         try {
             Connection cn= ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SUBJECT);
-            preparedStatement.setInt(1, subject.getId());
-            preparedStatement.setString(2, subject.getName());
+            preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
-            return true;
+
+            return findSubjectByName(name);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class SubjectDAO  implements ISubjectDAO{
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override

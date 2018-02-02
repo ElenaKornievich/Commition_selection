@@ -11,6 +11,8 @@ import com.kornievich.selectionCommition.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class CreateAdminCommand implements BaseCommand {
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);
@@ -51,6 +53,8 @@ public class CreateAdminCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+
+
         request.setAttribute("nav", 5);
 
         return "WEB-INF/jsp/admin/adminPanel.jsp";

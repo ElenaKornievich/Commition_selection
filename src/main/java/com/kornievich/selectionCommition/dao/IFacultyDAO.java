@@ -7,11 +7,11 @@ import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public interface IFacultyDAO {
-    boolean create(Faculty faculty);
+    Faculty create(String name, String startDate, String endDate);
     ArrayList<Faculty> readAll();
     boolean update(Faculty faculty);
     Faculty delete(Faculty faculty);
     Faculty findFacultyById(int id);
-    ArrayList<Faculty> findFacultyByName(String name);
+    Faculty findFacultyByName(String name);
 
 }

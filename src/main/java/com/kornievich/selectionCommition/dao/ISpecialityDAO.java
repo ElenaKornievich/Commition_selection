@@ -5,7 +5,7 @@ import com.kornievich.selectionCommition.entity.Speciality;
 import java.util.ArrayList;
 
 public interface ISpecialityDAO {
-    boolean create(Speciality speciality);
+    Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace);
     ArrayList<Speciality> readAll();
     boolean update(Speciality speciality);
     Speciality delete(Speciality speciality);

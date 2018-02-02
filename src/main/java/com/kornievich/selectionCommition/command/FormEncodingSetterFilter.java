@@ -23,10 +23,12 @@ public class FormEncodingSetterFilter implements Filter{
 
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain) throws ServletException, IOException{
+        System.out.println("Мы в фильтре");
         String contentType = req.getContentType();
         if (contentType != null && contentType.startsWith(FILTERABLE_CONTENT_TYPE))
             req.setCharacterEncoding(encoding);
         chain.doFilter(req, resp);
+
     }
 
     public void init(FilterConfig config) throws ServletException{

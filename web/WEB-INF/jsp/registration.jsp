@@ -2,59 +2,143 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="header.jsp"%>
-
-<h1>Тут все контакты и ссылки (посмотреть на мехматовские)</h1>
-<table>
-    <c:forEach var = "i" items="${entrant}">
-        : <c:out value = "${i}"/>
-    </c:forEach>
-</table>
+<link type="text/css" rel="stylesheet" href="/css/registration.css">
 <h1>Регистрация посетителей</h1>
 
-<form  name="registrationPage">
+<div class="ui horizontal divider">or</div>
+<div class="registrationForm">
+<form class="ui form segment">
     <input type="hidden" name="command" value="registration">
-    Пользователь: <input type="text" name="login"  size="10" ><br>
-    Пароль: <input type="password" name="password" size="10"><br>
-    *************************************************************<br>
-    surname: <input type="text" name="surname" size="15"><br>
-    firstName: <input type="text" name="firstName" size="15"><br>
-    lastName: <input type="text" name="lastName" size="15"><br>
-    pasportSeria: <input type="text" name="pasportSeria" size="10"><br>
-    pasportNomer: <input type="text" name="pasportNomer" size="10"><br>
-    DataOfIssue: <input type="text" name="dataOfIssue" size="10"><br>
-    IdentificationNumber: <input type="text" name="identificationNumber" size="20"><br>
-    DataOfBirth: <input type="text" name="dataOfBirth" size="10"><br>
-    Nationality: <input type="text" name="nationality" size="20"><br>
-    ResidenceAddress: <input type="text" name="residenceAddress" size="50"><br>
-    Scope: <input type="text" name="scope" size="10"><br>
-    GoldMedal: <input type="text" name="goldMedal" size="10"><br>
-    Email: <input type="text" name="email" size="10"><br>
-    TelephoneNumber: <input type="text" name="telephoneNumber" size="10"><br>
-    <div>
-    <select name="subjectOneId">
-        <c:forEach var="subject" items="${subjects}" >
-        <option value="${subject.getId()}">${subject.getName()}</option>
-        </c:forEach>
-    </select>
-    <input type="text" name="subjectOneValue" value="">
+    <p>Tell Us About Yourself</p>
+    <div class="two fields">
+        <div class="field">
+            <label>Name</label>
+            <input placeholder="First Name" name="name" type="text">
+        </div>
+        <div class="field">
+            <label>Gender</label>
+            <select class="ui dropdown" name="gender">
+                <option value="">Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
     </div>
-    <div>
-    <select name="subjectTwoId">
-        <c:forEach var="subject" items="${subjects}" >
-            <option value="${subject.getId()}">${subject.getName()}</option>
-        </c:forEach>
-    </select>
-    <input type="text" name="subjectTwoValue" value="">
+    <div class="two fields">
+    <div class="field">
+        <label>Username</label>
+        <input type="text" placeholder="Логин" name="login"   >
     </div>
-    <div>
-    <select name="subjectThreeId">
-        <c:forEach var="subject" items="${subjects}" >
-            <option value="${subject.getId()}">${subject.getName()}</option>
-        </c:forEach>
-    </select>
-    <input type="text" name="subjectThreeValue" value="">
+    <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="Пароль" name="password" >
     </div>
-    <p>
+</div>
+    <div class="three fields">
+        <div class="field">
+            <label>Surname</label>
+            <input type="text" placeholder="Фамилия" name="surname">
+        </div>
+        <div class="field">
+            <label>Имя</label>
+            <input type="text" placeholder="Имя" name="firstName">
+        </div>
+        <div class="field">
+            <label>Отчество</label>
+            <input type="text" placeholder="Отчество" name="lastName">
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label>Серия паспорта</label>
+            <input type="text" placeholder="Серия паспорта" name="pasportSeria">
+        </div>
+        <div class="field">
+            <label>Номер паспорта</label>
+            <input type="text" placeholder="Номер паспорта" name="pasportNomer">
+        </div>
+        <div class="field">
+            <label>Дата выдачи паспорта</label>
+            <input type="text" placeholder="Дата выдачи паспорта" name="dataOfIssue" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label>Идентификационый номер</label>
+            <input type="text" placeholder="Идентификационый номер" name="identificationNumber">
+        </div>
+        <div class="field">
+            <label>Дата рождения</label>
+            <input type="text" placeholder="Дата рождения в формате YYYY-MM-DD" name="dataOfBirth" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+        </div>
+        <div class="field">
+            <label>Национальность</label>
+            <input type="text" placeholder="Национальность" name="nationality">
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label>Адрес прописки</label>
+            <input type="text" placeholder="Адрес прописки" name="residenceAddress" >
+        </div>
+        <div class="field">
+            <label>Балл аттестата</label>
+            <input type="text" name="scope" placeholder="Балл аттестата (две цифры после точки)" pattern="\d+(\.\d{2})?">
+        </div>
+        <div class="field">
+            <label>Золотая медаль</label>
+            <input type="text" placeholder="Золотая медаль: есть -1, нет - 2" name="goldMedal" size="10">
+        </div>
+    </div>
+
+    <div class="two fields">
+        <div class="field">
+            <label>Адрес электронной почты</label>
+            <input type="text" name="email" >
+        </div>
+        <div class="field">
+            <label>Номер телефона</label>
+            <input type="text" name="telephoneNumber">
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Skills</label>
+        <div>
+            <select name="subjectOneId">
+                <c:forEach var="subject" items="${subjects}" >
+                    <option value="${subject.getId()}">${subject.getName()}</option>
+                </c:forEach>
+            </select>
+            <input type="text" name="subjectOneValue" value="">
+        </div>
+        <div>
+            <select name="subjectTwoId">
+                <c:forEach var="subject" items="${subjects}" >
+                    <option value="${subject.getId()}">${subject.getName()}</option>
+                </c:forEach>
+            </select>
+            <input type="text" name="subjectTwoValue" value="">
+        </div>
+        <div>
+            <select name="subjectThreeId">
+                <c:forEach var="subject" items="${subjects}" >
+                    <option value="${subject.getId()}">${subject.getName()}</option>
+                </c:forEach>
+            </select>
+            <input type="text" name="subjectThreeValue" value="">
+        </div>
+    </div>
+    <div class="inline field">
+        <div class="ui checkbox">
+
+            <input type="checkbox" name="terms">
+            <label>I agree to the terms and conditions</label>
+        </div>
+    </div>
+    <input class="ui primary submit button" type="submit" name="save" value="Сохранить" formaction="controller" formmethod="post">
+    <div class="ui error message"></div>
+
     <table>
         <tr>
             <th><small>
@@ -65,6 +149,8 @@
             </small>
     </table>
 </form>
+</div>
+
 <table>
     <c:forEach var = "i" items="${users}">
         Item <c:out value = "${i.login}"/>

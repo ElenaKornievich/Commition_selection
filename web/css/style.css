@@ -46,3 +46,8 @@ li a{
     background: #737373;
     border: 2px #333333;
 }
+.registrationForm{
+    width: 60%;
+    position: center;
+
+}

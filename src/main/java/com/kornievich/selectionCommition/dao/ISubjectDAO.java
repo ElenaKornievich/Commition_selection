@@ -5,7 +5,7 @@ import com.kornievich.selectionCommition.entity.Subject;
 import java.util.ArrayList;
 
 public interface ISubjectDAO {
-    boolean create(Subject subject);
+    Subject create(String name);
     ArrayList<Subject> readAll();
     boolean updateSubjectName(Subject subject);
     boolean updateSubjectId(Subject subject);
