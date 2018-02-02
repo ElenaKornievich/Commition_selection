@@ -33,6 +33,8 @@ public class CreateAdminCommand implements BaseCommand {
         UserDAO userDAO = new UserDAO();
         AdminDAO adminDAO=new AdminDAO();
 
+        System.out.println(surname + firstName + lastName);
+
         try {
             User user=userDAO.create(login,password);
             userDAO.changeRole(user, "admin");

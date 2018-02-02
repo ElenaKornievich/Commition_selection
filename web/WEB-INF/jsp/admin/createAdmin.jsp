@@ -1,3 +1,4 @@
+
 <form name="createAdmin" action="controller" method="post">
     <input type="hidden" name="command" value="createAdmin">
 

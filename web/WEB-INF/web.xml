@@ -4,9 +4,27 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+
+    <servlet>
+        <servlet-name>Servlet</servlet-name>
+        <servlet-class>com.kornievich.selectionCommition.controller.Controller</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>authorization</servlet-name>
-        <url-pattern>/authorization</url-pattern>
+        <servlet-name>Servlet</servlet-name>
+        <url-pattern>/Servlet</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>com.kornievich.selectionCommition.command.FormEncodingSetterFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <servlet-name>Servlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
 
 </web-app>
