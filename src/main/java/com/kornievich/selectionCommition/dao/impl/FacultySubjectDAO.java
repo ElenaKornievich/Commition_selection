@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.IFacultySubjectsDAO;
+import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.pool.ConnectionPool;
@@ -15,6 +16,27 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     private static final String FIND_FACULTY_SUBJECT_BY_SUBJECT_ID = "SELECT * FROM selection_commition.facultysubjects WHERE SubjectId=?";
     private static final String CREATE_FACULTY_SUBJECT = "INSERT INTO selection_commition.facultysubjects (FacultyID, SubjectId ) VALUES (?,?)";
     private static final String DELETE_FACULTY_SUBJECT = "DELETE FROM selection_commition.facultysubjects WHERE selection_commition.facultysubjects.FacultyID=? AND selection_commition.facultysubjects.SubjectId=?";
+    private static final String UPDATE_FACULTY_SUBJECT = "UPDATE selection_commition.facultysubjects SET selection_commition.facultysubjects.FacultyId = ?, " +
+            "selection_commition.facultysubjects.SubjectId=?";
+
+    @Override
+    public boolean update(FacultySubject facultySubject) {
+        try {
+            Connection cn=ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_FACULTY_SUBJECT);
+            preparedStatement.setInt(1, facultySubject.getFacultyId());
+            preparedStatement.setInt(2, facultySubject.getSubjectId());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ConnectionUnavailException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
     private ArrayList<FacultySubject> createFacultySubjects(ResultSet resultSet) throws SQLException {

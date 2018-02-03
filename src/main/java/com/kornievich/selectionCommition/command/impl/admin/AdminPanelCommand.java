@@ -27,7 +27,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        request.setAttribute("nav", 5);
+        request.setAttribute("nav", 0);
         return "WEB-INF/jsp/admin/adminPanel.jsp";
 
     }

@@ -10,7 +10,7 @@ public interface IFacultyDAO {
     Faculty create(String name, String startDate, String endDate);
     ArrayList<Faculty> readAll();
     boolean update(Faculty faculty);
-    Faculty delete(Faculty faculty);
+    boolean delete(int facultyId);
     Faculty findFacultyById(int id);
     Faculty findFacultyByName(String name);
 

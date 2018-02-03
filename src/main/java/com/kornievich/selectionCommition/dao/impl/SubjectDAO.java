@@ -109,13 +109,13 @@ public class SubjectDAO  implements ISubjectDAO{
     }
 
     @Override
-    public Subject delete(Subject subject) {
+    public boolean delete(int subjectId) {
         try {
             Connection cn=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_SUBJECT);
-            preparedStatement.setInt(1, subject.getId());
+            preparedStatement.setInt(1, subjectId);
             preparedStatement.executeUpdate();
-            return null;
+            return true;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class SubjectDAO  implements ISubjectDAO{
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }
-        return subject;
+        return false;
 
     }
 

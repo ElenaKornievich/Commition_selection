@@ -136,14 +136,14 @@ public class SpecialityDAO implements ISpecialityDAO {
     }
 
     @Override
-    public Speciality delete(Speciality speciality) {
+    public boolean delete(int specialityId) {
         Connection cn=null;
         try {
             cn=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_SPECIALITY);
-            preparedStatement.setInt(1, speciality.getId());
+            preparedStatement.setInt(1, specialityId);
             preparedStatement.executeUpdate();
-            return null;
+            return true;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -161,7 +161,7 @@ public class SpecialityDAO implements ISpecialityDAO {
             }
 
         }
-        return speciality;
+        return false;
     }
 
     @Override

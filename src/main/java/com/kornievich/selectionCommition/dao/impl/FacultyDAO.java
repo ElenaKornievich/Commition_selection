@@ -84,7 +84,7 @@ public class FacultyDAO implements IFacultyDAO{
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_FACULTY);
             preparedStatement.setString(1, faculty.getName());
             preparedStatement.setString(2, faculty.getStartDateOfFiling());
-            preparedStatement.setString(3, faculty.getEndDataOfFiling());
+            preparedStatement.setString(3, faculty.getEndDateOfFiling());
             preparedStatement.setInt(4, faculty.getId());
             preparedStatement.executeUpdate();
             return true;
@@ -99,13 +99,13 @@ public class FacultyDAO implements IFacultyDAO{
     }
 
     @Override
-    public Faculty delete(Faculty faculty) {
+    public boolean delete(int facultyId) {
         try {
             Connection cn=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_FACULTY);
-            preparedStatement.setInt(1, faculty.getId());
+            preparedStatement.setInt(1, facultyId);
             preparedStatement.executeUpdate();
-            return null;
+            return true;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -113,7 +113,7 @@ public class FacultyDAO implements IFacultyDAO{
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }
-        return faculty;
+        return false;
     }
 
     @Override

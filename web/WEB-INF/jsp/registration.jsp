@@ -12,7 +12,7 @@
     <p>Tell Us About Yourself</p>
     <div class="two fields">
         <div class="field">
-            <label>Name</label>
+            <input type="submit" class="ui positive button" name="change" value="Change"/>
             <input placeholder="First Name" name="name" type="text">
         </div>
         <div class="field">

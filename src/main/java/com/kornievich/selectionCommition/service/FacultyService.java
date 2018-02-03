@@ -42,7 +42,7 @@ public class FacultyService {
     public boolean update(Faculty faculty){
         return facultyDAO.update(faculty);
     }
-    public Faculty delete(Faculty faculty){
-        return facultyDAO.delete(faculty);
+    public boolean delete(int facultyId){
+        return facultyDAO.delete(facultyId);
     }
 }

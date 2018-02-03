@@ -2,12 +2,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <html>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-
+<link rel="stylesheet" type="text/css" href="/SemanticUI/semantic.min.css">
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<script src="/SemanticUI/semantic.min.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/css/adminPanel.css">
 
     <%@include file="../header.jsp"%>
 
-    <div class="nav">
+
+<div class="nav">
+<div class="ui vertical menu">
+        <a class="teal item active" href="controller?command=changeAdmin">
+    changeAdmin
+
+    </a>
+    <a class="item" href="controller?command=aboutMe">
+        aboutMe
+
+    </a>
+    <a class="item" href="controller?command=changeButton">
+        changeButton
+
+    </a>
+    <a class="item" href="controller?command=deleteFaculty">
+        DeleteFaculty
+
+    </a>
+    <a class="item" href="controller?command=createFaculty">
+        createFaculty
+
+    </a>
+    <a class="item" href="controller?command=createSubject">
+        createSubject
+
+    </a>
+    <a class="item" href="controller?command=createSpeciality">
+        createSpeciality
+
+    </a>
+    <a class="item" href="controller?command=createAdmin">
+        createAdmin
+    </a>
+    <div class="item">
+        <div class="ui transparent icon input">
+            <input type="text" placeholder="Search mail...">
+            <i class="search icon"></i>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- <div class="nav">
         <form name="changeButton" action="controller" method="get">
             <input type="hidden" name="command" value="changeButton" />
             <br/><input name="navParameter" value="changeEntrant" type="submit" >
@@ -44,8 +97,8 @@
             <br/><input value="createAdmin" type="submit" name="navParameter">
         </form>
     </div>
-    <div>
-
+    <div> -->
+<div class="content">
         <c:set var = "nav" scope = "page" value = "${nav}"/>
         <c:choose>
             <c:when test="${nav == 1}">
@@ -71,6 +124,9 @@
             </c:when>
             <c:when test="${nav == 8}">
                 <%@include file="createSpeciality.jsp"%>
+            </c:when>
+            <c:when test="${nav == 12}">
+                <%@include file="faculties.jsp"%>
             </c:when>
             <c:otherwise>
                 Не выбрано ни одно условие.

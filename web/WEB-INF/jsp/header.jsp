@@ -23,9 +23,24 @@
         <a href="controller?command=main" class="item">
             <i class="grid layout icon"></i> Главная
         </a>
+        <c:set var = "personalArea" scope = "session" value = "${role}"/>
+        <c:set var = "adminPanel" scope = "session" value = "admin"/>
+        <c:set var = "personalArea" scope = "session" value = "entrant"/>
+        <c:choose>
+        <c:when test="${role == adminPanel}">
+        <a href="controller?command=adminPanel" class="item">
+            <i class="mail icon"></i> Панель администратора</a>
+        </c:when>
+        <c:when test="${role == personalArea}">
         <a href="controller?command=personalArea" class="item">
+            <i class="mail icon"></i> Личный кабинет</a>
+        </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
+      <!--  <a href="controller?command=personalArea" class="item">
             <i class="mail icon"></i> Личный кабинет
-        </a>
+        </a>-->
         <a href="controller?command=queue" class="item">
             Очередь
         </a>

@@ -9,7 +9,7 @@ public interface ISubjectDAO {
     ArrayList<Subject> readAll();
     boolean updateSubjectName(Subject subject);
     boolean updateSubjectId(Subject subject);
-    Subject delete(Subject subject);
+    boolean delete(int subjectId);
     Subject findSubjectById(int id);
     Subject findSubjectByName(String name);
 

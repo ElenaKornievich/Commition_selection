@@ -6,13 +6,13 @@ public class Faculty {
     private int id;
     private String name;
     private String StartDateOfFiling;
-    private String EndDataOfFiling;
+    private String EndDateOfFiling;
 
-    public Faculty(int id, String name, String startDateOfFiling, String endDataOfFiling) {
+    public Faculty(int id, String name, String startDateOfFiling, String endDateOfFiling) {
         this.id = id;
         this.name = name;
         StartDateOfFiling = startDateOfFiling;
-        EndDataOfFiling = endDataOfFiling;
+        EndDateOfFiling = endDateOfFiling;
     }
 
     public int getId() {
@@ -39,12 +39,12 @@ public class Faculty {
         StartDateOfFiling = startDateOfFiling;
     }
 
-    public String getEndDataOfFiling() {
-        return EndDataOfFiling;
+    public String getEndDateOfFiling() {
+        return EndDateOfFiling;
     }
 
-    public void setEndDataOfFiling(String endDataOfFiling) {
-        EndDataOfFiling = endDataOfFiling;
+    public void setEndDateOfFiling(String endDateOfFiling) {
+        EndDateOfFiling = endDateOfFiling;
     }
 
     @Override
@@ -55,13 +55,13 @@ public class Faculty {
         return id == faculty.id &&
                 Objects.equals(name, faculty.name) &&
                 Objects.equals(StartDateOfFiling, faculty.StartDateOfFiling) &&
-                Objects.equals(EndDataOfFiling, faculty.EndDataOfFiling);
+                Objects.equals(EndDateOfFiling, faculty.EndDateOfFiling);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, StartDateOfFiling, EndDataOfFiling);
+        return Objects.hash(id, name, StartDateOfFiling, EndDateOfFiling);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Faculty {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", StartDateOfFiling='" + StartDateOfFiling + '\'' +
-                ", EndDataOfFiling='" + EndDataOfFiling + '\'' +
+                ", EndDateOfFiling='" + EndDateOfFiling + '\'' +
                 '}';
     }
 }

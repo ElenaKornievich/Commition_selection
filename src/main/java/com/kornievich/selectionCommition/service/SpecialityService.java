@@ -32,8 +32,8 @@ public class SpecialityService {
     public boolean update(Speciality speciality){
         return specialityDAO.update(speciality);
     }
-    public Speciality delete(Speciality speciality){
-        return specialityDAO.delete(speciality);
+    public boolean delete(int specialityId){
+        return specialityDAO.delete(specialityId);
     }
     public Speciality findSpecialityById(int id){
         return specialityDAO.findSpecialityById(id);

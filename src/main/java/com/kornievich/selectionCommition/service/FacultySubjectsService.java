@@ -16,29 +16,37 @@ public class FacultySubjectsService {
     //  private IUserDAO dao;
     private static FacultySubjectsService instance = new FacultySubjectsService();
     FacultySubjectDAO facultySubjectDAO;
+
     private FacultySubjectsService() {
-        facultySubjectDAO =new FacultySubjectDAO();
+        facultySubjectDAO = new FacultySubjectDAO();
     }
+
     public static FacultySubjectsService getInstance() {
         return instance;
     }
 
-    public boolean create(FacultySubject facultySubject){
+    public boolean create(FacultySubject facultySubject) {
         return facultySubjectDAO.create(facultySubject);
     }
-    public ArrayList<FacultySubject> readAll(){
+
+    public ArrayList<FacultySubject> readAll() {
         return facultySubjectDAO.readAll();
     }
-    public FacultySubject delete(FacultySubject facultySubject){
+
+    public FacultySubject delete(FacultySubject facultySubject) {
         return facultySubjectDAO.delete(facultySubject);
     }
-    public ArrayList<FacultySubject> findByFacultyId(int id){
+
+    public ArrayList<FacultySubject> findByFacultyId(int id) {
         return facultySubjectDAO.findByFacultyId(id);
     }
-    public ArrayList<FacultySubject> findBySubjectId(int id){
+
+    public ArrayList<FacultySubject> findBySubjectId(int id) {
         return facultySubjectDAO.findBySubjectId(id);
     }
 
-
+    public boolean update(FacultySubject facultySubject) {
+        return facultySubjectDAO.update(facultySubject);
+    }
 
 }

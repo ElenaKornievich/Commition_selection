@@ -10,5 +10,6 @@ public interface IFacultySubjectsDAO {
     FacultySubject delete(FacultySubject facultySubject);
     ArrayList<FacultySubject> findByFacultyId(int id);
     ArrayList<FacultySubject> findBySubjectId(int id);
+    boolean update(FacultySubject facultySubject);
 
 }
