@@ -2,12 +2,12 @@
 
 Специальности:
 <c:set var="subject" scope = "page" value="${subject}"/>
-<form >
-    <input type="hidden" name="command" value="changeSpeciality">
-    <input type="hidden" name="specialityId" value="${subject.getId()}">
-    <input type="text" name="specialityId"  value="${subject.getId()}"/>
+<form action="controller" method="post">
+    <input type="hidden" name="command" value="changeSubject">
+    <input type="hidden" name="subjectId" value="${subject.getId()}">
+    <input type="text" name="subjectName"  value="${subject.getName()}"/>
 
-    <input class="ui active button" value="Delete" type="submit">
-    <div class="ui active button"><a href="controller?command=changeSubject">Change</a></div>
+    <input class="ui active button" value="Delete" type="submit"/>
+    <input class="ui active button" name="changeSubject" type="submit" value="Change"/>
 </form>
 

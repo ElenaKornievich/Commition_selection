@@ -4,6 +4,7 @@ import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.dao.impl.*;
 import com.kornievich.selectionCommition.entity.*;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.service.SubjectService;
 import org.w3c.dom.UserDataHandler;
 
 import java.sql.*;
@@ -39,9 +40,10 @@ public class SimpleJDBCRunner {
         EntrantDAO entrantDAO =new EntrantDAO();
         entrantDAO.delete(entrant);*/
         //System.out.println(entrantDAO.findEntrantByName("Elena"));
-        SpecialityDAO specialityDAO=new SpecialityDAO();
-        System.out.println(specialityDAO.findSpecialityByName("1").getId());
-
-
+        //SpecialityDAO specialityDAO=new SpecialityDAO();
+        //System.out.println(specialityDAO.findSpecialityByName("1").getId());
+SubjectDAO subjectDAO=new SubjectDAO();
+        //System.out.println(subjectDAO.findSubjectById(1));
+        System.out.println(SubjectService.getInstance().findSubjectById(1));
     }
 }
