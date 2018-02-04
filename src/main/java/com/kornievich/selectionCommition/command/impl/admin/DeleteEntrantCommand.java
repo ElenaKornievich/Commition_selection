@@ -26,7 +26,7 @@ public class DeleteEntrantCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "WEB-INF/jsp/faculty.jsp";
+        return "WEB-INF/jsp/changeFaculty.jsp";
 
     }
 

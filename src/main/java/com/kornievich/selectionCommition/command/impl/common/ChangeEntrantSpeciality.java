@@ -6,12 +6,12 @@ import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ChangeSpeciality implements BaseCommand {
+public class ChangeEntrantSpeciality implements BaseCommand {
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
-    private static ChangeSpeciality instance = new ChangeSpeciality();
+    private static ChangeEntrantSpeciality instance = new ChangeEntrantSpeciality();
 
-    public ChangeSpeciality() {
+    public ChangeEntrantSpeciality() {
     }
 
     ;
@@ -36,7 +36,7 @@ public class ChangeSpeciality implements BaseCommand {
         return super.toString();
     }
 
-    public static ChangeSpeciality getInstance() {
+    public static ChangeEntrantSpeciality getInstance() {
         return instance;
     }
 

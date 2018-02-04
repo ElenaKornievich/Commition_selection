@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <form name="test" action="controller" method="post" >
-    <input type="hidden" name="command" value="changeSpeciality">
+    <input type="hidden" name="command" value="changeEntrantSpeciality">
 
     <select name="specialityId">
         <c:forEach var="speciality" items="${specialities}">
@@ -9,5 +9,5 @@
         </c:forEach>
     </select>
 
-    <input type="submit" name="command" value="changeSpeciality"/>
+    <input type="submit" name="command" value="changeEntrantSpeciality"/>
 </form>

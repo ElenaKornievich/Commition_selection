@@ -39,7 +39,7 @@ public class ChangeFacultyCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("nav",9);
-        return "WEB-INF/jsp/jsp/adminPanel.jsp";
+        return "WEB-INF/jsp/admin/adminPanel.jsp";
 
     }
 

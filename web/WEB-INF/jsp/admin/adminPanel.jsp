@@ -32,12 +32,25 @@
         changeButton
 
     </a>
+    </a>
+    <a class="item" href="controller?command=deleteSpeciality">
+        changeSpeciality
+
+    </a>
     <a class="item" href="controller?command=deleteFaculty">
         DeleteFaculty
 
     </a>
+    <a class="item" href="controller?command=subject" >
+        ChangeSubject
+
+    </a>
     <a class="item" href="controller?command=createFaculty">
         createFaculty
+
+    </a>
+    <a class="item" href="controller?command=deleteFaculty">
+        changeFaculty
 
     </a>
     <a class="item" href="controller?command=createSubject">
@@ -125,8 +138,23 @@
             <c:when test="${nav == 8}">
                 <%@include file="createSpeciality.jsp"%>
             </c:when>
+            <c:when test="${nav == 9}">
+                <%@include file="changeFaculty.jsp"%>
+            </c:when>
+            <c:when test="${nav == 10}">
+                <%@include file="changeSubject.jsp"%>
+            </c:when>
             <c:when test="${nav == 12}">
                 <%@include file="faculties.jsp"%>
+            </c:when>
+            <c:when test="${nav == 11}">
+                <%@include file="changeSpeciality.jsp"%>
+            </c:when>
+            <c:when test="${nav == 13}">
+                <%@include file="speciality.jsp"%>
+            </c:when>
+            <c:when test="${nav == 14}">
+                <%@include file="subject.jsp"%>
             </c:when>
             <c:otherwise>
                 Не выбрано ни одно условие.

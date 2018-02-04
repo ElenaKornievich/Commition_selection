@@ -19,8 +19,6 @@ public class ChangeSubjectCommand implements BaseCommand {
     public ChangeSubjectCommand() {
     }
 
-    ;
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int subjectId =Integer.valueOf(request.getParameter("subjectId"));
@@ -31,8 +29,11 @@ public class ChangeSubjectCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        String subjectName= request.getParameter("subjectName");
+
+        request.setAttribute("subject", SubjectService.getInstance().findSubjectByName(subjectName));
         request.setAttribute("nav",10);
-        return "WEB-INF/jsp/jsp/adminPanel.jsp";
+        return "WEB-INF/jsp/admin/adminPanel.jsp";
 
     }
 

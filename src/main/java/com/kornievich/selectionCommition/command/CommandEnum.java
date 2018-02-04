@@ -13,7 +13,7 @@ public enum CommandEnum {
     FACULTY(FacultyCommand.getInstance()),
     MMF(MMFCommand.getInstance()),
     CHANGE(ChangeCommand.getInstance()),
-    CHANGESPECIALITY(ChangeSpeciality.getInstance()),
+    CHANGEENTRANTSPECIALITY(ChangeEntrantSpeciality.getInstance()),
     ABOUT(AboutCommand.getInstance()),
     TEST(TestCommand.getInstance()),
     CHANGEENTRANT(ChangeEntrantCommand.getInstance()),
@@ -28,8 +28,10 @@ public enum CommandEnum {
     DELETEFACULTY(DeleteFacultyCommand.getInstance()),
     DELETESPECIALITY(DeleteSpecialityCommand.getInstance()),
     DELETESUBJECT(DeleteSubjectCommand.getInstance()),
-    CHANGEFACULTY(CreateFacultyCommand.getInstance()),
-    CHANGESUBJECT(CreateSubjectCommand.getInstance());
+    CHANGEFACULTY(ChangeFacultyCommand.getInstance()),
+    CHANGESUBJECT(ChangeSubjectCommand.getInstance()),
+    CHANGESPECIALITY(ChangeSpecialityCommand.getInstance()),
+    SUBJECT(SubjectCommand.getInstance());
 
 
     BaseCommand command;

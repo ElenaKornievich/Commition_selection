@@ -1,18 +1,17 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.entity.Subject;
 import com.kornievich.selectionCommition.service.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DeleteSubjectCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+public class SubjectCommand implements BaseCommand
+{  //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
-    private static ChangeSubjectCommand instance = new ChangeSubjectCommand();
+    private static SubjectCommand instance = new SubjectCommand();
 
-    public DeleteSubjectCommand() {
+    public SubjectCommand() {
     }
 
     @Override
@@ -35,7 +34,7 @@ public class DeleteSubjectCommand implements BaseCommand {
         return super.toString();
     }
 
-    public static ChangeSubjectCommand getInstance() {
+    public static SubjectCommand getInstance() {
         return instance;
     }
 

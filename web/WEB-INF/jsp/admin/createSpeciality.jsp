@@ -16,14 +16,16 @@
                 <input type="text" name="numberOfPainPlaces" placeholder="numberOfPainPlaces">
             </div>
         </div>
-
+        <div class="field">
         <select name="facultyId">
             <c:forEach var="faculty" items="${faculties}">
                 <option value="${faculty.getId()}">${faculty.getName()}</option>
             </c:forEach>
         </select>
-        <br/>
-        <div class="ui buttons">
+        </div>
+
+        <div class="ui field" style="margin-left: 17.6%">
+            <div class="ui buttons">
             <c:url value="controller?command=adminPanel" var="change">
                 <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
             </c:url>
@@ -32,6 +34,8 @@
             <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller"
                    formmethod="get"/>
         </div>
+        </div>
+    </div>
         <!--  <div>
           <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller" formmethod="get"/>
           <div class="or"></div>
