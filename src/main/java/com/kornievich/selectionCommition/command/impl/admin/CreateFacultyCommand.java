@@ -1,8 +1,6 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.impl.common.FacultyCommand;
-import com.kornievich.selectionCommition.dao.impl.FacultySubjectDAO;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;

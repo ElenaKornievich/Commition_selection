@@ -1,26 +1,27 @@
-package com.kornievich.selectionCommition.command.impl.admin;
+package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ChangeButtonCommand implements BaseCommand {
+public class MainFacultyCommand implements BaseCommand {
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
-    private static ChangeButtonCommand instance = new ChangeButtonCommand();
+    private static MainFacultyCommand instance = new MainFacultyCommand();
 
-    public ChangeButtonCommand() {
+    public MainFacultyCommand() {
     }
+
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+       return null;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute("nav", 1);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "WEB-INF/jsp/changeFaculty.jsp";
 
     }
 
@@ -29,7 +30,8 @@ public class ChangeButtonCommand implements BaseCommand {
         return super.toString();
     }
 
-    public static ChangeButtonCommand getInstance() {
+    public static MainFacultyCommand getInstance() {
         return instance;
     }
+
 }

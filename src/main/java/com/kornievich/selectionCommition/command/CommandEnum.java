@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command;
 
 import com.kornievich.selectionCommition.command.impl.admin.*;
+import com.kornievich.selectionCommition.command.impl.admin.FacultyCommand;
 import com.kornievich.selectionCommition.command.impl.common.*;
 
 public enum CommandEnum {
@@ -10,7 +11,7 @@ public enum CommandEnum {
     MAIN(MainCommand.getInstance()),
     CONTACT(ContactCommand.getInstance()),
     QUEUE(QueueCommand.getInstance()),
-    FACULTY(FacultyCommand.getInstance()),
+    MAINFACULTY(MainFacultyCommand.getInstance()),
     MMF(MMFCommand.getInstance()),
     CHANGE(ChangeCommand.getInstance()),
     CHANGEENTRANTSPECIALITY(ChangeEntrantSpeciality.getInstance()),
@@ -31,7 +32,9 @@ public enum CommandEnum {
     CHANGEFACULTY(ChangeFacultyCommand.getInstance()),
     CHANGESUBJECT(ChangeSubjectCommand.getInstance()),
     CHANGESPECIALITY(ChangeSpecialityCommand.getInstance()),
-    SUBJECT(SubjectCommand.getInstance());
+    SUBJECT(SubjectCommand.getInstance()),
+    FACULTY(FacultyCommand.getInstance()),
+    SPECIALITY(SpecialityCommand.getInstance());
 
 
     BaseCommand command;

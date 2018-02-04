@@ -15,7 +15,7 @@ public class FacultyDAO implements IFacultyDAO{
     private static final String FIND_FACULTY_BY_NAME = "SELECT * FROM selection_commition.faculties WHERE FacultyName=?";
     private static final String CREATE_FACULTY = "INSERT INTO selection_commition.faculties (FacultyName , StartDateOfFiling, EndDateOfFiling) VALUES (?,?,?)";
     private static final String UPDATE_FACULTY = "UPDATE selection_commition.faculties SET selection_commition.faculties.FacultyName = ?, " +
-            "selection_commition.faculties.StartDateOfFiling=?, selection_commition.faculties.EndDateOfFiling WHERE FacultyID=?;";
+            "selection_commition.faculties.StartDateOfFiling=?, selection_commition.faculties.EndDateOfFiling=? WHERE FacultyID=?;";
     private static final String DELETE_FACULTY = "DELETE FROM selection_commition.faculties WHERE selection_commition.faculties.FacultyID=?";
 
 

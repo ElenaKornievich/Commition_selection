@@ -1,7 +1,6 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.impl.common.FacultyCommand;
 import com.kornievich.selectionCommition.dao.impl.CTPointDAO;
 
 import javax.servlet.http.HttpServletRequest;

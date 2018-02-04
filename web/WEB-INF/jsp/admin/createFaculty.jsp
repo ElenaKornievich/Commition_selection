@@ -71,6 +71,7 @@
                 </div>
             </div>
         </div>
+    </div>
         <!-- <div>
          <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller" formmethod="get"/>
          <div class="or"></div>

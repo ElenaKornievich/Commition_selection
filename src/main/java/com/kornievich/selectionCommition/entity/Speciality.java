@@ -77,7 +77,7 @@ public class Speciality {
 
     @Override
     public String toString() {
-        return "Speciality{" +
+        return "SpecialityCommand{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", facultyId=" + facultyId +

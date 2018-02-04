@@ -33,7 +33,7 @@
 
     </a>
     </a>
-    <a class="item" href="controller?command=deleteSpeciality">
+    <a class="item" href="controller?command=speciality">
         changeSpeciality
 
     </a>
@@ -49,7 +49,7 @@
         createFaculty
 
     </a>
-    <a class="item" href="controller?command=deleteFaculty">
+    <a class="item" href="controller?command=faculty">
         changeFaculty
 
     </a>

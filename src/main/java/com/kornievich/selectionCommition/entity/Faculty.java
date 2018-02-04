@@ -66,7 +66,7 @@ public class Faculty {
 
     @Override
     public String toString() {
-        return "Faculty{" +
+        return "MainFacultyCommand{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", StartDateOfFiling='" + StartDateOfFiling + '\'' +

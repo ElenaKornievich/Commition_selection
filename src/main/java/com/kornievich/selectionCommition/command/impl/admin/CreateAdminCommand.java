@@ -2,7 +2,6 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
-import com.kornievich.selectionCommition.command.impl.common.FacultyCommand;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Admin;
@@ -11,8 +10,6 @@ import com.kornievich.selectionCommition.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class CreateAdminCommand implements BaseCommand {
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);

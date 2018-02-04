@@ -1,17 +1,13 @@
-package com.kornievich.selectionCommition.command.impl.common;
+package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.Roles;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.User;
-import com.kornievich.selectionCommition.service.UserService;
+import com.kornievich.selectionCommition.service.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 public class FacultyCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+//  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
     private static FacultyCommand instance = new FacultyCommand();
 
@@ -22,11 +18,16 @@ public class FacultyCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-       return null;
+        int idFaculty = Integer.valueOf(request.getParameter("idFaculty"));
+        FacultyService.getInstance().delete(idFaculty);
+        request.setAttribute("nav",9);
+        return "WEB-INF/jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "WEB-INF/jsp/changeFaculty.jsp";
+        request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
+        request.setAttribute("nav",12);
+        return "WEB-INF/jsp/admin/adminPanel.jsp";
 
     }
 
@@ -40,3 +41,4 @@ public class FacultyCommand implements BaseCommand {
     }
 
 }
+

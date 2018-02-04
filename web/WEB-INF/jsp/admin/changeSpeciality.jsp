@@ -4,7 +4,7 @@
 <c:set var="speciality" scope = "page" value="${speciality}"/>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="changeSpeciality">
-        <input type="hidden" name="specialityId" value="${speciality.getId()}">
+        <input type="hidden" name="specialityId" value="${speciality.getId()}"/>
          <input type="text" name="specialityId"  value="${speciality.getId()}"/>
         <input type="text" name="specialityName"  value="${speciality.getName()}"/>
          <input type="text" name="facultyId" value="${speciality.getFacultyId()}"/>

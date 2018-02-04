@@ -14,10 +14,10 @@ public class SimpleJDBCRunner {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
        // User user = new User(6, "ignat", , Roles.ENTRANT);
-      //  Faculty faculty = new Faculty(3, "Seio", "2018-12-12", "2018-11-11");
+      //  MainFacultyCommand faculty = new MainFacultyCommand(3, "Seio", "2018-12-12", "2018-11-11");
         //FacultyDAO facultyDAO=new FacultyDAO();
        // facultyDAO.create(faculty);
-        //Speciality speciality=new Speciality(3,"mn", 2,12, 12);
+        //SpecialityCommand speciality=new SpecialityCommand(3,"mn", 2,12, 12);
         //SpecialityDAO specialityDAO = new SpecialityDAO();
        // specialityDAO.create(speciality);
         //facultyDAO.delete(faculty);
