@@ -11,19 +11,20 @@
             <div class="field">
                 <label>Имя факультета</label>
                 <div class="ui input">
-                    <input type="text" name="nameFaculty" value="${faculty.getName()}">
+                    <input type="hidden" name="facultyId" value="${faculty.getId()}"/>
+                    <input type="text" name="nameFaculty" value="${faculty.getName()}"/>
                 </div>
             </div>
             <div class="field">
                 <label>Дата начала приёма</label>
                 <div class="ui input">
-                    <input type="text" name="startDate" value="${faculty.getStartDateOfFiling()}" placeholder="YYYY-MM-DD">
+                    <input type="text" name="startDate" value="${faculty.getStartDateOfFiling()}" placeholder="YYYY-MM-DD"/>
                 </div>
             </div>
             <div class="field">
                 <label>Дата окончания приёма</label>
                 <div class="ui input">
-                    <input type="text" name="endDate" value="${faculty.getEndDateOfFiling()}" placeholder="YYYY-MM-DD">
+                    <input type="text" name="endDate" value="${faculty.getEndDateOfFiling()}" placeholder="YYYY-MM-DD"/>
                 </div>
             </div>
         </div>

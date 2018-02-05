@@ -34,42 +34,42 @@
     </a>
     </a>
     <a class="item" href="controller?command=speciality">
-        changeSpeciality
+        Speciality
 
     </a>
-    <a class="item" href="controller?command=deleteFaculty">
+   <!-- <a class="item" href="controller?command=deleteFaculty">
         DeleteFaculty
 
-    </a>
+    </a> -->
     <a class="item" href="controller?command=subject" >
-        ChangeSubject
+        Subject
 
     </a>
-    <a class="item" href="controller?command=createFaculty">
+  <!--  <a class="item" href="controller?command=createFaculty">
         createFaculty
 
-    </a>
+    </a>-->
     <a class="item" href="controller?command=faculty">
-        changeFaculty
+        Faculty
 
     </a>
-    <a class="item" href="controller?command=createSubject">
+   <!-- <a class="item" href="controller?command=createSubject">
         createSubject
 
     </a>
     <a class="item" href="controller?command=createSpeciality">
         createSpeciality
 
-    </a>
+    </a>-->
     <a class="item" href="controller?command=createAdmin">
         createAdmin
     </a>
-    <div class="item">
+   <!-- <div class="item">
         <div class="ui transparent icon input">
             <input type="text" placeholder="Search mail...">
             <i class="search icon"></i>
         </div>
-    </div>
+    </div>-->
 </div>
 </div>
 

@@ -20,7 +20,9 @@ public class DeleteSpecialityCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int specialityId =Integer.valueOf(request.getParameter("specialityId"));
        SpecialityService.getInstance().delete(specialityId);
-        request.setAttribute("nav",11);
+
+        request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
+        request.setAttribute("nav",13);
         return "WEB-INF/jsp/admin/adminPanel.jsp";
     }
     @Override

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form name="createSpeciality" action="controller" method="post">
     <input type="hidden" name="command" value="createSpeciality"/>
@@ -16,29 +18,27 @@
                 <input type="text" name="numberOfPainPlaces" placeholder="numberOfPainPlaces">
             </div>
         </div>
-        <div class="field">
-        <select name="facultyId">
-            <c:forEach var="faculty" items="${faculties}">
-                <option value="${faculty.getId()}">${faculty.getName()}</option>
-            </c:forEach>
-        </select>
+        <div class="two fields">
+            <div class="field">
+            <select class="ui fluid dropdown" name="facultyId">
+                <c:forEach var="faculty" items="${faculties}">
+                    <option value="${faculty.getId()}">${faculty.getName()}</option>
+                </c:forEach>
+            </select>
         </div>
 
-        <div class="ui field" style="margin-left: 17.6%">
-            <div class="ui buttons">
-            <c:url value="controller?command=adminPanel" var="change">
-                <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
-            </c:url>
-            <div class="ui button"><a href=${change}>Cancel</a></div>
-            <div class="or"></div>
-            <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller"
-                   formmethod="get"/>
         </div>
+        <div class="fields">
+        <div class="ui field">
+            <div class="ui buttons">
+                <c:url value="controller?command=adminPanel" var="change">
+                    <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
+                </c:url>
+                <div class="ui button"><a href=${change}>Cancel</a></div>
+                <div class="or"></div>
+                <input class="ui positive button" type="submit" value="Craete" name="cancel"/>
+            </div>
         </div>
     </div>
-        <!--  <div>
-          <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller" formmethod="get"/>
-          <div class="or"></div>
-          <input type="submit" class="ui positive button" name="change" value="Change"/>
-          </div> -->
+    </div>
 </form>

@@ -2,9 +2,7 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.entity.Speciality;
-import com.kornievich.selectionCommition.entity.Subject;
 import com.kornievich.selectionCommition.service.SpecialityService;
-import com.kornievich.selectionCommition.service.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +18,12 @@ public class ChangeSpecialityCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int specialityId =Integer.valueOf(request.getParameter("specialityId"));
+        System.out.println("ми в changeSpeciality");
+        int specialityId =Integer.parseInt(request.getParameter("specialityId"));
         String specialityName = request.getParameter("specialityName");
-        int facultyId =Integer.valueOf(request.getParameter("facultyId"));
-        int numberOfBudgetPlaces =Integer.valueOf(request.getParameter("numberOfBudgetPlaces"));
-        int numberOfPaidPlaces =Integer.valueOf(request.getParameter("numberOfPaidPlaces"));
+        int facultyId =Integer.parseInt(request.getParameter("facultyId"));
+        int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberBudgetPlace"));
+        int numberOfPaidPlaces =Integer.parseInt(request.getParameter("numberPaidPlace"));
         SpecialityService.getInstance().update(new Speciality(specialityId, specialityName, facultyId, numberOfBudgetPlaces,numberOfPaidPlaces));
         return "WEB-INF/jsp/admin/adminPanel.jsp";
     }

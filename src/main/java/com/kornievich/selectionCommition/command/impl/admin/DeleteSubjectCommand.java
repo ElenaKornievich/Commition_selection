@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteSubjectCommand implements BaseCommand {
     //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
-    private static ChangeSubjectCommand instance = new ChangeSubjectCommand();
+    private static DeleteSubjectCommand instance = new DeleteSubjectCommand();
 
     public DeleteSubjectCommand() {
     }
@@ -19,7 +19,8 @@ public class DeleteSubjectCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int subjectId =Integer.valueOf(request.getParameter("subjectId"));
         SubjectService.getInstance().delete(subjectId);
-        request.setAttribute("nav",10);
+        request.setAttribute("listSubject", SubjectService.getInstance().readAll());
+        request.setAttribute("nav",14);
         return "WEB-INF/jsp/admin/adminPanel.jsp";
     }
     @Override
@@ -35,7 +36,7 @@ public class DeleteSubjectCommand implements BaseCommand {
         return super.toString();
     }
 
-    public static ChangeSubjectCommand getInstance() {
+    public static DeleteSubjectCommand getInstance() {
         return instance;
     }
 

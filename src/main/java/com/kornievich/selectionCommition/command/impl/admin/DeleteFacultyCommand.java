@@ -21,9 +21,10 @@ public class DeleteFacultyCommand implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int idFaculty = Integer.valueOf(request.getParameter("idFaculty"));
+        int idFaculty = Integer.valueOf(request.getParameter("facultyId"));
         FacultyService.getInstance().delete(idFaculty);
-        request.setAttribute("nav",9);
+        request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
+        request.setAttribute("nav",12);
         return "WEB-INF/jsp/admin/adminPanel.jsp";
     }
     @Override

@@ -32,7 +32,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         String name= request.getParameter("nameFaculty");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        int idFaculty = Integer.valueOf(request.getParameter("idFaculty"));
+        int idFaculty = Integer.parseInt(request.getParameter("facultyId"));
         FacultyService.getInstance().update(new Faculty(idFaculty, name,startDate,endDate));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty,subjectOneId));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectTwoId));
