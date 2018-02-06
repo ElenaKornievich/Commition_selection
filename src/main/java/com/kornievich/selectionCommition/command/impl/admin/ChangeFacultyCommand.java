@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
@@ -37,7 +38,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty,subjectOneId));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectTwoId));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectThreeId));
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -56,7 +57,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         request.setAttribute("nav",9);
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.entity.Speciality;
 import com.kornievich.selectionCommition.service.SpecialityService;
 
@@ -25,7 +26,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
         int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberBudgetPlace"));
         int numberOfPaidPlaces =Integer.parseInt(request.getParameter("numberPaidPlace"));
         SpecialityService.getInstance().update(new Speciality(specialityId, specialityName, facultyId, numberOfBudgetPlaces,numberOfPaidPlaces));
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -34,7 +35,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
         request.setAttribute("nav",11);
         Speciality speciality = SpecialityService.getInstance().findSpecialityById(specialityId);
         request.setAttribute("speciality", speciality);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

@@ -35,6 +35,9 @@ public class UserService {
         try {
            // SpecialityDAO specialityDAO=new SpecialityDAO();
            // int specialityId = specialityDAO.findSpecialityByName(specialityName).getId();
+            if(userDAO.findUserByLogin(login)!=null){
+                return null;
+            }
           User user=userDAO.create(login, SHA256Util.encrypt(password));
             Entrant entrant = new Entrant(user.getId(), "2018-12-12" , pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
                     identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
@@ -45,6 +48,12 @@ public class UserService {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println("ошибка в сервисе");
+            return null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ConnectionUnavailException e) {
+            e.printStackTrace();
             return null;
         }
     }

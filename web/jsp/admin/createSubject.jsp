@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<h3>Создать предмет</h3>
 <script src="/js/validation.js"></script>
 <form name="createSubject" action="controller" method="post" onsubmit="return validateCreateSubject()">
     <input type="hidden" name="command" value="createSubject"/>
     <div class="ui input">
-    <input type="text" name="nameSubject" value="nameSubject" placeholder="Имя"/>
+    <input type="text" name="subjectName" value="" placeholder="Имя"/>
 
     </div>
 <br/>

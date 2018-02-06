@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
 
@@ -31,7 +32,7 @@ public class ChangeAdminCommand implements BaseCommand{
         request.getSession().setAttribute("admin", admin);
         request.setAttribute("nav", 2);
         request.setAttribute("execute", 10);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -41,7 +42,7 @@ public class ChangeAdminCommand implements BaseCommand{
             e.printStackTrace();
         }
         request.setAttribute("nav", 2);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

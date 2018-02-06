@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
 
@@ -18,7 +19,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -28,7 +29,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
             e.printStackTrace();
         }
         request.setAttribute("nav", 0);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

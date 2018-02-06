@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
@@ -27,18 +28,19 @@ public class CreateFacultyCommand implements BaseCommand {
         String name= request.getParameter("nameFaculty");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        Faculty faculty= FacultyService.getInstance().create(name, startDate, endDate);
-        FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectOneId));
-        FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectTwoId));
-        FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectThreeId));
-        return "jsp/admin/adminPanel.jsp";
+        if(FacultyService.getInstance().findFacultyByName(name)!=null) { return PageConstant.PAGE_ERROR;}
+            Faculty faculty = FacultyService.getInstance().create(name, startDate, endDate);
+            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectOneId));
+            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectTwoId));
+            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectThreeId));
+            return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
         request.setAttribute("nav", 6);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

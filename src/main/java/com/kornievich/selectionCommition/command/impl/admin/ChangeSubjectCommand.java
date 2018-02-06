@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.entity.Subject;
@@ -26,7 +27,7 @@ public class ChangeSubjectCommand implements BaseCommand {
         System.out.println(subjectId+subjectName);
         SubjectService.getInstance().updateSubjectName(new Subject(subjectId, subjectName));
 
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -34,7 +35,7 @@ public class ChangeSubjectCommand implements BaseCommand {
         System.out.println(subjectId);
         request.setAttribute("subject", SubjectService.getInstance().findSubjectById(subjectId));
         request.setAttribute("nav",10);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

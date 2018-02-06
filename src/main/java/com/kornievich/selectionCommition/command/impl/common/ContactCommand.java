@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.service.UserService;
@@ -25,7 +26,7 @@ public class ContactCommand implements BaseCommand {  //  private static Logger 
     @Override
     public String getPage(HttpServletRequest request) {
 
-        return "jsp/contact.jsp";
+        return PageConstant.PAGE_CONTACT;
 
     }
 

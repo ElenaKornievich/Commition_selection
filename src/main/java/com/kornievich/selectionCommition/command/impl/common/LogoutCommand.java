@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,7 @@ public class LogoutCommand implements BaseCommand {
         if(request.getSession().getAttribute("id")!=null){
             HttpSession session=request.getSession();
             session.invalidate();
-            return "index.jsp";
+            return PageConstant.PAGE_INDEX;
         }
         return null;
     }

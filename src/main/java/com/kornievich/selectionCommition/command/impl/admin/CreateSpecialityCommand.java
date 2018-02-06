@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
@@ -27,16 +28,19 @@ public class CreateSpecialityCommand  implements BaseCommand{
         int numberOfPainPlaces = Integer.parseInt(request.getParameter("numberPaidPlace"));
         int facultyId = Integer.valueOf(request.getParameter("facultyId"));
         String nameSpeciality= request.getParameter("specialityName");
+        if(SpecialityService.getInstance().findSpecialityByName(nameSpeciality)!=null){
+            return PageConstant.PAGE_ERROR;
+        }
         SpecialityService.getInstance().create(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);
 
-         return "jsp/admin/adminPanel.jsp";
+         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         FacultyDAO facultyDAO=new FacultyDAO();
         request.getSession().setAttribute("faculties",facultyDAO.readAll());
         request.setAttribute("nav", 8);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

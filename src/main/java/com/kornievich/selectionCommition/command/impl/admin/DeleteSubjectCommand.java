@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.entity.Subject;
 import com.kornievich.selectionCommition.service.SubjectService;
 
@@ -21,13 +22,13 @@ public class DeleteSubjectCommand implements BaseCommand {
         SubjectService.getInstance().delete(subjectId);
         request.setAttribute("listSubject", SubjectService.getInstance().readAll());
         request.setAttribute("nav",14);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listSubject", SubjectService.getInstance().readAll());
         request.setAttribute("nav",14);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

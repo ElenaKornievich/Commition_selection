@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +22,11 @@ public class DeleteEntrantCommand implements BaseCommand {
         int idEntrant =Integer.parseInt(request.getParameter("idEntrant"));
         System.out.println(idEntrant);
         entrantDAO.delete(idEntrant);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "jsp/changeFaculty.jsp";
+        return null;
 
     }
 

@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
@@ -46,28 +47,29 @@ public class LoginCommand implements BaseCommand {
                     AdminDAO adminDAO = new AdminDAO();
                     Admin admin = adminDAO.findAdminById(user.getId());
                     request.getSession().setAttribute("admin", admin);
-                    page = "jsp/admin/adminPanel.jsp";
+                    page = PageConstant.PAGE_ADMIN_PANEL;
                 } else {
                     Entrant entrant = entrantDAO.findEntrantById(user.getId());
-                    request.getSession().setAttribute("surname", entrant.getSurname());
-                    request.getSession().setAttribute("firstName", entrant.getFirstName());
-                    request.getSession().setAttribute("lastName", entrant.getLastName());
-                    request.getSession().setAttribute("pasportSeria", entrant.getPasportSeries());
-                    request.getSession().setAttribute("pasportNomer", entrant.getPassportNumber());
-                    request.getSession().setAttribute("dataOfIssue", entrant.getDateOfIssue());
-                    request.getSession().setAttribute("identificationNumber", entrant.getIdentificationNumber());
-                    request.getSession().setAttribute("dataOfBirth", entrant.getDateOfBirth());
-                    request.getSession().setAttribute("nationality", entrant.getNationality());
-                    request.getSession().setAttribute("residenceAddress", entrant.getResidenceAddress());
-                    request.getSession().setAttribute("scope", entrant.getScore());
-                    request.getSession().setAttribute("goldMedal", entrant.isGoldMedal());
-                    request.getSession().setAttribute("email", entrant.getEmail());
-                    request.getSession().setAttribute("telephoneNumber", entrant.getTelephoneNumber());
-                    SpecialityDAO specialityDAO = new SpecialityDAO();
-                    request.getSession().setAttribute("specialityName", specialityDAO.findSpecialityById(entrant.getSpecialityId()));
+                    request.getSession().setAttribute("entrant", entrant);
+                   // request.getSession().setAttribute("surname", entrant.getSurname());
+                   // request.getSession().setAttribute("firstName", entrant.getFirstName());
+                    //request.getSession().setAttribute("lastName", entrant.getLastName());
+                    //request.getSession().setAttribute("pasportSeria", entrant.getPasportSeries());
+                    //request.getSession().setAttribute("pasportNomer", entrant.getPassportNumber());
+                    //request.getSession().setAttribute("dataOfIssue", entrant.getDateOfIssue());
+                    //request.getSession().setAttribute("identificationNumber", entrant.getIdentificationNumber());
+                    //request.getSession().setAttribute("dataOfBirth", entrant.getDateOfBirth());
+                    //request.getSession().setAttribute("nationality", entrant.getNationality());
+                    //request.getSession().setAttribute("residenceAddress", entrant.getResidenceAddress());
+                    //request.getSession().setAttribute("scope", entrant.getScore());
+                    //request.getSession().setAttribute("goldMedal", entrant.isGoldMedal());
+                    //request.getSession().setAttribute("email", entrant.getEmail());
+                    //request.getSession().setAttribute("telephoneNumber", entrant.getTelephoneNumber());
+                    //SpecialityDAO specialityDAO = new SpecialityDAO();
+                    //request.getSession().setAttribute("specialityId",entrant.getSpecialityId());
 
                     request.getSession().setAttribute("role", "entrant");
-                    page = "jsp/entrant/personalArea.jsp";
+                    page = PageConstant.PAGE_PERSONAL_AREA;
                 }
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
@@ -75,7 +77,7 @@ public class LoginCommand implements BaseCommand {
                 //page = "WEB-INF/jsp/main.jsp";
                 return page;
             } else {
-                page = "error/error.jsp";
+                page = PageConstant.PAGE_ERROR;
             }
         } catch (Exception e) {
             System.out.println("ppp");
@@ -90,7 +92,7 @@ public class LoginCommand implements BaseCommand {
         request.setAttribute("users", users);
         String login = "logon";
         request.getSession().setAttribute("login", login);
-        String page = "jsp/authorization.jsp";
+        String page = PageConstant.PAGE_AUTHORIZATION;
         return page;
 
     }

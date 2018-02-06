@@ -10,7 +10,7 @@
 
 <script src="/js/validation.js"></script>
 <form name="test" action="controller" method="post" >
-    <input type="hidden" name="command" value="changeSpeciality">
+    <input type="hidden" name="command" value="changeEntrantSpeciality">
 
     <select name="specialityId">
         <c:forEach var="speciality" items="${specialities}">

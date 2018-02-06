@@ -116,22 +116,7 @@ function validateRegistrationForm() {
     }
 
 }
-function validatechangePersonalInformation() {
-    var name = document.forms["changePersonalInformation"]["name"].value;
-    if (name == "") {
-        alert("name must be filled out");
-        return false;
-    }
-    var login = document.forms["changePersonalInformation"]["login"].value;
-    if (login == "") {
-        alert("login must be filled out");
-        return false;
-    }
-    var password = document.forms["changePersonalInformation"]["password"].value;
-    if (password == "") {
-        alert("password must be filled out");
-        return false;
-    }
+function validateChangePersonalInformation() {
     var firstName = document.forms["changePersonalInformation"]["firstName"].value;
     if (firstName == "") {
         alert("firstName must be filled out");
@@ -155,10 +140,16 @@ function validatechangePersonalInformation() {
     var pasportNomer = document.forms["changePersonalInformation"]["pasportNomer"].value;
     var pasNumPat=/[0-9]{7}/i;
     if (!pasNumPat.test(pasportNomer) ) {
-        alert("pasportNomer must be filled out");
+        alert("pasportNomer must be 7 numbers");
         return false;
     }
-
+    var dataOfIssue = document.forms["changePersonalInformation"]["dataOfIssue"].value;
+//начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
+//от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
+    if (dataOfIssue=="") {
+        alert("Wrong dataOfIssue");
+        return false;
+    }
     var identificationNumber = document.forms["changePersonalInformation"]["identificationNumber"].value;
     if (identificationNumber == "") {
         alert("identificationNumber must be filled out");
@@ -167,7 +158,7 @@ function validatechangePersonalInformation() {
     var dataOfBirth = document.forms["changePersonalInformation"]["dataOfBirth"].value;
 //начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
 //от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
-    if (!r.test(dataOfBirth)) {
+    if (dataOfBirth=="") {
         alert("Wrong dataOfBirth");
         return false;
     }
@@ -235,7 +226,7 @@ function validatechangePersonalInformation() {
 
 }
 function validateChangeSubject() {
-    var nasubjectNameme = document.forms["changeSubject"]["subjectName"].value;
+    var subjectName = document.forms["changeSubject"]["subjectName"].value;
     if (subjectName == "") {
         alert("name must be filled out");
         return false;
@@ -386,9 +377,17 @@ function validateCreateSpeciality() {
     }
 }
 function validateCreateSubject() {
-    var nasubjectNameme = document.forms["createSubject"]["subjectName"].value;
+    var subjectName = document.forms["createSubject"]["subjectName"].value;
     if (subjectName == "") {
         alert("name must be filled out");
         return false;
     }
+}
+function validationChangeEntrant() {
+    var surname = document.forms["changeEntrant"]["surname"].value;
+    if (surname == "") {
+        alert("surname must be filled out");
+        return false;
+    }
+
 }

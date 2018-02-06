@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.CTPointDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public class ChangeEntrantCommand implements BaseCommand{ //  private static Log
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("nav", 1);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -26,7 +27,7 @@ public class ChangeEntrantCommand implements BaseCommand{ //  private static Log
         CTPointDAO ctPointDAO=new CTPointDAO();
         request.setAttribute("ctpointEntrant", ctPointDAO.findCTPointByEntrantId(idEntrant));
         request.setAttribute("nav", 4);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

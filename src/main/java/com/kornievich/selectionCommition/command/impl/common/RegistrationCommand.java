@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.CTPointDAO;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
@@ -49,7 +50,7 @@ public class RegistrationCommand implements BaseCommand {
             User user = UserService.getInstance().addUser(login, password, pasportSeria,
                     pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,
                     dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
-
+            if (user!=null) {
             request.getSession().setAttribute("user", user.getLogin());
             request.getSession().setAttribute("id", user.getId());
             request.getSession().setAttribute("role", "entrant");
@@ -62,12 +63,12 @@ public class RegistrationCommand implements BaseCommand {
             ctPointDao.create(new CTPoint(entrant.getId(),subjectOne, subjectOneValue));
             ctPointDao.create(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
             ctPointDao.create(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
-            if (user!=null) {
-                page = "jsp/entrant/selectSpeciality.jsp";
+
+                page = PageConstant.PAGE_SELECT_SPECIALITY;
             }
             //  request.getSession().setAttribute("", user);
             else {
-                page = "error/error.jsp";
+                page = PageConstant.PAGE_ERROR;
             }
         } catch (Exception e) {
             System.out.println("что-то не так");
@@ -78,7 +79,7 @@ public class RegistrationCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
-        return "jsp/registration.jsp";
+        return PageConstant.PAGE_REGISTRATION;
     }
 
     public static RegistrationCommand getInstance() {

@@ -1,40 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<h3>Редактировать личную информацию</h3>
 <script src="/js/validation.js"></script>
-<form name="changePersonalInformation" action="controller" method="post" onsubmit="return validatechangePersonalInformation()">
+<form name="changePersonalInformation" action="controller" method="post" onsubmit="return validateChangePersonalInformation()">
     <input type="hidden" name="command" value="change">
-    <label>surname: </label><input type="text" value="${surname}" name="surname" size="15"><br>
-    <label>firstName:</label> <input type="text" value="${firstName}" name="firstName" size="15"><br>
-    <label>lastName: </label><input type="text" value="${lastName}" name="lastName" size="15"><br>
-    <label>pasportSeria:</label> <input type="text" value="${pasportSeria}" name="pasportSeria" size="10"><br>
-    <label>pasportNomer: </label><input type="text" value="${pasportNomer}" name="pasportNomer" size="10"><br>
-    <label>DataOfIssue: </label><input type="text" placeholder="YYYY-MM-DD" value="${dateOfIssue}" name="dataOfIssue" size="10"><br>
-    <label>IdentificationNumber:</label> <input type="text" value="${identificationNumber}" name="identificationNumber"
-                                                size="20"><br>
-    <label>DataOfBirth:</label> <input placeholder="YYYY-MM-DD" type="text" value="${dataOfBirth}" name="dataOfBirth" size="10"><br>
-    <label>Nationality:</label> <input type="text" value="${nationality}" name="nationality" size="20"><br>
-    <label>ResidenceAddress:</label> <input type="text" value="${residenceAddress}" name="residenceAddress"
-                                            size="50"><br>
-    <label>Scope:</label> <input type="text" value="${scope}" name="scope" size="10"><br>
-    <label>GoldMedal:</label> <input type="text" value="${goldMedal}" name="goldMedal" size="10"><br>
-    <label>Email:</label> <input type="text" value="${email}" name="email" size="10"><br>
-    <label>TelephoneNumber:</label> <input type="text" value="${telephoneNumber}" name="telephoneNumber" size="10"><br>
-    <label>specialityName: </label><input type="text" value="${specialityName}" name="specialityName" size="10"><br>
+    <c:set var="entrant" value="${entrant}"/>
+    <label>surname: </label><input type="text" value="${entrant.getSurname()}" name="surname" size="15"/><br>
+    <label>firstName:</label> <input type="text" value="${entrant.getFirstName()}" name="firstName" size="15"/><br>
+    <label>lastName: </label><input type="text" value="${entrant.getLastName()}" name="lastName" size="15"/><br>
+    <label>pasportSeria:</label> <input type="text" value="${entrant.getPasportSeries()}" name="pasportSeria" size="10"/><br>
+    <label>pasportNomer: </label><input type="text" pattern="[0-9]{7}" value="${entrant.getPassportNumber()}" name="pasportNomer" size="10"/><br>
+    <label>DataOfIssue: </label><input type="text" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value="${entrant.getDateOfIssue()}" name="dataOfIssue" size="10"/><br>
+    <label>IdentificationNumber:</label> <input type="text" value="${entrant.getIdentificationNumber()}" name="identificationNumber"
+                                                size="20"/><br>
+    <label>DateOfBirth:</label> <input placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="text" value="${entrant.getDateOfBirth()}" name="dataOfBirth" size="10"/><br>
+    <label>Nationality:</label> <input type="text" value="${entrant.getNationality()}" name="nationality" size="20"/><br>
+    <label>ResidenceAddress:</label> <input type="text" value="${entrant.getResidenceAddress()}" name="residenceAddress"
+                                            size="50"/><br>
+    <label>Scope:</label> <input type="text" value="${entrant.getScore()}" name="scope" size="10"/><br>
+    <label>GoldMedal:</label> <input type="text" value="${entrant.isGoldMedal()}" name="goldMedal" size="10"/><br>
+    <label>Email:</label> <input type="text" value="${entrant.getEmail()}" name="email" size="10"/><br>
+    <label>TelephoneNumber:</label> <input type="text" value="${entrant.getTelephoneNumber()}" name="telephoneNumber" size="10"/><br>
+    <input type="hidden" value="${entrant.getSpecialityId()}" name="specialityId" size="10"/><br>
 
-    <select name="specialityId">
-        <c:forEach var="specialityId" items="${specialities}">
-            <option value="${speciality.getId()}"> ${speciality.getName()}</option>
-        </c:forEach>
-    </select>
     <p>
     <table>
         <tr>
             <th>
                 <small>
-                    <input type="submit" name="save" value="Сохранить" formaction="controller" formmethod="post">
+                    <input type="submit" name="save" value="Сохранить"/>
                 </small>
             <th>
                 <small>
-                    <input type="button" name="cancel" value="Выйти">
+                    <input type="button" name="cancel" value="Выйти"/>
                 </small>
     </table>
 </form>

@@ -16,11 +16,11 @@
             </div>
             <div class="field">
                 <label>Количество бюджетных мест</label>
-                <input type="text" name="numberBudgetPlace" value="" placeholder="numberBudgetPlace"/>
+                <input type="text" pattern="[0-9]+" name="numberBudgetPlace" value="" placeholder="numberBudgetPlace"/>
             </div>
             <div class="field">
                 <label>Количество платных мест</label>
-                <input type="text" name="numberPaidPlace" value="" placeholder="numberPaidPlace"/>
+                <input type="text" pattern="[0-9]+" name="numberPaidPlace" value="" placeholder="numberPaidPlace"/>
             </div>
         </div>
         <div class="two fields">

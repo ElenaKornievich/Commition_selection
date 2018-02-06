@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
@@ -23,7 +24,6 @@ public class MainCommand implements BaseCommand {
         String page = null;
         UserDAO userDAO=new UserDAO();
         ArrayList<User> users = userDAO.readUsers();
-        String a="loshik";
         request.setAttribute("users", users);
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -56,7 +56,7 @@ public class MainCommand implements BaseCommand {
        // entrant= requestsDAO.allScoreBySpesialty(1);
        // request.setAttribute("entrant", entrant);
        // request.setAttribute("spesiality", allIdSpesiality);
-        return "jsp/main.jsp";
+        return PageConstant.PAGE_MAIN;
 
     }
     @Override

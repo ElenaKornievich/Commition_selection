@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.service.SpecialityService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +21,13 @@ public class SpecialityCommand implements BaseCommand{
         int specialityId =Integer.valueOf(request.getParameter("specialityId"));
         SpecialityService.getInstance().delete(specialityId);
         request.setAttribute("nav",11);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
         request.setAttribute("nav",13);
-        return "jsp/admin/adminPanel.jsp";
+        return PageConstant.PAGE_ADMIN_PANEL;
 
     }
 

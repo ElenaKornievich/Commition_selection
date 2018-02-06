@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.PageConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,7 @@ public class TestCommand implements BaseCommand {
 
         String test=request.getParameter("sex");
         request.getSession().setAttribute("sexNow", test);
-        return "jsp/entrant/personalArea.jsp";
+        return PageConstant.PAGE_PERSONAL_AREA;
     }
 
     @Override
