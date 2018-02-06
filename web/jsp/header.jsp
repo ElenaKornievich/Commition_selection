@@ -1,7 +1,7 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 
 <head>
     <c:set var="language"
@@ -56,7 +56,7 @@
         <a href="controller?command=queue" class="item">
             Очередь
         </a>
-        <a href="controller?command=faculty" class="item">
+        <a href="controller?command=mainFaculty" class="item">
             О Факультетах
         </a>
         <a href="controller?command=contact" class="item">
@@ -67,15 +67,7 @@
 
         <a href="controller?command=registration" class="item">Регистрация</a></c:if>
         <c:if test="${not empty user}"><a href="controller?command=logout" class="item">Выход</a></c:if>
-        <div class="ui simple dropdown item">
-            More
-            <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item"><i class="edit icon"></i> Edit Profile</a>
-                <a class="item"><i class="globe icon"></i> Choose Language</a>
-                <a class="item"><i class="settings icon"></i> Account Settings</a>
-            </div>
-        </div>
+
         <div class="right item">
             <div class="ui input"><input type="text" placeholder="Search..."></div>
         </div>

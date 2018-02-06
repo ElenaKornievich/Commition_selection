@@ -5,6 +5,7 @@ import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.service.AdminService;
 import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ public class ContactCommand implements BaseCommand {  //  private static Logger 
     }
     @Override
     public String getPage(HttpServletRequest request) {
-
+        request.setAttribute("listAdmin", AdminService.getInstance().readAll());
         return PageConstant.PAGE_CONTACT;
 
     }
