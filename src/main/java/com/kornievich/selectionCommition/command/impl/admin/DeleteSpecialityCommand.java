@@ -23,13 +23,13 @@ public class DeleteSpecialityCommand implements BaseCommand {
 
         request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
         request.setAttribute("nav",13);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
         request.setAttribute("nav",13);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

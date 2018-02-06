@@ -25,13 +25,13 @@ public class DeleteFacultyCommand implements BaseCommand{
         FacultyService.getInstance().delete(idFaculty);
         request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
         request.setAttribute("nav",12);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
         request.setAttribute("nav",12);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

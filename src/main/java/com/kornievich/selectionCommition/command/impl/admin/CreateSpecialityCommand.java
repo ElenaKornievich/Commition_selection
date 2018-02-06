@@ -23,20 +23,20 @@ public class CreateSpecialityCommand  implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberOfBudgetPlaces"));
-        int numberOfPainPlaces = Integer.parseInt(request.getParameter("numberOfPainPlaces"));
+        int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberBudgetPlace"));
+        int numberOfPainPlaces = Integer.parseInt(request.getParameter("numberPaidPlace"));
         int facultyId = Integer.valueOf(request.getParameter("facultyId"));
-        String nameSpeciality= request.getParameter("nameSpeciality");
+        String nameSpeciality= request.getParameter("specialityName");
         SpecialityService.getInstance().create(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);
 
-         return "WEB-INF/jsp/admin/adminPanel.jsp";
+         return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         FacultyDAO facultyDAO=new FacultyDAO();
         request.getSession().setAttribute("faculties",facultyDAO.readAll());
         request.setAttribute("nav", 8);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

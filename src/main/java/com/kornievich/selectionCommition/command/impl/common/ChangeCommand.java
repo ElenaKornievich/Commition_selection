@@ -39,13 +39,15 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
         entrantDAO.update(entrant);
 
         request.setAttribute("nav", 0);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        SpecialityDAO specialityDAO=new SpecialityDAO();
+        request.getSession().setAttribute("specialities",specialityDAO.readAll());
 
         request.setAttribute("nav", 1);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
 
     }
 

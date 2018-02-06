@@ -37,16 +37,16 @@ public class LoginCommand implements BaseCommand {
         String password = request.getParameter("password");
         try {
             User user = UserService.getInstance().findUser(login, password);
+            if(user!=null){
             request.getSession().setAttribute("user", user.getLogin());
             request.getSession().setAttribute("id", user.getId());
-            if (user != null) {
                 if (user.getRole() == Roles.ADMIN) {
                     request.getSession().setAttribute("entrants", entrants);
                     request.getSession().setAttribute("role", "admin");
                     AdminDAO adminDAO = new AdminDAO();
                     Admin admin = adminDAO.findAdminById(user.getId());
                     request.getSession().setAttribute("admin", admin);
-                    page = "WEB-INF/jsp/admin/adminPanel.jsp";
+                    page = "jsp/admin/adminPanel.jsp";
                 } else {
                     Entrant entrant = entrantDAO.findEntrantById(user.getId());
                     request.getSession().setAttribute("surname", entrant.getSurname());
@@ -67,7 +67,7 @@ public class LoginCommand implements BaseCommand {
                     request.getSession().setAttribute("specialityName", specialityDAO.findSpecialityById(entrant.getSpecialityId()));
 
                     request.getSession().setAttribute("role", "entrant");
-                    page = "WEB-INF/jsp/entrant/personalArea.jsp";
+                    page = "jsp/entrant/personalArea.jsp";
                 }
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
@@ -75,7 +75,7 @@ public class LoginCommand implements BaseCommand {
                 //page = "WEB-INF/jsp/main.jsp";
                 return page;
             } else {
-                page = "WEB-INF/error/error.jsp";
+                page = "error/error.jsp";
             }
         } catch (Exception e) {
             System.out.println("ppp");
@@ -90,7 +90,7 @@ public class LoginCommand implements BaseCommand {
         request.setAttribute("users", users);
         String login = "logon";
         request.getSession().setAttribute("login", login);
-        String page = "WEB-INF/jsp/authorization.jsp";
+        String page = "jsp/authorization.jsp";
         return page;
 
     }

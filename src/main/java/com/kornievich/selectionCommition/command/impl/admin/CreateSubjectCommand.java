@@ -24,14 +24,14 @@ public class CreateSubjectCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String nameSubject= request.getParameter("nameSubject");
         SubjectService.getInstance().create(nameSubject);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
         request.setAttribute("nav", 7);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

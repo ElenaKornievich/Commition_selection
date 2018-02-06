@@ -40,7 +40,7 @@ public class CreateAdminCommand implements BaseCommand {
             user.setRole(Roles.ADMIN);
             Admin admin = new Admin(user.getId(), surname, firstName, lastName);
             adminDAO.create(admin);
-            return "WEB-INF/jsp/admin/adminPanel.jsp";
+            return "jsp/admin/adminPanel.jsp";
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -54,7 +54,7 @@ public class CreateAdminCommand implements BaseCommand {
 
         request.setAttribute("nav", 5);
 
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

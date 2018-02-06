@@ -17,7 +17,7 @@ public class ChangeEntrantCommand implements BaseCommand{ //  private static Log
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("nav", 1);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -26,7 +26,7 @@ public class ChangeEntrantCommand implements BaseCommand{ //  private static Log
         CTPointDAO ctPointDAO=new CTPointDAO();
         request.setAttribute("ctpointEntrant", ctPointDAO.findCTPointByEntrantId(idEntrant));
         request.setAttribute("nav", 4);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

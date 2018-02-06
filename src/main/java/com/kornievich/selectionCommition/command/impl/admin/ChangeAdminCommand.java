@@ -31,7 +31,7 @@ public class ChangeAdminCommand implements BaseCommand{
         request.getSession().setAttribute("admin", admin);
         request.setAttribute("nav", 2);
         request.setAttribute("execute", 10);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -41,7 +41,7 @@ public class ChangeAdminCommand implements BaseCommand{
             e.printStackTrace();
         }
         request.setAttribute("nav", 2);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

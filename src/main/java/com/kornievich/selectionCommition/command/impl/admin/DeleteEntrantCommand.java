@@ -21,11 +21,11 @@ public class DeleteEntrantCommand implements BaseCommand {
         int idEntrant =Integer.parseInt(request.getParameter("idEntrant"));
         System.out.println(idEntrant);
         entrantDAO.delete(idEntrant);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "WEB-INF/jsp/changeFaculty.jsp";
+        return "jsp/changeFaculty.jsp";
 
     }
 

@@ -27,7 +27,7 @@ public class QueueCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        return "WEB-INF/jsp/queue.jsp";
+        return "jsp/queue.jsp";
 
     }
 

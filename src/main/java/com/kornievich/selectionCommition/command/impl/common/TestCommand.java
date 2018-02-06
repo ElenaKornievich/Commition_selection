@@ -22,7 +22,7 @@ public class TestCommand implements BaseCommand {
 
         String test=request.getParameter("sex");
         request.getSession().setAttribute("sexNow", test);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
     }
 
     @Override

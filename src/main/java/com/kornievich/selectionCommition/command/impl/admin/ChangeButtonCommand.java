@@ -20,7 +20,7 @@ public class ChangeButtonCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("nav", 1);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

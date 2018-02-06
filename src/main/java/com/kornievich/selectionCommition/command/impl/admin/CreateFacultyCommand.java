@@ -31,14 +31,14 @@ public class CreateFacultyCommand implements BaseCommand {
         FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectOneId));
         FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectTwoId));
         FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectThreeId));
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
         request.setAttribute("nav", 6);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

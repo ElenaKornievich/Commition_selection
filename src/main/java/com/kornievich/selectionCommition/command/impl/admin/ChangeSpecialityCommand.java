@@ -25,7 +25,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
         int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberBudgetPlace"));
         int numberOfPaidPlaces =Integer.parseInt(request.getParameter("numberPaidPlace"));
         SpecialityService.getInstance().update(new Speciality(specialityId, specialityName, facultyId, numberOfBudgetPlaces,numberOfPaidPlaces));
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -34,7 +34,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
         request.setAttribute("nav",11);
         Speciality speciality = SpecialityService.getInstance().findSpecialityById(specialityId);
         request.setAttribute("speciality", speciality);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

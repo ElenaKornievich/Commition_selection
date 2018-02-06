@@ -5,6 +5,7 @@ import com.kornievich.selectionCommition.dao.impl.*;
 import com.kornievich.selectionCommition.entity.*;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.service.SubjectService;
+import com.kornievich.selectionCommition.util.SHA256Util;
 import org.w3c.dom.UserDataHandler;
 
 import java.sql.*;
@@ -42,8 +43,10 @@ public class SimpleJDBCRunner {
         //System.out.println(entrantDAO.findEntrantByName("Elena"));
         //SpecialityDAO specialityDAO=new SpecialityDAO();
         //System.out.println(specialityDAO.findSpecialityByName("1").getId());
-SubjectDAO subjectDAO=new SubjectDAO();
+//SubjectDAO subjectDAO=new SubjectDAO();
         //System.out.println(subjectDAO.findSubjectById(1));
-        System.out.println(SubjectService.getInstance().findSubjectById(1));
+        //System.out.println(SubjectService.getInstance().findSubjectById(1));
+        String str="bvaleo";
+        System.out.println(SHA256Util.encrypt(str));
     }
 }

@@ -26,7 +26,7 @@ public class ChangeSubjectCommand implements BaseCommand {
         System.out.println(subjectId+subjectName);
         SubjectService.getInstance().updateSubjectName(new Subject(subjectId, subjectName));
 
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -34,7 +34,7 @@ public class ChangeSubjectCommand implements BaseCommand {
         System.out.println(subjectId);
         request.setAttribute("subject", SubjectService.getInstance().findSubjectById(subjectId));
         request.setAttribute("nav",10);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

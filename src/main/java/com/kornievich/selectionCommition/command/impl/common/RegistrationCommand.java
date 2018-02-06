@@ -53,6 +53,7 @@ public class RegistrationCommand implements BaseCommand {
             request.getSession().setAttribute("user", user.getLogin());
             request.getSession().setAttribute("id", user.getId());
             request.getSession().setAttribute("role", "entrant");
+
             SpecialityDAO specialityDAO=new SpecialityDAO();
             request.getSession().setAttribute("specialities",specialityDAO.readAll());
             EntrantDAO entrantDAO = new EntrantDAO();
@@ -62,11 +63,11 @@ public class RegistrationCommand implements BaseCommand {
             ctPointDao.create(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
             ctPointDao.create(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
             if (user!=null) {
-                page = "WEB-INF/jsp/entrant/selectSpeciality.jsp";
+                page = "jsp/entrant/selectSpeciality.jsp";
             }
             //  request.getSession().setAttribute("", user);
             else {
-                page = "WEB-INF/error/error.jsp";
+                page = "error/error.jsp";
             }
         } catch (Exception e) {
             System.out.println("что-то не так");
@@ -77,7 +78,7 @@ public class RegistrationCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
-        return "WEB-INF/jsp/registration.jsp";
+        return "jsp/registration.jsp";
     }
 
     public static RegistrationCommand getInstance() {

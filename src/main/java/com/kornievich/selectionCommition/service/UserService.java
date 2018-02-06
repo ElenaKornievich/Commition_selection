@@ -6,6 +6,7 @@ import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.util.SHA256Util;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class UserService {
         try {
            // SpecialityDAO specialityDAO=new SpecialityDAO();
            // int specialityId = specialityDAO.findSpecialityByName(specialityName).getId();
-          User user=userDAO.create(login, password);
+          User user=userDAO.create(login, SHA256Util.encrypt(password));
             Entrant entrant = new Entrant(user.getId(), "2018-12-12" , pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
                     identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
             EntrantDAO entrantDAO=new EntrantDAO();
@@ -47,9 +48,25 @@ public class UserService {
             return null;
         }
     }
+
     public User findUser(String login, String password){
-        EntrantDAO entrantDAO = new EntrantDAO();
-        return userDAO.read(login, password);
+
+
+        try {
+           User user = userDAO.findUserByLogin(login);
+            if(user!=null){
+                if (user.getPassword().equals(SHA256Util.encrypt(password))) {
+                    return user;
+                }
+                else {return null;}
+            }
+            else  { return null;}
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ConnectionUnavailException | SQLException e) {
+            e.printStackTrace(); return null;
+        }
     }
     public boolean changeRole(User user, String role){
         return userDAO.changeRole(user, role);

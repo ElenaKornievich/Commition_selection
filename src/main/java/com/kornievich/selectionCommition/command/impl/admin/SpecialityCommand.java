@@ -20,13 +20,13 @@ public class SpecialityCommand implements BaseCommand{
         int specialityId =Integer.valueOf(request.getParameter("specialityId"));
         SpecialityService.getInstance().delete(specialityId);
         request.setAttribute("nav",11);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
         request.setAttribute("nav",13);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

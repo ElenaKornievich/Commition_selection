@@ -18,7 +18,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -28,7 +28,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
             e.printStackTrace();
         }
         request.setAttribute("nav", 0);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

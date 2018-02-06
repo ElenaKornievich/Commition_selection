@@ -21,7 +21,7 @@ public class Controller extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setContentType( "text/html;charset=utf8" );
         CommandFactory commandFactory=new CommandFactory();
         BaseCommand baseCommand= commandFactory.defineCommand(request);
         String page=baseCommand.getPage(request);
@@ -30,6 +30,7 @@ public class Controller extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf8");
         HttpSession session;
 
         CommandFactory commandFactory=new CommandFactory();

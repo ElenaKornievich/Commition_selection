@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
+import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +23,15 @@ public class ChangeEntrantSpeciality implements BaseCommand {
         EntrantDAO entrantDAO=new EntrantDAO();
         int entrantId=(Integer) request.getSession().getAttribute("id");
         entrantDAO.changeSpeciality(entrantId, specialityId);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        SpecialityDAO specialityDAO=new SpecialityDAO();
+        request.getSession().setAttribute("specialities",specialityDAO.readAll());
+
         request.setAttribute("nav", 2);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
 
     }
 

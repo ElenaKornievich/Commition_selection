@@ -23,7 +23,7 @@ public class AboutCommand implements BaseCommand{
     public String getPage(HttpServletRequest request) {
 
         request.setAttribute("nav", 3);
-        return "WEB-INF/jsp/entrant/personalArea.jsp";
+        return "jsp/entrant/personalArea.jsp";
 
     }
 

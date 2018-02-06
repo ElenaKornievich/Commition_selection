@@ -32,16 +32,16 @@ public class MainCommand implements BaseCommand {
             // request.getSession().setAttribute("users", user.getLogin());
             if (user != null) {
                 if(user.getRole()== Roles.ADMIN){
-                    page = "WEB-INF/jsp/admin/personalArea.jsp";
+                    page = "jsp/admin/personalArea.jsp";
                 }
-                else page= "WEB-INF/jsp/entrant/personalArea.jsp";
+                else page= "jsp/entrant/personalArea.jsp";
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
 
                 //page = "WEB-INF/jsp/main.jsp";
                 return page;
             } else {
-                page = "WEB-INF/error/error.jsp";
+                page = "error/error.jsp";
             }
         } catch (Exception e) {
             System.out.println("ppp");
@@ -50,13 +50,13 @@ public class MainCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        RequestsDAO requestsDAO = new RequestsDAO();
-        ArrayList<Integer> entrant;
-        ArrayList<Integer> allIdSpesiality = requestsDAO.allIdSpesialty();
-        entrant= requestsDAO.allScoreBySpesialty(1);
-        request.setAttribute("entrant", entrant);
-        request.setAttribute("spesiality", allIdSpesiality);
-        return "WEB-INF/jsp/main.jsp";
+       // RequestsDAO requestsDAO = new RequestsDAO();
+       // ArrayList<Integer> entrant;
+        //ArrayList<Integer> allIdSpesiality = requestsDAO.allIdSpesialty();
+       // entrant= requestsDAO.allScoreBySpesialty(1);
+       // request.setAttribute("entrant", entrant);
+       // request.setAttribute("spesiality", allIdSpesiality);
+        return "jsp/main.jsp";
 
     }
     @Override

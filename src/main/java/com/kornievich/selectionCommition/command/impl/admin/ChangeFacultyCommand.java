@@ -37,7 +37,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty,subjectOneId));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectTwoId));
         FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectThreeId));
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
@@ -56,7 +56,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         request.setAttribute("nav",9);
         SubjectDAO subjectDAO=new SubjectDAO();
         request.getSession().setAttribute("subjects",subjectDAO.readAll());
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 

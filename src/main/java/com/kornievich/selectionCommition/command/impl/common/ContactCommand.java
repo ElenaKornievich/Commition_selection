@@ -25,7 +25,7 @@ public class ContactCommand implements BaseCommand {  //  private static Logger 
     @Override
     public String getPage(HttpServletRequest request) {
 
-        return "WEB-INF/jsp/contact.jsp";
+        return "jsp/contact.jsp";
 
     }
 

@@ -21,13 +21,13 @@ public class DeleteSubjectCommand implements BaseCommand {
         SubjectService.getInstance().delete(subjectId);
         request.setAttribute("listSubject", SubjectService.getInstance().readAll());
         request.setAttribute("nav",14);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
     }
     @Override
     public String getPage(HttpServletRequest request) {
         request.setAttribute("listSubject", SubjectService.getInstance().readAll());
         request.setAttribute("nav",14);
-        return "WEB-INF/jsp/admin/adminPanel.jsp";
+        return "jsp/admin/adminPanel.jsp";
 
     }
 
