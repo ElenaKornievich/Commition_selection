@@ -11,15 +11,19 @@
 
 <table>
 
-    <c:forEach var = "speciality" items="${specialities}">
+    <c:forEach var = "queue" items="${queue}">
         <form name="queue" action="controller" method="post">
-            <input name="command" value="queue">
-        <div><input type="hidden" name="specialityId" value="${speciality.getId()}">
-            <c:out value = "${speciality.getName()}"/>
-            <input type="submit" value="Посмотреть очередь на факультет">
-        </div>
+
+            <div><input type="hidden" name="specialityId" value="">
+                <c:out value = "${queue.getSumOfScores()}"/>
+                <c:out value = "${queue.getSurname()}"/>
+                <c:out value = "${queue.getFirstName()}"/>
+                <c:out value = "${queue.getLastName()}"/>
+                <input type="submit" value="Посмотреть очередь на факультет">
+            </div>
         </form>
     </c:forEach>
 </table>
 </body>
 </html>
+

@@ -25,9 +25,9 @@ public class MMFCommand implements BaseCommand { //  private static Logger logge
         RequestsDAO requestsDAO = new RequestsDAO();
         ArrayList<Integer> entrant;
         ArrayList<Integer> allIdSpesiality = requestsDAO.allIdSpesialty();
-        entrant= requestsDAO.allScoreBySpesialty(1);
-        request.setAttribute("entrant", entrant);
-        request.setAttribute("spesiality", allIdSpesiality);
+       // entrant= requestsDAO.allScoreBySpesialty(1);
+       // request.setAttribute("entrant", entrant);
+      //  request.setAttribute("spesiality", allIdSpesiality);
         return null;
 
     }

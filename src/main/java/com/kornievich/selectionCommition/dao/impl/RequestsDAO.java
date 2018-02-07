@@ -1,6 +1,8 @@
 package com.kornievich.selectionCommition.dao.impl;
 
+import com.kornievich.selectionCommition.entity.EntrantInQueueModal;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
 import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
@@ -16,40 +18,29 @@ public class RequestsDAO {
             "GROUP BY en.EntrantID\n" +
             "ORDER BY Scores DESC;";
     private static final String ALL_SPESIALTY = "SELECT SpecialtyID FROM specialties";
-    public  ArrayList<Integer> allScoreBySpesialty(int idSpesialty){
-        Connection cn=null;
-        ArrayList<Integer> entrant = new ArrayList<>();
+    public  ArrayList<EntrantInQueueModal> allScoreBySpesialty(int idSpesialty){
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+        ArrayList<EntrantInQueueModal> entrant = new ArrayList<>();
         try {
-            cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(ALL_ENTRANT_SCORE_BY_SPESIALTY);
             preparedStatement.setInt(1, idSpesialty);
             ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()){
-                    entrant.add(resultSet.getInt(5));
+                    entrant.add(new EntrantInQueueModal(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5)));
                 }
             return entrant;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }
         finally {
-            if(cn!=null){
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
     public ArrayList<Integer> allIdSpesialty(){
-        Connection cn=null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            cn= ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
            ResultSet resultSet= statement.executeQuery(ALL_SPESIALTY);
            ArrayList<Integer> allIdSpesialty = new ArrayList<>();
@@ -58,21 +49,11 @@ public class RequestsDAO {
            }
             return allIdSpesialty;
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
         }
         finally {
-            if(cn!=null){
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
 

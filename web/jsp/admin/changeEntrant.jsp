@@ -27,7 +27,7 @@
 
                 <form name="deleteEntrant" action="controller" method="post">
                     <input type="hidden" name="command" value="deleteEntrant"/>
-                    <input type="hidden" name="idEntrant" value="${entrant.getId()}"/>
+                    <input type="hidden" name="entrantId" value="${entrant.getId()}"/>
                 <input class="ui button" type="submit" value="Удалить">Удалить</input>
                 </form>
 
@@ -62,7 +62,7 @@
                 </c:url>
                <div  class="ui button"> <form name="deleteEntrant" action="controller" method="post">
                    <input type="hidden" name="command" value="deleteEntrant"/>
-                   <input type="hidden" name="idEntrant" value="${entrant.getId()}"/>
+                   <input type="hidden" name="entrantId" value="${entrant.getId()}"/>
                    <input class="ui button" type="submit" value="Удалить">Удалить</input>
                </form></div>
                 <div class="or"></div>

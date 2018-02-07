@@ -3,6 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.ICTPointDAO;
 import com.kornievich.selectionCommition.entity.CTPoint;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
 import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
@@ -22,8 +23,10 @@ public class CTPointDAO implements ICTPointDAO {
 
     @Override
     public boolean create(CTPoint ctPoint) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_CTPOINT);
             preparedStatement.setInt(1, ctPoint.getSubjectId());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
@@ -32,12 +35,10 @@ public class CTPointDAO implements ICTPointDAO {
 
 
             return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
 
         return false;
@@ -57,26 +58,28 @@ public class CTPointDAO implements ICTPointDAO {
 
     @Override
     public ArrayList<CTPoint> readAll() {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             Statement statement = cn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(READ_ALL);
           return readCTPoint(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     @Override
     public boolean update(CTPoint ctPoint) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_CTPOINT);
 
             preparedStatement.setInt(1, ctPoint.getScope());
@@ -85,12 +88,10 @@ public class CTPointDAO implements ICTPointDAO {
 
             preparedStatement.executeUpdate();
             return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
 
         return false;
@@ -98,55 +99,55 @@ public class CTPointDAO implements ICTPointDAO {
 
     public ArrayList<CTPoint> findCTPointByEntrantId(int entrantId){
         ArrayList<CTPoint> ctPoints=new ArrayList<>();
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_ENTRANT_ID);
             preparedStatement.setInt(1,entrantId);
             ResultSet resultSet=preparedStatement.executeQuery();
            return readCTPoint(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     public ArrayList<CTPoint> findCTPointBySubjectId(int subjectId){
         ArrayList<CTPoint> ctPoints=new ArrayList<>();
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_SUBJECT_ID);
             preparedStatement.setInt(1,subjectId);
             ResultSet resultSet=preparedStatement.executeQuery();
             return readCTPoint(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     @Override
     public CTPoint delete(CTPoint ctPoint) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_CTPOINT);
             preparedStatement.setInt(1,ctPoint.getEntrantId());
             preparedStatement.setInt(2, ctPoint.getSubjectId());
             preparedStatement.executeUpdate();
             return null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return ctPoint;
     }

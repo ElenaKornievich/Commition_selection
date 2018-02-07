@@ -27,6 +27,7 @@ public class AttributeConstant {
     public static final String ATTRIBUTE_LOGIN = "login";
     public static final String ATTRIBUTE_ID = "id";
     public static final String ATTRIBUTE_LIST_FACULTY = "listFaculty";
+    public static final String ATTRIBUTE_QUEUE = "queue";
 
 
 }

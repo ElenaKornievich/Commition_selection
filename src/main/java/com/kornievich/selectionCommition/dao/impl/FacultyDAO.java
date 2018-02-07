@@ -3,6 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.IFacultyDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
 import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
@@ -39,8 +40,10 @@ public class FacultyDAO implements IFacultyDAO{
 
     @Override
     public Faculty create(String name, String startDate, String endDate) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_FACULTY);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, startDate);
@@ -49,12 +52,10 @@ public class FacultyDAO implements IFacultyDAO{
 
             return findFacultyByName(name);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
 
         return null;
@@ -62,25 +63,26 @@ public class FacultyDAO implements IFacultyDAO{
 
     @Override
     public ArrayList<Faculty> readAll() {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
+
             Statement statement=cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_FACULTY_ALL);
             return createFacylties(resultSet);
-        } catch (InterruptedException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     @Override
     public boolean update(Faculty faculty) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_FACULTY);
             preparedStatement.setString(1, faculty.getName());
             preparedStatement.setString(2, faculty.getStartDateOfFiling());
@@ -88,67 +90,58 @@ public class FacultyDAO implements IFacultyDAO{
             preparedStatement.setInt(4, faculty.getId());
             preparedStatement.executeUpdate();
             return true;
-        } catch (InterruptedException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
 
     @Override
     public boolean delete(int facultyId) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_FACULTY);
             preparedStatement.setInt(1, facultyId);
             preparedStatement.executeUpdate();
             return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
 
     @Override
     public Faculty findFacultyById(int id) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return createFaculty(resultSet);
-        } catch (InterruptedException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     @Override
     public Faculty findFacultyByName(String name) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-
-            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             return createFaculty(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }

@@ -3,6 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.IEntrantDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
 import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
@@ -30,12 +31,12 @@ public class EntrantDAO implements IEntrantDAO {
 
     @Override
     public boolean create(Entrant entrant) {
-        Connection cn = null;
-        //Statement st = null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
 
             try {
-                cn = ConnectionPool2.getInstance().getConnection();
+
 
             if (cn != null) {
                 PreparedStatement preparedStatement =
@@ -62,49 +63,26 @@ public class EntrantDAO implements IEntrantDAO {
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
         } catch (SQLException e) {
             e.printStackTrace();
-        } } catch (InterruptedException | ConnectionUnavailException e) {
-            e.printStackTrace();
-        } finally {
-
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
-
+        } } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
 
     @Override
     public Entrant findEntrantById(int id) {
-        Connection cn=null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            cn = ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement = cn.prepareStatement(FIND_ENTRANT_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return createEntrant(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
-        }finally {
-
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
-
+        } finally {
+ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
@@ -112,16 +90,9 @@ public class EntrantDAO implements IEntrantDAO {
 
     @Override
     public boolean update(Entrant entrant) {
-        Connection cn = null;
-        try {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
 
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(UPDATE_ENTRANT);
@@ -149,32 +120,17 @@ public class EntrantDAO implements IEntrantDAO {
             e.printStackTrace();
         }
         finally {
-
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
-
+ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
 
     @Override
     public boolean changeSpeciality(int entrantId, int specialityId) {
-        Connection cn = null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
 
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(CHANGE_SPECIALITY);
@@ -189,14 +145,7 @@ public class EntrantDAO implements IEntrantDAO {
         }
         finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
+            ConnectionPool.getInstance().returnConnection(cn);
 
         }
         return false;
@@ -205,9 +154,9 @@ public class EntrantDAO implements IEntrantDAO {
 
     @Override
     public boolean delete(int id) {
-        Connection cn = null;
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
+        try {
 
             if (cn != null) {
                 PreparedStatement preparedStatement =
@@ -218,18 +167,9 @@ public class EntrantDAO implements IEntrantDAO {
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
-        }  catch (InterruptedException | ConnectionUnavailException e) {
-            e.printStackTrace();
         }finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
@@ -251,30 +191,21 @@ public class EntrantDAO implements IEntrantDAO {
     @Override
     public ArrayList<Entrant> readEntrant() {
         ArrayList<Entrant> listEntrant = new ArrayList<>();
-        Connection cn=null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
-            cn = ConnectionPool2.getInstance().getConnection();
+
             Statement statement = cn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(READ_ENTRANT);
             listEntrant = createEntrants(resultSet);
 
             return listEntrant;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
 
         }
 
@@ -283,30 +214,21 @@ public class EntrantDAO implements IEntrantDAO {
 
     @Override
     public ArrayList<Entrant> findEntrantByName(String name) {
-        Connection cn=null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+
         try {
             ArrayList<Entrant> listEntrants = new ArrayList<>();
-            cn = ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement = cn.prepareStatement(FIND_ENTRANT_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             listEntrants=createEntrants(resultSet);
             return listEntrants;
-        } catch (InterruptedException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
 
         }
         return null;

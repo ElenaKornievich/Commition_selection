@@ -35,9 +35,7 @@ public enum CommandEnum {
     SUBJECT(SubjectCommand.getInstance()),
     FACULTY(FacultyCommand.getInstance()),
     SPECIALITY(SpecialityCommand.getInstance());
-
-
-    BaseCommand command;
+        BaseCommand command;
     CommandEnum(BaseCommand instance){
         this.command = instance;
     }
