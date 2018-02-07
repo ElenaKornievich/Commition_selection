@@ -2,7 +2,9 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
@@ -24,24 +26,24 @@ public class MainCommand implements BaseCommand {
         String page = null;
         UserDAO userDAO=new UserDAO();
         ArrayList<User> users = userDAO.readUsers();
-        request.setAttribute("users", users);
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
+        String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
+        String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
         try {
             User user = UserService.getInstance().findUser(login, password);
             // request.getSession().setAttribute("users", user.getLogin());
             if (user != null) {
                 if(user.getRole()== Roles.ADMIN){
-                    page = "jsp/admin/personalArea.jsp";
+                    page = PageConstant.PAGE_ADMIN_PANEL;
                 }
-                else page= "jsp/entrant/personalArea.jsp";
+                else page= PageConstant.PAGE_PERSONAL_AREA;
                 // page = (String) request.getSession().getAttribute("previousPage");
                 //page = PageConst.PAGE_SINGLE_MOVIE;
 
                 //page = "WEB-INF/jsp/main.jsp";
                 return page;
             } else {
-                page = "error/error.jsp";
+                page = PageConstant.PAGE_ERROR;
             }
         } catch (Exception e) {
             System.out.println("ppp");

@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class AboutCommand implements BaseCommand{
     @Override
     public String getPage(HttpServletRequest request) {
 
-        request.setAttribute("nav", 3);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 3);
         return PageConstant.PAGE_PERSONAL_AREA;
 
     }

@@ -1,7 +1,9 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
 
@@ -19,19 +21,17 @@ public class ChangeAdminCommand implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String surname = request.getParameter("surname");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        System.out.println("id "+ request.getParameter("firstName")+ request.getParameter("idAdmin"));
-        int id =Integer.parseInt(request.getParameter("idAdmin"));
-        System.out.println("id " + id);
+        String surname = request.getParameter(ParameterConstant.PARAMETER_SURNAME);
+        String firstName = request.getParameter(ParameterConstant.PARAMETER_FIRST_NAME);
+        String lastName = request.getParameter(ParameterConstant.PARAMETER_LAST_NAME);
+        int id =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_ID_ADMIN));
         AdminDAO adminDAO=new AdminDAO();
         Admin admin = new Admin(id, surname, firstName, lastName);
         adminDAO.update(admin);
 
-        request.getSession().setAttribute("admin", admin);
-        request.setAttribute("nav", 2);
-        request.setAttribute("execute", 10);
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_EXECUTE, 10);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
@@ -41,7 +41,7 @@ public class ChangeAdminCommand implements BaseCommand{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        request.setAttribute("nav", 2);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

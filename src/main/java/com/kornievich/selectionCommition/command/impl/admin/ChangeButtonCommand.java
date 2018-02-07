@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class ChangeButtonCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute("nav", 1);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

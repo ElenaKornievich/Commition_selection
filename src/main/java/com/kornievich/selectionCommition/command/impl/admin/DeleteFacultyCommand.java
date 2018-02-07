@@ -1,7 +1,9 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.service.FacultyService;
@@ -22,16 +24,16 @@ public class DeleteFacultyCommand implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int idFaculty = Integer.valueOf(request.getParameter("facultyId"));
+        int idFaculty = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
         FacultyService.getInstance().delete(idFaculty);
-        request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
-        request.setAttribute("nav",12);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute("listFaculties",FacultyService.getInstance().readAll());
-        request.setAttribute("nav",12);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

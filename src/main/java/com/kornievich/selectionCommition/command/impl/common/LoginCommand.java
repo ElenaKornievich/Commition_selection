@@ -2,7 +2,9 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
@@ -33,24 +35,24 @@ public class LoginCommand implements BaseCommand {
         ArrayList<User> users = userDAO.readUsers();
         EntrantDAO entrantDAO = new EntrantDAO();
         ArrayList<Entrant> entrants = entrantDAO.readEntrant();
-        request.getSession().setAttribute("users", users);
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
+        String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
+        String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
         try {
             User user = UserService.getInstance().findUser(login, password);
             if(user!=null){
-            request.getSession().setAttribute("user", user.getLogin());
-            request.getSession().setAttribute("id", user.getId());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());
                 if (user.getRole() == Roles.ADMIN) {
-                    request.getSession().setAttribute("entrants", entrants);
-                    request.getSession().setAttribute("role", "admin");
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ADMIN);
                     AdminDAO adminDAO = new AdminDAO();
                     Admin admin = adminDAO.findAdminById(user.getId());
-                    request.getSession().setAttribute("admin", admin);
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
                     page = PageConstant.PAGE_ADMIN_PANEL;
                 } else {
                     Entrant entrant = entrantDAO.findEntrantById(user.getId());
-                    request.getSession().setAttribute("entrant", entrant);
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, entrant);
                    // request.getSession().setAttribute("surname", entrant.getSurname());
                    // request.getSession().setAttribute("firstName", entrant.getFirstName());
                     //request.getSession().setAttribute("lastName", entrant.getLastName());
@@ -68,7 +70,7 @@ public class LoginCommand implements BaseCommand {
                     //SpecialityDAO specialityDAO = new SpecialityDAO();
                     //request.getSession().setAttribute("specialityId",entrant.getSpecialityId());
 
-                    request.getSession().setAttribute("role", "entrant");
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_CTPOINT_ENTRANT);
                     page = PageConstant.PAGE_PERSONAL_AREA;
                 }
                 // page = (String) request.getSession().getAttribute("previousPage");
@@ -89,9 +91,8 @@ public class LoginCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         UserDAO userDAO = new UserDAO();
         ArrayList<User> users = userDAO.readUsers();
-        request.setAttribute("users", users);
-        String login = "logon";
-        request.getSession().setAttribute("login", login);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_LOGIN, AttributeConstant.ATTRIBUTE_LOGON);
         String page = PageConstant.PAGE_AUTHORIZATION;
         return page;
 

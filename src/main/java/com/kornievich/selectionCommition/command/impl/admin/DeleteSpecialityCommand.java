@@ -1,7 +1,9 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.entity.Speciality;
 import com.kornievich.selectionCommition.service.SpecialityService;
 
@@ -19,17 +21,17 @@ public class DeleteSpecialityCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int specialityId =Integer.valueOf(request.getParameter("specialityId"));
+        int specialityId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
        SpecialityService.getInstance().delete(specialityId);
 
-        request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
-        request.setAttribute("nav",13);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,13);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute("listSpeciality", SpecialityService.getInstance().readAll());
-        request.setAttribute("nav",13);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,13);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

@@ -2,7 +2,9 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Admin;
@@ -26,11 +28,11 @@ public class CreateAdminCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String surname = request.getParameter("surname");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
+        String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
+        String surname = request.getParameter(ParameterConstant.PARAMETER_SURNAME);
+        String firstName = request.getParameter(ParameterConstant.PARAMETER_FIRST_NAME);
+        String lastName = request.getParameter(ParameterConstant.PARAMETER_LAST_NAME);
 
         UserDAO userDAO = new UserDAO();
         AdminDAO adminDAO=new AdminDAO();
@@ -41,7 +43,7 @@ public class CreateAdminCommand implements BaseCommand {
             if(UserService.getInstance().findUserByLogin(login)!=null)
                 return PageConstant.PAGE_ERROR;
             User user=userDAO.create(login,password);
-            userDAO.changeRole(user, "admin");
+            userDAO.changeRole(user, ParameterConstant.PARAMETER_ADMIN);
             user.setRole(Roles.ADMIN);
             Admin admin = new Admin(user.getId(), surname, firstName, lastName);
             adminDAO.create(admin);
@@ -61,7 +63,7 @@ public class CreateAdminCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
 
 
-        request.setAttribute("nav", 5);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 5);
 
         return PageConstant.PAGE_ADMIN_PANEL;
 

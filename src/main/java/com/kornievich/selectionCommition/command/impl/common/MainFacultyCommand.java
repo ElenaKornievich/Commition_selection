@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.service.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class MainFacultyCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute("listFaculty", FacultyService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTY, FacultyService.getInstance().readAll());
         return "jsp/mainFaculty.jsp";
 
     }

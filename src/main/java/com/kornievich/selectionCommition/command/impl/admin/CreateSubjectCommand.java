@@ -1,7 +1,9 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
@@ -24,7 +26,7 @@ public class CreateSubjectCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String nameSubject= request.getParameter("subjectName");
+        String nameSubject= request.getParameter(ParameterConstant.PARAMETER_SUBJECT_NAME);
         if(SubjectService.getInstance().findSubjectByName(nameSubject)!=null){
             return PageConstant.PAGE_ERROR;
         }
@@ -34,8 +36,8 @@ public class CreateSubjectCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute("subjects",subjectDAO.readAll());
-        request.setAttribute("nav", 7);
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 7);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

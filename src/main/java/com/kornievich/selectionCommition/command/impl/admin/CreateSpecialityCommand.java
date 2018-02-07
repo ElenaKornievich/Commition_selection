@@ -1,7 +1,9 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
@@ -24,10 +26,10 @@ public class CreateSpecialityCommand  implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int numberOfBudgetPlaces =Integer.parseInt(request.getParameter("numberBudgetPlace"));
-        int numberOfPainPlaces = Integer.parseInt(request.getParameter("numberPaidPlace"));
-        int facultyId = Integer.valueOf(request.getParameter("facultyId"));
-        String nameSpeciality= request.getParameter("specialityName");
+        int numberOfBudgetPlaces =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_NUMBER_BUDGET_PLACE));
+        int numberOfPainPlaces = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_NUMBER_PAIN_PLACE));
+        int facultyId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
+        String nameSpeciality= request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_NAME);
         if(SpecialityService.getInstance().findSpecialityByName(nameSpeciality)!=null){
             return PageConstant.PAGE_ERROR;
         }
@@ -38,8 +40,8 @@ public class CreateSpecialityCommand  implements BaseCommand{
     @Override
     public String getPage(HttpServletRequest request) {
         FacultyDAO facultyDAO=new FacultyDAO();
-        request.getSession().setAttribute("faculties",facultyDAO.readAll());
-        request.setAttribute("nav", 8);
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES,facultyDAO.readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 8);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

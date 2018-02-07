@@ -1,11 +1,12 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
-import com.kornievich.selectionCommition.entity.Subject;
 import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.FacultySubjectsService;
 import com.kornievich.selectionCommition.service.SubjectService;
@@ -42,21 +43,20 @@ public class ChangeFacultyCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        System.out.println(request.getParameter("facultyId"));
-        int facultyId = Integer.parseInt(request.getParameter("facultyId"));
+        int facultyId = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
        // String name= request.getParameter("facultyName");
         //String startDate = request.getParameter("startDateOfFiling");
         //String endDate = request.getParameter("endDateOfFiling");
         Faculty faculty= FacultyService.getInstance().findFacultyById(facultyId);
         ArrayList<FacultySubject> subjects =  FacultySubjectsService.getInstance().findByFacultyId(facultyId);
         FacultyService.getInstance().update(faculty);
-        request.setAttribute("faculty", faculty);
-        request.setAttribute("subjectOne", SubjectService.getInstance().findSubjectById(subjects.get(0).getSubjectId()));
-        request.setAttribute("subjectTwo", SubjectService.getInstance().findSubjectById(subjects.get(1).getSubjectId()));
-        request.setAttribute("subjectThree", SubjectService.getInstance().findSubjectById(subjects.get(2).getSubjectId()));
-        request.setAttribute("nav",9);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_FACULTY, faculty);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_ONE, SubjectService.getInstance().findSubjectById(subjects.get(0).getSubjectId()));
+        request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_TWO, SubjectService.getInstance().findSubjectById(subjects.get(1).getSubjectId()));
+        request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_THREE, SubjectService.getInstance().findSubjectById(subjects.get(2).getSubjectId()));
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,9);
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute("subjects",subjectDAO.readAll());
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }
