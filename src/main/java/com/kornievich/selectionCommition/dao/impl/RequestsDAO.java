@@ -1,7 +1,7 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class RequestsDAO {
         Connection cn=null;
         ArrayList<Integer> entrant = new ArrayList<>();
         try {
-            cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(ALL_ENTRANT_SCORE_BY_SPESIALTY);
             preparedStatement.setInt(1, idSpesialty);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -49,7 +49,7 @@ public class RequestsDAO {
     public ArrayList<Integer> allIdSpesialty(){
         Connection cn=null;
         try {
-            cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
            ResultSet resultSet= statement.executeQuery(ALL_SPESIALTY);
            ArrayList<Integer> allIdSpesialty = new ArrayList<>();

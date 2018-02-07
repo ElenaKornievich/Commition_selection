@@ -3,7 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.ICTPointDAO;
 import com.kornievich.selectionCommition.entity.CTPoint;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class CTPointDAO implements ICTPointDAO {
     @Override
     public boolean create(CTPoint ctPoint) {
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_CTPOINT);
             preparedStatement.setInt(1, ctPoint.getSubjectId());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
@@ -58,7 +58,7 @@ public class CTPointDAO implements ICTPointDAO {
     @Override
     public ArrayList<CTPoint> readAll() {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             Statement statement = cn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(READ_ALL);
@@ -76,7 +76,7 @@ public class CTPointDAO implements ICTPointDAO {
     @Override
     public boolean update(CTPoint ctPoint) {
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_CTPOINT);
 
             preparedStatement.setInt(1, ctPoint.getScope());
@@ -99,7 +99,7 @@ public class CTPointDAO implements ICTPointDAO {
     public ArrayList<CTPoint> findCTPointByEntrantId(int entrantId){
         ArrayList<CTPoint> ctPoints=new ArrayList<>();
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_ENTRANT_ID);
             preparedStatement.setInt(1,entrantId);
             ResultSet resultSet=preparedStatement.executeQuery();
@@ -117,7 +117,7 @@ public class CTPointDAO implements ICTPointDAO {
     public ArrayList<CTPoint> findCTPointBySubjectId(int subjectId){
         ArrayList<CTPoint> ctPoints=new ArrayList<>();
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_SUBJECT_ID);
             preparedStatement.setInt(1,subjectId);
             ResultSet resultSet=preparedStatement.executeQuery();
@@ -135,7 +135,7 @@ public class CTPointDAO implements ICTPointDAO {
     @Override
     public CTPoint delete(CTPoint ctPoint) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_CTPOINT);
             preparedStatement.setInt(1,ctPoint.getEntrantId());
             preparedStatement.setInt(2, ctPoint.getSubjectId());

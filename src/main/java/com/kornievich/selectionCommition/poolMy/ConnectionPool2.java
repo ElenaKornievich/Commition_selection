@@ -1,4 +1,4 @@
-package com.kornievich.selectionCommition.pool;
+package com.kornievich.selectionCommition.poolMy;
 
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.mysql.jdbc.Connection;
@@ -12,16 +12,16 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ConnectionPool {
-    private static ConnectionPool instance;
+public class ConnectionPool2 {
+    private static ConnectionPool2 instance;
 
-    public static synchronized ConnectionPool getInstance() {
+    public static synchronized ConnectionPool2 getInstance() {
         if (instance == null) {
-            instance = new ConnectionPool();
+            instance = new ConnectionPool2();
         }
         return instance;
     }
-    public ConnectionPool(){};
+    public ConnectionPool2(){};
     private BlockingQueue<Connection> pool = new ArrayBlockingQueue<Connection>(15);
     private final AtomicInteger connCount = new AtomicInteger();
 

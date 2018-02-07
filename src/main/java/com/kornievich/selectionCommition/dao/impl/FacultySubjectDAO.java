@@ -1,10 +1,9 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.IFacultySubjectsDAO;
-import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     @Override
     public boolean update(FacultySubject facultySubject) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_FACULTY_SUBJECT);
             preparedStatement.setInt(1, facultySubject.getFacultyId());
             preparedStatement.setInt(2, facultySubject.getSubjectId());
@@ -56,7 +55,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     @Override
     public boolean create(FacultySubject facultySubject) {
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_FACULTY_SUBJECT);
             preparedStatement.setInt(1, facultySubject.getFacultyId());
             preparedStatement.setInt(2, facultySubject.getSubjectId());
@@ -75,7 +74,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     @Override
     public ArrayList<FacultySubject> readAll() {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_FACULTY_SUBJECT_ALL);
             return createFacultySubjects(resultSet);
@@ -94,7 +93,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     @Override
     public FacultySubject delete(FacultySubject facultySubject) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_FACULTY_SUBJECT);
             preparedStatement.setInt(1, facultySubject.getFacultyId());
             preparedStatement.setInt(2, facultySubject.getSubjectId());
@@ -114,7 +113,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
     public ArrayList<FacultySubject> findByFacultyId(int id) {
         Connection cn= null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_SUBJECT_BY_FUCULTY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet=preparedStatement.executeQuery();
@@ -135,7 +134,7 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
 
         Connection cn= null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_SUBJECT_BY_SUBJECT_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet=preparedStatement.executeQuery();

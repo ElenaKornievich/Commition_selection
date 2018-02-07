@@ -3,7 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.ISpecialityDAO;
 import com.kornievich.selectionCommition.entity.Speciality;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace) {
         Connection cn=null;
         try {
-            cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SPECIALITY);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2, facultyId);
@@ -74,7 +74,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public ArrayList<Speciality> readAll() {
         Connection cn= null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
             ResultSet resultSet= statement.executeQuery(READ_SPECIALITY_ALL);
             return createSpecialities(resultSet);
@@ -104,7 +104,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public boolean update(Speciality speciality) {
         Connection cn=null;
         try {
-            cn= ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_SPECIALITY);
 
             preparedStatement.setString(1, speciality.getName());
@@ -139,7 +139,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public boolean delete(int specialityId) {
         Connection cn=null;
         try {
-            cn=ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_SPECIALITY);
             preparedStatement.setInt(1, specialityId);
             preparedStatement.executeUpdate();
@@ -168,7 +168,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public Speciality findSpecialityById(int id) {
         Connection cn=null;
         try {
-            cn=ConnectionPool.getInstance().getConnection();
+            cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_SPECIALITY_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -198,7 +198,7 @@ public class SpecialityDAO implements ISpecialityDAO {
     public Speciality findSpecialityByName(String name) {
         Connection cn=null;
         try {
-       cn=ConnectionPool.getInstance().getConnection();
+       cn= ConnectionPool2.getInstance().getConnection();
         PreparedStatement preparedStatement=cn.prepareStatement(FIND_SPECIALITY_BY_NAME);
         preparedStatement.setString(1, name);
         ResultSet resultSet = preparedStatement.executeQuery();

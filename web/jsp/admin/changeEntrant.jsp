@@ -1,3 +1,6 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <link rel="stylesheet" type="text/css" href="/SemanticUI/semantic.min.css">
 <script
         src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -9,13 +12,6 @@
 <script src="/SemanticUI/accordion/UI-Accordion-master/accordion.js"></script>
 <link rel="stylesheet" type="text/css" href="/SemanticUI/accordion/UI-Accordion-master/accordion.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/accordion/UI-Accordion-master/accordion.min.css">
-
-
-<div class="ui buttons">
-    <button class="ui button">Cancel</button>
-    <div class="or"></div>
-    <button class="ui positive button">Save</button>
-</div>
 
 
 
@@ -64,9 +60,13 @@
                 <c:url value="controller?command=changeEntrant" var="change">
                     <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
                 </c:url>
-               <div  class="ui button"> <a href=${change}>Up</a></div>
+               <div  class="ui button"> <form name="deleteEntrant" action="controller" method="post">
+                   <input type="hidden" name="command" value="deleteEntrant"/>
+                   <input type="hidden" name="idEntrant" value="${entrant.getId()}"/>
+                   <input class="ui button" type="submit" value="Удалить">Удалить</input>
+               </form></div>
                 <div class="or"></div>
-                <button class="ui positive button">Change</button>
+                <вdiv class="ui positive button"><a href=${change}>Посмотреть быллы цт</вdiv>
             </div>
             </table>
             </p>

@@ -32,7 +32,7 @@
 
     </a>
     <a class="item" href="controller?command=changeButton">
-        changeButton
+        changeEntrant
 
     </a>
     </a>

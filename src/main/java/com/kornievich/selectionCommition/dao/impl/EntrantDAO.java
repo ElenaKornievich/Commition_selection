@@ -1,10 +1,9 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.IEntrantDAO;
-import com.kornievich.selectionCommition.entity.Admin;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class EntrantDAO implements IEntrantDAO {
         try {
 
             try {
-                cn = ConnectionPool.getInstance().getConnection();
+                cn = ConnectionPool2.getInstance().getConnection();
 
             if (cn != null) {
                 PreparedStatement preparedStatement =
@@ -84,7 +83,7 @@ public class EntrantDAO implements IEntrantDAO {
     public Entrant findEntrantById(int id) {
         Connection cn=null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement = cn.prepareStatement(FIND_ENTRANT_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -117,7 +116,7 @@ public class EntrantDAO implements IEntrantDAO {
         try {
 
             try {
-                cn = ConnectionPool.getInstance().getConnection();
+                cn = ConnectionPool2.getInstance().getConnection();
             } catch (InterruptedException | ConnectionUnavailException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
@@ -170,7 +169,7 @@ public class EntrantDAO implements IEntrantDAO {
         try {
 
             try {
-                cn = ConnectionPool.getInstance().getConnection();
+                cn = ConnectionPool2.getInstance().getConnection();
             } catch (InterruptedException | ConnectionUnavailException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
@@ -208,7 +207,7 @@ public class EntrantDAO implements IEntrantDAO {
     public boolean delete(int id) {
         Connection cn = null;
             try {
-                cn = ConnectionPool.getInstance().getConnection();
+                cn = ConnectionPool2.getInstance().getConnection();
 
             if (cn != null) {
                 PreparedStatement preparedStatement =
@@ -254,7 +253,7 @@ public class EntrantDAO implements IEntrantDAO {
         ArrayList<Entrant> listEntrant = new ArrayList<>();
         Connection cn=null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             Statement statement = cn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(READ_ENTRANT);
@@ -287,7 +286,7 @@ public class EntrantDAO implements IEntrantDAO {
         Connection cn=null;
         try {
             ArrayList<Entrant> listEntrants = new ArrayList<>();
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement = cn.prepareStatement(FIND_ENTRANT_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();

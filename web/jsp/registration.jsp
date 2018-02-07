@@ -24,7 +24,7 @@
     </div>
     <div class="field">
         <label>Password</label>
-        <input type="password" placeholder="Пароль" name="password" >
+        <input type="password" placeholder="Пароль" minlength="6" name="password" >
     </div>
 </div>
     <div class="three fields">

@@ -3,7 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.ISubjectDAO;
 import com.kornievich.selectionCommition.entity.Subject;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class SubjectDAO  implements ISubjectDAO{
     @Override
     public Subject create(String name) {
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SUBJECT);
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
@@ -55,7 +55,7 @@ public class SubjectDAO  implements ISubjectDAO{
     @Override
     public ArrayList<Subject> readAll() {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_SUBJECT_ALL);
             return createSubjects(resultSet);
@@ -73,7 +73,7 @@ public class SubjectDAO  implements ISubjectDAO{
     @Override
     public boolean updateSubjectName(Subject subject) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_SUBJECT_NAME);
             preparedStatement.setString(1, subject.getName());
             preparedStatement.setInt(2, subject.getId());
@@ -92,7 +92,7 @@ public class SubjectDAO  implements ISubjectDAO{
     @Override
     public boolean updateSubjectId(Subject subject) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_SUBJECT_ID);
             preparedStatement.setInt(2, subject.getId());
             preparedStatement.setString(3, subject.getName());
@@ -111,7 +111,7 @@ public class SubjectDAO  implements ISubjectDAO{
     @Override
     public boolean delete(int subjectId) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_SUBJECT);
             preparedStatement.setInt(1, subjectId);
             preparedStatement.executeUpdate();
@@ -131,7 +131,7 @@ public class SubjectDAO  implements ISubjectDAO{
     public Subject findSubjectById(int id) {
         Connection cn= null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_SUBJECT_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet=preparedStatement.executeQuery();
@@ -150,7 +150,7 @@ public class SubjectDAO  implements ISubjectDAO{
     public Subject findSubjectByName(String name) {
         Connection cn= null;
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_SUBJECT_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet=preparedStatement.executeQuery();

@@ -3,7 +3,7 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.IFacultyDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class FacultyDAO implements IFacultyDAO{
     @Override
     public Faculty create(String name, String startDate, String endDate) {
         try {
-            Connection cn= ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_FACULTY);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, startDate);
@@ -63,7 +63,7 @@ public class FacultyDAO implements IFacultyDAO{
     @Override
     public ArrayList<Faculty> readAll() {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_FACULTY_ALL);
             return createFacylties(resultSet);
@@ -80,7 +80,7 @@ public class FacultyDAO implements IFacultyDAO{
     @Override
     public boolean update(Faculty faculty) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_FACULTY);
             preparedStatement.setString(1, faculty.getName());
             preparedStatement.setString(2, faculty.getStartDateOfFiling());
@@ -101,7 +101,7 @@ public class FacultyDAO implements IFacultyDAO{
     @Override
     public boolean delete(int facultyId) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_FACULTY);
             preparedStatement.setInt(1, facultyId);
             preparedStatement.executeUpdate();
@@ -119,7 +119,7 @@ public class FacultyDAO implements IFacultyDAO{
     @Override
     public Faculty findFacultyById(int id) {
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -138,7 +138,7 @@ public class FacultyDAO implements IFacultyDAO{
     public Faculty findFacultyByName(String name) {
         try {
 
-            Connection cn=ConnectionPool.getInstance().getConnection();
+            Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_FACULTY_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();

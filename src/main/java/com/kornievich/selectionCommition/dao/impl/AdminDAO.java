@@ -3,10 +3,12 @@ package com.kornievich.selectionCommition.dao.impl;
 import com.kornievich.selectionCommition.dao.IAdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
-import com.kornievich.selectionCommition.pool.ConnectionPool;
+import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
+import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AdminDAO implements IAdminDAO {
 
@@ -21,15 +23,12 @@ public class AdminDAO implements IAdminDAO {
 
     @Override
     public boolean create(Admin admin) {
-        Connection cn = null;
+       // Connection cn = null;
         //Statement st = null;
-        try {
 
-            try {
-                cn = ConnectionPool.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
+            //cn = ConnectionPool2.getInstance().getConnection();
+            Connection cn = ConnectionPool.getInstance().takeConnection();
+            try{
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(CREATE_ADMIN);
@@ -44,15 +43,15 @@ public class AdminDAO implements IAdminDAO {
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
         } finally {
-
-            if (cn != null) {
+            ConnectionPool.getInstance().returnConnection(cn);
+          /*  if (cn != null) {
                 try {
                     cn.close();
                 } catch (SQLException e) {
                     System.err.println("Сonnection close error: " + e);
                 }
             }
-
+*/
         }
 
         return false;
@@ -77,26 +76,26 @@ public class AdminDAO implements IAdminDAO {
 
     @Override
     public ArrayList<Admin> readAll() {
-        Connection cn= null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            //cn = ConnectionPool2.getInstance().getConnection();
             Statement statement=cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_ADMIN_ALL);
             return createAdmins(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }
+        finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
 
     @Override
     public boolean update(Admin admin) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+
             PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_ADMIN);
             preparedStatement.setString(1, admin.getSurname());
             preparedStatement.setString(2, admin.getFirstName());
@@ -104,28 +103,24 @@ public class AdminDAO implements IAdminDAO {
             preparedStatement.setInt(4, admin.getId());
             preparedStatement.executeUpdate();
             return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }
+        finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
 
     @Override
     public Admin delete(Admin admin) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            Connection cn=ConnectionPool.getInstance().getConnection();
+           // Connection cn= ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(DELETE_ADMIN);
             preparedStatement.setInt(1, admin.getId());
             return null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         }
         return admin;
@@ -133,38 +128,36 @@ public class AdminDAO implements IAdminDAO {
 
     @Override
     public Admin findAdminById(int id) {
-        Connection cn= null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            //cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_ADMIN_BY_ID);
             preparedStatement.setInt(1,id);
             ResultSet resultSet=preparedStatement.executeQuery();
             return createAdmin(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
         }
-         return null;
+        finally {
+            ConnectionPool.getInstance().returnConnection(cn);
+        }
+        return null;
     }
 
     @Override
     public ArrayList<Admin> findAdminByName(String name) {
-        Connection cn= null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            cn = ConnectionPool.getInstance().getConnection();
+            //cn = ConnectionPool2.getInstance().getConnection();
             PreparedStatement preparedStatement=cn.prepareStatement(FIND_ADMIN_BY_NAME);
             preparedStatement.setString(1,name);
             ResultSet resultSet=preparedStatement.executeQuery();
             return createAdmins(resultSet);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
+        }
+        finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
