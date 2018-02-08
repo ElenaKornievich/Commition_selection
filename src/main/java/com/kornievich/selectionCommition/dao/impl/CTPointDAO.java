@@ -24,16 +24,11 @@ public class CTPointDAO implements ICTPointDAO {
     @Override
     public boolean create(CTPoint ctPoint) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_CTPOINT);
             preparedStatement.setInt(1, ctPoint.getSubjectId());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
             preparedStatement.setInt(3, ctPoint.getScope());
-
-
-
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,18 +39,22 @@ public class CTPointDAO implements ICTPointDAO {
         return false;
     }
     private ArrayList<CTPoint> readCTPoint(ResultSet resultSet) throws SQLException {
-        ArrayList<CTPoint> listCTPoint=new ArrayList<>();
-        while (resultSet.next()) {
-            CTPoint ctPoint = new CTPoint(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
-            listCTPoint.add(ctPoint);
+        if(resultSet!=null) {
+            ArrayList<CTPoint> listCTPoint = new ArrayList<>();
+            while (resultSet.next()) {
+                CTPoint ctPoint = new CTPoint(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
+                listCTPoint.add(ctPoint);
+            }
+            return listCTPoint;
         }
-        return listCTPoint;
+        return null;
     }
     private CTPoint createCTPoint(ResultSet resultSet) throws SQLException {
-        resultSet.next();
+        if (resultSet.next()) {
             return new CTPoint(resultSet.getInt(2), resultSet.getInt(1), resultSet.getInt(3));
+        }
+        return null;
     }
-
     @Override
     public ArrayList<CTPoint> readAll() {
         Connection cn = ConnectionPool.getInstance().takeConnection();

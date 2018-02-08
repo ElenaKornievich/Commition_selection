@@ -12,6 +12,7 @@ public enum CommandEnum {
     CONTACT(ContactCommand.getInstance()),
     QUEUE(QueueCommand.getInstance()),
     MAINFACULTY(MainFacultyCommand.getInstance()),
+    PERSONALAREA(PersonalAreaCommand.getInstance()),
     MMF(MMFCommand.getInstance()),
     CHANGE(ChangeCommand.getInstance()),
     CHANGEENTRANTSPECIALITY(ChangeEntrantSpeciality.getInstance()),

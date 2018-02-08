@@ -24,7 +24,8 @@ public class SpecialityService {
     }
 
     public Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace){
-        return specialityDAO.create(name, facultyId, numberOfBudgetPlace, numberOfPainPlace);
+        specialityDAO.create(name, facultyId, numberOfBudgetPlace, numberOfPainPlace);
+        return specialityDAO.findSpecialityByName(name);
     }
     public ArrayList<Speciality> readAll(){
         return specialityDAO.readAll();

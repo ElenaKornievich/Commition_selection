@@ -18,12 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Class {@code ConnectionPool2} is the class that implements {@code IConnectionPool} interface
- * to deal with the pool of pool.
- *
- * @author Veronica Bahel
- */
+
 public class ConnectionPool {
     // private static Logger logger = Logger.getLogger(ConnectionPool2.class);
 

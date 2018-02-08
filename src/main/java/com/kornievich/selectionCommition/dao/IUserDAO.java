@@ -14,9 +14,9 @@ public interface IUserDAO {
     public ArrayList<User> readUsers();
     public User findUserById(int id) throws InterruptedException, ConnectionUnavailException, SQLException;
     public User findUserByLogin(String login) throws InterruptedException, ConnectionUnavailException, SQLException;
-    public User create(String login, String password) throws SQLException, ClassNotFoundException;
+    public User create(String login, String password, String role) throws SQLException, ClassNotFoundException;
     public User read(String login, String password);
     public void update(User user);
-    public User delete(User user);
+    public boolean delete(int id);
 
 }

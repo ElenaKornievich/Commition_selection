@@ -35,9 +35,6 @@ public class EntrantDAO implements IEntrantDAO {
 
         try {
 
-            try {
-
-
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(CREATE_ENTRANT);
@@ -60,10 +57,10 @@ public class EntrantDAO implements IEntrantDAO {
                 preparedStatement.setString(17, entrant.getEmail());
                 preparedStatement.executeUpdate();
                 return true;
-            } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-        } } finally {
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
@@ -82,7 +79,7 @@ public class EntrantDAO implements IEntrantDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-ConnectionPool.getInstance().returnConnection(cn);
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return null;
     }
@@ -91,7 +88,6 @@ ConnectionPool.getInstance().returnConnection(cn);
     @Override
     public boolean update(Entrant entrant) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
             if (cn != null) {
                 PreparedStatement preparedStatement =
@@ -118,9 +114,8 @@ ConnectionPool.getInstance().returnConnection(cn);
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-ConnectionPool.getInstance().returnConnection(cn);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return false;
     }
@@ -142,8 +137,7 @@ ConnectionPool.getInstance().returnConnection(cn);
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
 
             ConnectionPool.getInstance().returnConnection(cn);
 
@@ -155,7 +149,6 @@ ConnectionPool.getInstance().returnConnection(cn);
     @Override
     public boolean delete(int id) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
 
             if (cn != null) {
@@ -167,7 +160,7 @@ ConnectionPool.getInstance().returnConnection(cn);
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
-        }finally {
+        } finally {
 
             ConnectionPool.getInstance().returnConnection(cn);
         }
@@ -175,35 +168,33 @@ ConnectionPool.getInstance().returnConnection(cn);
     }
 
     private ArrayList<Entrant> createEntrants(ResultSet resultSet) throws SQLException {
-        ArrayList<Entrant> listEntrant = new ArrayList<>();
-        while (resultSet.next()) {
-            Entrant entrant = new Entrant(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
-                    resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6),
-                    resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
-                    resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
-                    resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getBoolean(16),
-                    resultSet.getString(17));
-            listEntrant.add(entrant);
+        if(resultSet!=null) {
+            ArrayList<Entrant> listEntrant = new ArrayList<>();
+            while (resultSet.next()) {
+                Entrant entrant = new Entrant(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+                        resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6),
+                        resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
+                        resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
+                        resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getBoolean(16),
+                        resultSet.getString(17));
+                listEntrant.add(entrant);
+            }
+            return listEntrant;
         }
-        return listEntrant;
+        return null;
     }
 
     @Override
     public ArrayList<Entrant> readEntrant() {
-        ArrayList<Entrant> listEntrant = new ArrayList<>();
+
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
             Statement statement = cn.createStatement();
-
             ResultSet resultSet = statement.executeQuery(READ_ENTRANT);
-            listEntrant = createEntrants(resultSet);
-
-            return listEntrant;
+            return createEntrants(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
 
             ConnectionPool.getInstance().returnConnection(cn);
 
@@ -222,9 +213,9 @@ ConnectionPool.getInstance().returnConnection(cn);
             PreparedStatement preparedStatement = cn.prepareStatement(FIND_ENTRANT_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            listEntrants=createEntrants(resultSet);
+            listEntrants = createEntrants(resultSet);
             return listEntrants;
-        }  catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
 
@@ -234,18 +225,17 @@ ConnectionPool.getInstance().returnConnection(cn);
         return null;
     }
 
-    private Entrant createEntrant(ResultSet resultSet) {
-        try {
-            resultSet.next();
+    private Entrant createEntrant(ResultSet resultSet) throws SQLException {
+        if(resultSet.next()){
+
             return new Entrant(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
                     resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getString(8), resultSet.getString(9),
                     resultSet.getString(10), resultSet.getString(11), resultSet.getString(12),
                     resultSet.getString(13), resultSet.getString(14), resultSet.getInt(15), resultSet.getBoolean(16),
                     resultSet.getString(17));
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
         return null;
     }
 

@@ -42,9 +42,7 @@ public class CreateAdminCommand implements BaseCommand {
         try {
             if(UserService.getInstance().findUserByLogin(login)!=null)
                 return PageConstant.PAGE_ERROR;
-            User user=userDAO.create(login,password);
-            userDAO.changeRole(user, ParameterConstant.PARAMETER_ADMIN);
-            user.setRole(Roles.ADMIN);
+            User user=userDAO.create(login,password, Roles.ADMIN.getText());
             Admin admin = new Admin(user.getId(), surname, firstName, lastName);
             adminDAO.create(admin);
             return PageConstant.PAGE_ADMIN_PANEL;

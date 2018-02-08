@@ -22,28 +22,31 @@ public class FacultyDAO implements IFacultyDAO{
 
 
     private ArrayList<Faculty> createFacylties(ResultSet resultSet) throws SQLException {
-        ArrayList<Faculty> listFaculty = new ArrayList<>();
-        while (resultSet.next()){
-            Faculty faculty=new Faculty(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getString(3), resultSet.getString(4));
-            listFaculty.add(faculty);
+        if(resultSet!=null) {
+            ArrayList<Faculty> listFaculty = new ArrayList<>();
+            while (resultSet.next()) {
+                Faculty faculty = new Faculty(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4));
+                listFaculty.add(faculty);
+            }
+            return listFaculty;
         }
-        return listFaculty;
+        return null;
     }
 
     private Faculty createFaculty(ResultSet resultSet) throws SQLException {
-        resultSet.next();
-        return new Faculty(resultSet.getInt(1), resultSet.getString(2),
-                resultSet.getString(3), resultSet.getString(4));
+        if (resultSet.next()) {
+            return new Faculty(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getString(3), resultSet.getString(4));
+        }
+        return null;
     }
 
 
     @Override
     public Faculty create(String name, String startDate, String endDate) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_FACULTY);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, startDate);

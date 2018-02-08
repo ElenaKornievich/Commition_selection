@@ -32,7 +32,7 @@ public class ParameterConstant {
     public static final String  PARAMETER_DATE_OF_BIRTH = "dataOfBirth";
     public static final String  PARAMETER_NATIONALITY = "nationality";
     public static final String  PARAMETER_RESIDENCE_ADDRESS = "residenceAddress";
-    public static final String  PARAMETER_SCOPE = "scope";
+    public static final String  PARAMETER_SCORE = "score";
     public static final String PARAMETER_GOLD_MEDAL = "goldMedal";
     public static final String  PARAMETER_EMAIL = "email";
     public static final String  PARAMETER_TELEPHONE_NUMBER = "telephoneNumber";
@@ -44,6 +44,8 @@ public class ParameterConstant {
 
     public static final String  PARAMETER_DATA_OF_ISSUE = "dataOfIssue";
     public static final String  PARAMETER_DATA_OF_BIRTH = "dataOfBirth";
+    public static final String  PARAMETER_SCOPE = "scope";
+
 
 
 

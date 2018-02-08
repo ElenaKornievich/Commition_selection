@@ -1,5 +1,6 @@
 package com.kornievich.selectionCommition.service;
 
+import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
@@ -7,8 +8,10 @@ import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.util.SHA256Util;
+import javafx.util.converter.LocalDateStringConverter;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,6 +31,7 @@ public class UserService {
     }
 
 
+
     public User addUser(String login, String password, String pasportSeria,
                            int pasportNumber, String surname, String firstName, String lastName, String dataOfIssue, String identificationNumber,
                            String dataOfBirth, String nationality, String telephoneNumber, String residenceAddress, double scope, boolean goldMedal, String email){
@@ -38,8 +42,11 @@ public class UserService {
             if(userDAO.findUserByLogin(login)!=null){
                 return null;
             }
-          User user=userDAO.create(login, SHA256Util.encrypt(password));
-            Entrant entrant = new Entrant(user.getId(), "2018-12-12" , pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
+            Date date = new Date();
+            SimpleDateFormat dateNow = new SimpleDateFormat("yyyy-MM-dd");
+
+          User user=userDAO.create(login, SHA256Util.encrypt(password), Roles.ENTRANT.getText());
+            Entrant entrant = new Entrant(user.getId(), dateNow.format(date), pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
                     identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
             EntrantDAO entrantDAO=new EntrantDAO();
             System.out.println(entrant.toString());
@@ -93,8 +100,8 @@ public class UserService {
     public void update(User user){
          userDAO.update(user);
     }
-    public User delete(User user){
-        return userDAO.delete(user);
+    public boolean delete(int id){
+        return userDAO.delete(id);
     }
 
 

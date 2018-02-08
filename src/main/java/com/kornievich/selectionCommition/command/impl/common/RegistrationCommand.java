@@ -37,7 +37,7 @@ public class RegistrationCommand implements BaseCommand {
         String dataOfBirth = request.getParameter(ParameterConstant.PARAMETER_DATA_OF_BIRTH);
         String nationality = request.getParameter(ParameterConstant.PARAMETER_NATIONALITY);
         String residenceAddress = request.getParameter(ParameterConstant.PARAMETER_RESIDENCE_ADDRESS);
-        double scope =Double.valueOf(request.getParameter(ParameterConstant.PARAMETER_SCOPE));
+        double score =Double.valueOf(request.getParameter(ParameterConstant.PARAMETER_SCORE));
         boolean goldMedal =Boolean.valueOf(request.getParameter(ParameterConstant.PARAMETER_GOLD_MEDAL));
         String email = request.getParameter(ParameterConstant.PARAMETER_EMAIL);
         String telephoneNumber = request.getParameter(ParameterConstant.PARAMETER_TELEPHONE_NUMBER);
@@ -51,7 +51,7 @@ public class RegistrationCommand implements BaseCommand {
            // User user = new User(login, password, Roles.ENTRANT);
             User user = UserService.getInstance().addUser(login, password, pasportSeria,
                     pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,
-                    dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
+                    dataOfBirth, nationality, telephoneNumber, residenceAddress, score, goldMedal, email);
             if (user!=null) {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());

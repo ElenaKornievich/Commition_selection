@@ -29,11 +29,9 @@
 
 <div class="ui attached stackable menu">
     <div class="ui container">
-        <a class="item">
-            <i class="home icon"></i> Home
-        </a>
+
         <a href="controller?command=main" class="item">
-            <i class="grid layout icon"></i> Главная
+            <i class="home icon"></i> Главная
         </a>
         <c:set var = "personalArea" scope = "session" value = "${role}"/>
         <c:set var = "adminPanel" scope = "session" value = "admin"/>
@@ -41,11 +39,11 @@
         <c:choose>
         <c:when test="${role == adminPanel}">
         <a href="controller?command=adminPanel" class="item">
-            <i class="mail icon"></i> Панель администратора</a>
+            Панель администратора</a>
         </c:when>
         <c:when test="${role == personalArea}">
         <a href="controller?command=personalArea" class="item">
-            <i class="mail icon"></i> Личный кабинет</a>
+           Личный кабинет</a>
         </c:when>
             <c:otherwise>
             </c:otherwise>
@@ -68,9 +66,6 @@
         <a href="controller?command=registration" class="item">Регистрация</a></c:if>
         <c:if test="${not empty user}"><a href="controller?command=logout" class="item">Выход</a></c:if>
 
-        <div class="right item">
-            <div class="ui input"><input type="text" placeholder="Search..."></div>
-        </div>
     </div>
 </div>
 

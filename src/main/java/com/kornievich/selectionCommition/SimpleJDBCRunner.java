@@ -5,10 +5,13 @@ import com.kornievich.selectionCommition.dao.impl.*;
 import com.kornievich.selectionCommition.entity.*;
 import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.service.SubjectService;
+import com.kornievich.selectionCommition.service.UserService;
 import com.kornievich.selectionCommition.util.SHA256Util;
 import org.w3c.dom.UserDataHandler;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class SimpleJDBCRunner {
@@ -46,7 +49,15 @@ public class SimpleJDBCRunner {
 //SubjectDAO subjectDAO=new SubjectDAO();
         //System.out.println(subjectDAO.findSubjectById(1));
         //System.out.println(SubjectService.getInstance().findSubjectById(1));
-        String str="bvaleo";
-        System.out.println(SHA256Util.encrypt(str));
+        //String str="bvaleo";
+        //System.out.println(SHA256Util.encrypt(str));
+       // java.util.Date dateNow = new Date();
+      //  SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+
+       // System.out.println("Текущая дата " + formatForDateNow.format(dateNow));
+//UserDAO userDAO=new UserDAO();
+       // User user = userDAO.create("aaaa","qqqq");
+       // userDAO.changeRole(user, "admin");
+        System.out.println(Roles.ADMIN.getText());
     }
 }

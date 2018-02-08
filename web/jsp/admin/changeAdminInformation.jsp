@@ -1,41 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<? xml version="1.0" encoding="UTF-8" ?>
-Hello,
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Surname</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-    </tr>
-    <tr>${admin.getId()}</tr>
-    <tr>
-        ${admin.getSurname()}
-    </tr>
-    <tr>
-        ${admin.getFirstName()}
-    </tr>
-    <tr>
-        ${admin.getSecondName()}
-    </tr>
-</table>
-<form name="changeAdminInform" method="get" action="controller" onsubmit="return validateAdminInformation()">
-<input type="hidden" name="idAdmin" value="${admin.getId()}">
-<input type="text" name="surname" value="${admin.getSurname()}">
-<input type="text" name="firstName" value="${admin.getFirstName()}">
-<input type="text" name="lastName" value="${admin.getSecondName()}">
-
-    <input type="hidden" name="command" value="changeAdmin"/>
-    <div class="ui buttons">
-
-        <input class="ui button" type="submit" value="Cancel" name="cancel" formaction="controller" formmethod="get" />
-<div class="or"></div>
-        <input type="submit" class="ui positive button" name="change" formmethod="post" formaction="controller"
-               value="Change"/>
-
-        <c:set var="execute" value="${execute}"/>
-        <c:if test="${execute>0}">
-            Выполнено!!!!
-        </c:if>
+<form name="changeAdminInform" method="post" action="controller" onsubmit="return validateAdminInformation()">
+    <input type="hidden" name="idAdmin" value="${admin.getId()}">
+    <div class="ui form">
+        <div class="fields">
+            <div class="field">
+                <label>Фамилия</label>
+                <div class="ui input">
+                    <input type="text" name="surname" value="${admin.getSurname()}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Имя</label>
+                <div class="ui input">
+                    <input type="text" name="firstName" value="${admin.getFirstName()}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Отчество</label>
+                <div class="ui input">
+                    <input type="text" name="lastName" value="${admin.getSecondName()}">
+                </div>
+            </div>
+        </div>
     </div>
+            <input type="hidden" name="command" value="changeAdmin"/>
+
+            <div class="ui field" style="margin-left: 17.6%">
+
+                <div class="ui buttons">
+
+                    <div class="ui button">
+                        <a href="controller?command=adminPanel">Отмена</a>
+                    </div>
+                    <div class="or"></div>
+                    <input type="submit" class="ui positive button" name="change" value="Сохранить"/>
+
+                    <c:set var="execute" value="${execute}"/>
+                    <c:if test="${execute>0}">
+                        Выполнено!!!!
+                    </c:if>
+                </div>
+            </div>
+
 </form>

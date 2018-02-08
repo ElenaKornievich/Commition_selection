@@ -20,7 +20,8 @@ public class UserDAO implements IUserDAO {
     private static final String READ_USERS = "SELECT * FROM selection_commition.users";
     private static final String FINE_USER_BY_ID = "SELECT * FROM selection_commition.users WHERE UserID=?";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM selection_commition.users WHERE Login=?";
-    private static final String CREATE_USER = "INSERT INTO selection_commition.users (Login, Password, Role) VALUES (?, ?,'entrant')";
+    private static final String CREATE_USER = "INSERT INTO selection_commition.users (Login, Password, Role) VALUES (?, ?, ?)";
+
     private static final String READ_USER = "SELECT * FROM selection_commition.users WHERE users.Login=? AND users.Password=?";
     private static final String UPDATE_USER = "UPDATE selection_commition.users SET selection_commition.users.Login = ?, " +
             "selection_commition.users.Password = ?, " +
@@ -30,26 +31,15 @@ public class UserDAO implements IUserDAO {
     public boolean changeRole(User user, String role) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            cn = ConnectionPool2.getInstance().getConnection();
+
             PreparedStatement preparedStatement = cn.prepareStatement(CHANGE_ROLE);
             preparedStatement.setString(1, role);
             preparedStatement.setInt(2, user.getId());
             return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ConnectionUnavailException e) {
-            e.printStackTrace();
-        }finally {
-ConnectionPool.getInstance().returnConnection(cn);
-            /*if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }*/
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
 
         }
         return false;
@@ -60,7 +50,7 @@ ConnectionPool.getInstance().returnConnection(cn);
         Connection cn = ConnectionPool.getInstance().takeConnection();
         ArrayList<User> users = new ArrayList<>();
         try {
-                //cn = ConnectionPool2.getInstance().getConnection();
+
             if (cn != null) {
                 Statement statement = cn.createStatement();
 
@@ -77,43 +67,34 @@ ConnectionPool.getInstance().returnConnection(cn);
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
         } finally {
-ConnectionPool.getInstance().returnConnection(cn);
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
 
         }
         return null;
     }
 
-    private User createUser(ResultSet resultSet) {
-        try {
-            resultSet.next();
-            User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private User createUser(ResultSet resultSet) throws SQLException {
+     if(resultSet.next()) {
+
+         User user = new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), Roles.valueOf(resultSet.getString(4).toUpperCase()));
+         return user;
+     }
         return null;
     }
 
-    public User findUserById(int id){
+    public User findUserById(int id) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
             //cn = ConnectionPool2.getInstance().getConnection();
 
-        PreparedStatement preparedStatement = cn.prepareStatement(FINE_USER_BY_ID);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        return createUser(resultSet);
+            PreparedStatement preparedStatement = cn.prepareStatement(FINE_USER_BY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return createUser(resultSet);
         } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-ConnectionPool.getInstance().returnConnection(cn);
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
           /*  if (cn != null) {
                 try {
                     cn.close();
@@ -132,20 +113,23 @@ ConnectionPool.getInstance().returnConnection(cn);
         preparedStatement.setString(1, login);
         ResultSet resultSet = preparedStatement.executeQuery();
         ConnectionPool.getInstance().returnConnection(cn);
-        return createUser(resultSet);
+        if(resultSet!=null){
+        return createUser(resultSet);}
+        return null;
     }
 
-    public User create(String login, String password) throws SQLException, ClassNotFoundException {
+    public User create(String login, String password, String role) throws SQLException, ClassNotFoundException {
         // DriverManager.registerDriver(DRIVER);
         Connection cn = ConnectionPool.getInstance().takeConnection();
         //Statement st = null;
-            try {
-               // cn = ConnectionPool2.getInstance().getConnection();
+        try {
+            // cn = ConnectionPool2.getInstance().getConnection();
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(CREATE_USER);
                 preparedStatement.setString(1, login);
                 preparedStatement.setString(2, password);
+                preparedStatement.setString(3, role);
                 preparedStatement.executeUpdate();
                 return findUserByLogin(login);
             } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
@@ -157,15 +141,7 @@ ConnectionPool.getInstance().returnConnection(cn);
         } catch (ConnectionUnavailException e) {
             e.printStackTrace();
         } finally {
-ConnectionPool.getInstance().returnConnection(cn);
-           /* if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }*/
-
+            ConnectionPool.getInstance().returnConnection(cn);
         }
 
         return null;
@@ -173,13 +149,8 @@ ConnectionPool.getInstance().returnConnection(cn);
 
     public User read(String login, String password) {
         User user = null;
-        Connection cn = null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(READ_USER);
@@ -195,26 +166,14 @@ ConnectionPool.getInstance().returnConnection(cn);
             System.err.println("DB connection error: " + e);
         } finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
+          ConnectionPool.getInstance().returnConnection(cn);
         }
         return user;
     }
 
     public void update(User user) {
-        Connection cn = null;
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(UPDATE_USER);
@@ -227,48 +186,29 @@ ConnectionPool.getInstance().returnConnection(cn);
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
         } finally {
-
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
+            ConnectionPool.getInstance().returnConnection(cn);
 
 
         }
     }
 
-    public User delete(User user) {
-        Connection cn = null;
+    public boolean delete(int id) {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            try {
-                cn = ConnectionPool2.getInstance().getConnection();
-            } catch (InterruptedException | ConnectionUnavailException e) {
-                e.printStackTrace();
-            }
+
             if (cn != null) {
                 PreparedStatement preparedStatement =
                         cn.prepareStatement(DELETE_USER);
-                preparedStatement.setInt(1, user.getId());
+                preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
-                return null;
+                return true;
             } else System.out.println("Всё плохо 2, ошибка в коннекшне");
         } catch (SQLException e) {
             System.err.println("DB connection error: " + e);
         } finally {
 
-            if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-
-
+           ConnectionPool.getInstance().returnConnection(cn);
         }
-        return user;
+        return false;
     }
 }

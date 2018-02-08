@@ -40,9 +40,9 @@ public class LoginCommand implements BaseCommand {
         String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
         try {
             User user = UserService.getInstance().findUser(login, password);
-            if(user!=null){
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());
+            if (user != null) {
+                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
+                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());
                 if (user.getRole() == Roles.ADMIN) {
                     request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
                     request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ADMIN);
@@ -53,8 +53,8 @@ public class LoginCommand implements BaseCommand {
                 } else {
                     Entrant entrant = entrantDAO.findEntrantById(user.getId());
                     request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, entrant);
-                   // request.getSession().setAttribute("surname", entrant.getSurname());
-                   // request.getSession().setAttribute("firstName", entrant.getFirstName());
+                    // request.getSession().setAttribute("surname", entrant.getSurname());
+                    // request.getSession().setAttribute("firstName", entrant.getFirstName());
                     //request.getSession().setAttribute("lastName", entrant.getLastName());
                     //request.getSession().setAttribute("pasportSeria", entrant.getPasportSeries());
                     //request.getSession().setAttribute("pasportNomer", entrant.getPassportNumber());
@@ -70,7 +70,7 @@ public class LoginCommand implements BaseCommand {
                     //SpecialityDAO specialityDAO = new SpecialityDAO();
                     //request.getSession().setAttribute("specialityId",entrant.getSpecialityId());
 
-                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_CTPOINT_ENTRANT);
+                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ENTRANT);
                     page = PageConstant.PAGE_PERSONAL_AREA;
                 }
                 // page = (String) request.getSession().getAttribute("previousPage");

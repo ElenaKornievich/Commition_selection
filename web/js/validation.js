@@ -64,9 +64,9 @@ function validateRegistrationForm() {
         alert("residenceAddress must be filled out");
         return false;
     }
-    var scope = document.forms["registration"]["scope"].value;
-    if (scope == "") {
-        alert("scope must be filled out");
+    var score = document.forms["registration"]["score"].value;
+    if (score == "") {
+        alert("score must be filled out");
         return false;
     }
     var goldMedal = document.forms["registration"]["goldMedal"].value;

@@ -58,20 +58,27 @@ public class AdminDAO implements IAdminDAO {
     }
 
     private ArrayList<Admin> createAdmins(ResultSet resultSet) throws SQLException {
-        ArrayList<Admin> listAdmin = new ArrayList<>();
-        while (resultSet.next()){
-            Admin admin=new Admin(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getString(3), resultSet.getString(4));
-            listAdmin.add(admin);
+
+        if(resultSet!=null) {
+            ArrayList<Admin> listAdmin = new ArrayList<>();
+            while (resultSet.next()) {
+                Admin admin = new Admin(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4));
+                listAdmin.add(admin);
+            }
+            return listAdmin;
         }
-        return listAdmin;
+        return null;
     }
 
     private Admin createAdmin(ResultSet resultSet) throws SQLException {
-        ArrayList<Admin> listAdmin = new ArrayList<>();
-       resultSet.next();
+        if (resultSet.next()) {
+            ArrayList<Admin> listAdmin = new ArrayList<>();
+
             return new Admin(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getString(4));
+        }
+        return null;
     }
 
     @Override
@@ -122,6 +129,8 @@ public class AdminDAO implements IAdminDAO {
             return null;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
         }
         return admin;
     }

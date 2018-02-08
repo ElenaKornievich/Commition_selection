@@ -39,17 +39,22 @@ public class FacultySubjectDAO implements IFacultySubjectsDAO{
 
 
     private ArrayList<FacultySubject> createFacultySubjects(ResultSet resultSet) throws SQLException {
-        ArrayList<FacultySubject> listFacultySubject=new ArrayList<>();
-        while (resultSet.next()){
-            FacultySubject facultySubject=new FacultySubject(resultSet.getInt(1), resultSet.getInt(2));
-            listFacultySubject.add(facultySubject);
+        if (resultSet != null) {
+            ArrayList<FacultySubject> listFacultySubject = new ArrayList<>();
+            while (resultSet.next()) {
+                FacultySubject facultySubject = new FacultySubject(resultSet.getInt(1), resultSet.getInt(2));
+                listFacultySubject.add(facultySubject);
+            }
+            return listFacultySubject;
         }
-        return listFacultySubject;
+        return null;
     }
 
     private FacultySubject createFacultySubject(ResultSet resultSet) throws SQLException {
-       resultSet.next();
+        if (resultSet.next()) {
             return new FacultySubject(resultSet.getInt(1), resultSet.getInt(2));
+        }
+        return null;
     }
 
     @Override

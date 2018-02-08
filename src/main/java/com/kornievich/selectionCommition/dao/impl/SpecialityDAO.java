@@ -22,25 +22,32 @@ public class SpecialityDAO implements ISpecialityDAO {
 
 
     private ArrayList<Speciality> createSpecialities(ResultSet resultSet) throws SQLException {
-        ArrayList<Speciality> listSpeciality = new ArrayList<>();
-        while (resultSet.next()){
-            Speciality speciality=new Speciality(resultSet.getInt(1), resultSet.getString(2),
-                    resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
-            listSpeciality.add(speciality);
+        if(resultSet!=null) {
+            ArrayList<Speciality> listSpeciality = new ArrayList<>();
+            while (resultSet.next()) {
+                Speciality speciality = new Speciality(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
+                listSpeciality.add(speciality);
+            }
+            return listSpeciality;
         }
-        return listSpeciality;
+        return null;
     }
 
-    private Speciality createSpeciality(ResultSet resultSet) throws SQLException {
-        resultSet.next();
-        return new Speciality(resultSet.getInt(1), resultSet.getString(2),
-                resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
 
+    private Speciality createSpeciality(ResultSet resultSet) throws SQLException {
+        if (resultSet.next()) {
+
+            return new Speciality(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
+
+        }
+        return null;
     }
 
 
     @Override
-    public Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace) {
+    public String create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace) {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
             PreparedStatement preparedStatement=cn.prepareStatement(CREATE_SPECIALITY);
@@ -49,7 +56,7 @@ public class SpecialityDAO implements ISpecialityDAO {
             preparedStatement.setInt(3, numberOfBudgetPlace);
             preparedStatement.setInt(4, numberOfPainPlace);
             preparedStatement.executeUpdate();
-            return findSpecialityByName(name);
+            return name;
         }  catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -70,7 +77,6 @@ public class SpecialityDAO implements ISpecialityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-
            ConnectionPool.getInstance().returnConnection(cn);
 
         }

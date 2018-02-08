@@ -26,10 +26,13 @@ public class RequestsDAO {
             PreparedStatement preparedStatement=cn.prepareStatement(ALL_ENTRANT_SCORE_BY_SPESIALTY);
             preparedStatement.setInt(1, idSpesialty);
             ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()){
-                    entrant.add(new EntrantInQueueModal(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5)));
+            if(resultSet!=null) {
+                while (resultSet.next()) {
+                    entrant.add(new EntrantInQueueModal(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5)));
                 }
-            return entrant;
+                return entrant;
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,12 +46,14 @@ public class RequestsDAO {
         try {
             Statement statement=cn.createStatement();
            ResultSet resultSet= statement.executeQuery(ALL_SPESIALTY);
-           ArrayList<Integer> allIdSpesialty = new ArrayList<>();
-           while (resultSet.next()){
-               allIdSpesialty.add(resultSet.getInt(1));
+           if(resultSet!=null) {
+               ArrayList<Integer> allIdSpesialty = new ArrayList<>();
+               while (resultSet.next()) {
+                   allIdSpesialty.add(resultSet.getInt(1));
+               }
+               return allIdSpesialty;
            }
-            return allIdSpesialty;
-
+           return null;
         }  catch (SQLException e) {
             e.printStackTrace();
         }

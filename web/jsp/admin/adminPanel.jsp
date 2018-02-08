@@ -126,7 +126,6 @@
                 <%@include file="changeAdminInformation.jsp"%>
             </c:when>
             <c:when test="${nav == 3}">
-                list 3
             </c:when>
             <c:when test="${nav == 4}">
                 <%@include file="pointCTEntrant.jsp"%>

@@ -21,17 +21,22 @@ public class SubjectDAO  implements ISubjectDAO{
 
 
     private ArrayList<Subject> createSubjects(ResultSet resultSet) throws SQLException {
-        ArrayList<Subject> listSubject=new ArrayList<>();
-        while (resultSet.next()){
-            Subject subject=new Subject(resultSet.getInt(1), resultSet.getString(2));
-            listSubject.add(subject);
+        if(resultSet!=null) {
+            ArrayList<Subject> listSubject = new ArrayList<>();
+            while (resultSet.next()) {
+                Subject subject = new Subject(resultSet.getInt(1), resultSet.getString(2));
+                listSubject.add(subject);
+            }
+            return listSubject;
         }
-        return listSubject;
+        return null;
     }
 
     private Subject createSubject(ResultSet resultSet) throws SQLException {
-        resultSet.next();
-        return new Subject(resultSet.getInt(1), resultSet.getString(2));
+        if (resultSet.next()) {
+            return new Subject(resultSet.getInt(1), resultSet.getString(2));
+        }
+        return null;
     }
 
     @Override

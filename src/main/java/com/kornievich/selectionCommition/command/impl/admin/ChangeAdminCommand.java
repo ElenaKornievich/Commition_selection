@@ -30,7 +30,7 @@ public class ChangeAdminCommand implements BaseCommand{
         adminDAO.update(admin);
 
         request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 0);
         request.setAttribute(AttributeConstant.ATTRIBUTE_EXECUTE, 10);
         return PageConstant.PAGE_ADMIN_PANEL;
     }

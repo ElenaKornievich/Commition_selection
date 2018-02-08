@@ -20,7 +20,6 @@ public class QueueCommand implements BaseCommand {
     public QueueCommand() {
     }
 
-    ;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -35,7 +34,7 @@ public class QueueCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAll());
+        request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAll());
         return PageConstant.PAGE_QUEUE;
 
     }

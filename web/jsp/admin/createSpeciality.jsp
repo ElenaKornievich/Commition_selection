@@ -39,9 +39,9 @@
                     <c:url value="controller?command=adminPanel" var="change">
                         <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
                     </c:url>
-                    <div class="ui button"><a href=${change}>Cancel</a></div>
+                    <div class="ui button"><a href="controller?command=adminPanel">Отмена</a></div>
                     <div class="or"></div>
-                    <input class="ui positive button" type="submit" value="Create" name="create"/>
+                    <input class="ui positive button" type="submit" value="Сохранить" name="create"/>
                 </div>
             </div>
         </div>

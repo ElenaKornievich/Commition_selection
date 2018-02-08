@@ -23,16 +23,16 @@
     <input type="hidden" value="${entrant.getSpecialityId()}" name="specialityId" size="10"/><br>
 
     <p>
-    <table>
-        <tr>
-            <th>
-                <small>
-                    <input type="submit" name="save" value="Сохранить"/>
-                </small>
-            <th>
-                <small>
-                    <input type="button" name="cancel" value="Выйти"/>
-                </small>
-    </table>
+
+    <div class="ui field" style="margin-left: 17.6%">
+        <div class="ui buttons">
+            <div class="ui button" >
+                <a href="controller?command=main">Отмена</a>
+            </div>
+            <div class="or"></div>
+            <input type="submit" class="ui positive button" name="save" value="Сохранить"/>
+        </div>
+    </div>
+
 </form>
 

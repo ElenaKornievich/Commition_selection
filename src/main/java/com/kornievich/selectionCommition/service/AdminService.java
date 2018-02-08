@@ -27,6 +27,7 @@ public class AdminService {
     }
 
     public boolean create(Admin admin){
+
         return adminDAO.create(admin);
     }
     public ArrayList<Admin> readAll(){
