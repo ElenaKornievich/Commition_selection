@@ -7,14 +7,14 @@ import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.util.SHA256Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegistrationService {
-
-    // private static Logger logger = Logger.getLogger(UserService.class);
-
+    static final Logger LOGGER = LogManager.getLogger(RegistrationService.class);
     private static RegistrationService instance;
     private UserDAO userDAO;
     private EntrantDAO entrantDAO;
@@ -24,6 +24,7 @@ public class RegistrationService {
 
     }
     public static RegistrationService getInstance() {
+        LOGGER.info("The getInstance() method is called");
         if(instance==null){
             instance = new RegistrationService();
         }
@@ -33,7 +34,7 @@ public class RegistrationService {
     public User registrationEntrant(String login, String password, String pasportSeria,
                         int pasportNumber, String surname, String firstName, String lastName, String dataOfIssue, String identificationNumber,
                         String dataOfBirth, String nationality, String telephoneNumber, String residenceAddress, double scope, boolean goldMedal, String email) throws DAOException {
-
+        LOGGER.info("The registrationEntrant() method is called");
         if(userDAO.findUserByLogin(login)!=null){
             return null;
         }

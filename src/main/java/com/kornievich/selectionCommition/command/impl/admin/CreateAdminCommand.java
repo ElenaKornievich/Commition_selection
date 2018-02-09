@@ -11,13 +11,15 @@ import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.AdminService;
 import com.kornievich.selectionCommition.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class CreateAdminCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(CreateAdminCommand.class);
 
     private static CreateAdminCommand instance = new CreateAdminCommand();
 
@@ -26,15 +28,12 @@ public class CreateAdminCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
         String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
         String surname = request.getParameter(ParameterConstant.PARAMETER_SURNAME);
         String firstName = request.getParameter(ParameterConstant.PARAMETER_FIRST_NAME);
         String lastName = request.getParameter(ParameterConstant.PARAMETER_LAST_NAME);
-
-        //UserDAO userDAO = new UserDAO();
-        //AdminDAO adminDAO=new AdminDAO();
-
         System.out.println(surname + firstName + lastName);
 
         try {
@@ -51,8 +50,7 @@ public class CreateAdminCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-
-
+        LOGGER.info("The getPage() method is called");
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 5);
 
         return PageConstant.PAGE_ADMIN_PANEL;

@@ -7,12 +7,14 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.entity.Speciality;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SpecialityService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ChangeSpecialityCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(ChangeSpecialityCommand.class);
 
     private static ChangeSpecialityCommand instance = new ChangeSpecialityCommand();
 
@@ -22,6 +24,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int specialityId =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
         String specialityName = request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_NAME);
         int facultyId =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
@@ -36,6 +39,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         int specialityId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
         System.out.println(specialityId);
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,11);

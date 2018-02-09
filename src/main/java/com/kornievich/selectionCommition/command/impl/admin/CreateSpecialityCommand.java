@@ -7,12 +7,14 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SpecialityService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateSpecialityCommand  implements BaseCommand{
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(CreateSpecialityCommand.class);
 
     private static CreateSpecialityCommand instance = new CreateSpecialityCommand();
 
@@ -22,6 +24,7 @@ public class CreateSpecialityCommand  implements BaseCommand{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int numberOfBudgetPlaces =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_NUMBER_BUDGET_PLACE));
         int numberOfPainPlaces = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_NUMBER_PAIN_PLACE));
         int facultyId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
@@ -38,6 +41,7 @@ public class CreateSpecialityCommand  implements BaseCommand{
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         FacultyDAO facultyDAO=new FacultyDAO();
         try {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES,facultyDAO.readAllFaculties());

@@ -1,6 +1,7 @@
-package com.kornievich.selectionCommition.command.impl.common;
+package com.kornievich.selectionCommition.command.impl.entrant;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
@@ -8,12 +9,14 @@ import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ChangeCommand  implements BaseCommand{//  private static Logger logger = Logger.getLogger(LoginCommand.class);
-
+public class ChangeCommand  implements BaseCommand{
+    static final Logger LOGGER = LogManager.getLogger(ChangeCommand.class);
     private static ChangeCommand instance = new ChangeCommand();
 
     public ChangeCommand() {
@@ -21,6 +24,7 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         String surname=request.getParameter(ParameterConstant.PARAMETER_SURNAME);
         String firstName=request.getParameter(ParameterConstant.PARAMETER_FIRST_NAME);
         String lastName=request.getParameter(ParameterConstant.PARAMETER_LAST_NAME);

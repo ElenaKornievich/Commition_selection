@@ -7,12 +7,14 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SubjectService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateSubjectCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(CreateSubjectCommand.class);
 
     private static CreateSubjectCommand instance = new CreateSubjectCommand();
 
@@ -22,6 +24,7 @@ public class CreateSubjectCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         String nameSubject= request.getParameter(ParameterConstant.PARAMETER_SUBJECT_NAME);
         try {
             if(SubjectService.getInstance().findSubjectByName(nameSubject)!=null){
@@ -35,9 +38,9 @@ public class CreateSubjectCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        SubjectDAO subjectDAO=new SubjectDAO();
+        LOGGER.info("The getPage() method is called");
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
         }

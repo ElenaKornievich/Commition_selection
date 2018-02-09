@@ -7,12 +7,14 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteEntrantCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(DeleteEntrantCommand.class);
 
     private static DeleteEntrantCommand instance = new DeleteEntrantCommand();
 
@@ -22,6 +24,7 @@ public class DeleteEntrantCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int idEntrant =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_ID_ENTRANT));
         System.out.println(idEntrant);
         try {
@@ -35,6 +38,7 @@ public class DeleteEntrantCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         int idEntrant =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_ID_ENTRANT));
         System.out.println(idEntrant);
         try {

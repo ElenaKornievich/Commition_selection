@@ -6,12 +6,14 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SubjectService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubjectCommand implements BaseCommand
-{  //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+public class SubjectCommand implements BaseCommand{
+    static final Logger LOGGER = LogManager.getLogger(SubjectCommand.class);
 
     private static SubjectCommand instance = new SubjectCommand();
 
@@ -20,6 +22,7 @@ public class SubjectCommand implements BaseCommand
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int subjectId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ID));
         try {
             SubjectService.getInstance().deleteSubject(subjectId);
@@ -31,6 +34,7 @@ public class SubjectCommand implements BaseCommand
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         try {
             request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SUBJECT, SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {

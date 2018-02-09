@@ -22,6 +22,7 @@ public class UserService {
 
     }
     public static UserService getInstance() {
+        LOGGER.info("The getInstance() method is called");
         if(instance==null){
             instance = new UserService();
         }
@@ -49,7 +50,7 @@ public class UserService {
     }
 */
     public User findUser(String login, String password) throws DAOException {
-        LOGGER.info("The calculateArea() method is called with the input data" + login + " " + password);
+        LOGGER.info("The findUser() method is called with the input data" + login + " " + password);
            User user = userDAO.findUserByLogin(login);
             if(user!=null){
                 if (user.getPassword().equals(SHA256Util.encrypt(password))) {
@@ -61,25 +62,32 @@ public class UserService {
 
     }
     public boolean changeUserRole(User user, String role) throws DAOException {
+        LOGGER.info("The changeUserRole() method is called");
         return userDAO.changeUserRole(user, role);
     }
     public ArrayList<User> readAllUsers() throws DAOException {
+        LOGGER.info("The readAllUsers() method is called");
         return userDAO.readAllUsers();
     }
     public User findUserById(int id) throws DAOException {
+        LOGGER.info("The findUserById() method is called");
         return userDAO.findUserById(id);
     }
     public User findUserByLogin(String login) throws DAOException {
+        LOGGER.info("The findUserByLogin() method is called");
         return userDAO.findUserByLogin(login);
     }
 
     public void updateUser(User user) throws DAOException {
+        LOGGER.info("The updateUser() method is called");
          userDAO.updateUser(user);
     }
     public boolean deleteUser(int id) throws DAOException {
+        LOGGER.info("The deleteUser() method is called");
         return userDAO.deleteUser(id);
     }
     public User createUser(String login, String password, String role) throws DAOException{
+        LOGGER.info("The createUser() method is called");
         return userDAO.createUser(login, password, role);
     }
 

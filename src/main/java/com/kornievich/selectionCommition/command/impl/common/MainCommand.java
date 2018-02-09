@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
@@ -9,12 +10,15 @@ import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 public class MainCommand implements BaseCommand {
+    static final Logger LOGGER = LogManager.getLogger(MainCommand.class);
     private static MainCommand instance = new MainCommand();
 
     public MainCommand() {
@@ -23,11 +27,11 @@ public class MainCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         String page = null;
-        UserDAO userDAO=new UserDAO();
         ArrayList<User> users = null;
         try {
-            users = userDAO.readAllUsers();
+            users = UserService.getInstance().readAllUsers();
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -57,6 +61,7 @@ public class MainCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
        // RequestsDAO requestsDAO = new RequestsDAO();
        // ArrayList<Integer> entrant;
         //ArrayList<Integer> allIdSpesiality = requestsDAO.readAllIdSpecialties();

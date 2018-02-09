@@ -10,12 +10,14 @@ import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.FacultySubjectsService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateFacultyCommand implements BaseCommand {
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(CreateFacultyCommand.class);
 
     private static CreateFacultyCommand instance = new CreateFacultyCommand();
 
@@ -25,6 +27,7 @@ public class CreateFacultyCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int subjectOneId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ONE_ID));
         int subjectTwoId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_TWO_ID));
         int subjectThreeId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_THREE_ID));
@@ -45,6 +48,7 @@ public class CreateFacultyCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         SubjectDAO subjectDAO=new SubjectDAO();
         try {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());

@@ -5,13 +5,41 @@
 
 <%@include file="header.jsp"%>
 
-<h1>Тут много текста о всех факультетах</h1>
-<table>
-    <c:forEach var = "faculty" items="${listFaculty}"><tr>
-       <td> <c:out value = "${faculty.getName()}"/></td>
-        <td><c:out value = "${faculty.getStartDateOfFiling()}"/></td>
-        <td> <c:out value = "${faculty.getEndDateOfFiling()}"/></td></tr>
+<h1>Список всех факультетов</h1>
+<div class="ui form">
+    <div class="three fields">
+        <div class="field">
+            <label>Название</label>
+
+        </div>
+        <div class="field">
+            <label>Дата начала приёма документов</label>
+
+        </div>
+        <div class="field">
+            <label>Дата окончания приёма документов</label>
+
+        </div>
+    </div>
+</div>
+    <c:forEach var = "faculty" items="${listFaculty}">
+        <div class="ui form">
+        <div class="three fields">
+        <div class="field">
+
+       <c:out value = "${faculty.getName()}"/>
+        </div>
+        <div class="field">
+
+        <c:out value = "${faculty.getStartDateOfFiling()}"/>
+        </div>
+        <div class="field">
+
+        <c:out value = "${faculty.getEndDateOfFiling()}"/>
+        </div>
+        </div>
+        </div>
     </c:forEach>
-</table>
+
 </body>
 </html>

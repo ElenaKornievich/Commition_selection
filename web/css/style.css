@@ -52,3 +52,8 @@ li a{
     position: center;
 
 }
+.form-position{
+position: center;
+    width: 60%;
+    margin-left: 30%;
+}

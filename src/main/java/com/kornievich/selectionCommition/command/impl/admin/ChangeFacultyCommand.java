@@ -11,6 +11,8 @@ import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.FacultySubjectsService;
 import com.kornievich.selectionCommition.service.SubjectService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 public class ChangeFacultyCommand implements BaseCommand {
 
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(ChangeFacultyCommand.class);
 
     private static ChangeFacultyCommand instance = new ChangeFacultyCommand();
 
@@ -29,6 +31,7 @@ public class ChangeFacultyCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         int subjectOneId =Integer.valueOf(request.getParameter("subjectOneId"));
         int subjectTwoId = Integer.valueOf(request.getParameter("subjectTwoId"));
         int subjectThreeId = Integer.valueOf(request.getParameter("subjectThreeId"));
@@ -48,6 +51,7 @@ public class ChangeFacultyCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         int facultyId = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
        // String name= request.getParameter("facultyName");
         //String startDate = request.getParameter("startDateOfFiling");

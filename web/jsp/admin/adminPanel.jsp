@@ -27,8 +27,8 @@
     changeAdmin
 
     </a>
-    <a class="item" href="controller?command=aboutMe">
-        aboutMe
+    <a class="item" href="controller?command=adminInformation">
+        My information
 
     </a>
     <a class="item" href="controller?command=changeButton">
@@ -126,6 +126,7 @@
                 <%@include file="changeAdminInformation.jsp"%>
             </c:when>
             <c:when test="${nav == 3}">
+                <%@include file="adminInformation.jsp"%>
             </c:when>
             <c:when test="${nav == 4}">
                 <%@include file="pointCTEntrant.jsp"%>

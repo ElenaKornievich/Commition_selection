@@ -3,6 +3,9 @@ package com.kornievich.selectionCommition.command;
 import com.kornievich.selectionCommition.command.impl.admin.*;
 import com.kornievich.selectionCommition.command.impl.admin.FacultyCommand;
 import com.kornievich.selectionCommition.command.impl.common.*;
+import com.kornievich.selectionCommition.command.impl.entrant.ChangeCommand;
+import com.kornievich.selectionCommition.command.impl.entrant.ChangeEntrantSpeciality;
+import com.kornievich.selectionCommition.command.impl.entrant.PersonalAreaCommand;
 
 public enum CommandEnum {
     LOGIN (LoginCommand.getInstance()),
@@ -34,6 +37,7 @@ public enum CommandEnum {
     CHANGESPECIALITY(ChangeSpecialityCommand.getInstance()),
     SUBJECT(SubjectCommand.getInstance()),
     FACULTY(FacultyCommand.getInstance()),
+    ADMININFORMATION(AdminInformationCommand.getInstance()),
     SPECIALITY(SpecialityCommand.getInstance());
         BaseCommand command;
     CommandEnum(BaseCommand instance){

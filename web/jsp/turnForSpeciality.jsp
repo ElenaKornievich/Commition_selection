@@ -6,24 +6,57 @@
 <script src="/js/validation.js"></script>
 
 <%@include file="header.jsp"%>
-<h1>Здесь должна быть очередь!!!!</h1>
 
 
-<table>
+
+
+    <div class="ui form">
+        <div class="four fields">
+            <div class="field">
+                <label>Сумма баллов</label>
+
+            </div>
+            <div class="field">
+                <label>Фамилия</label>
+
+            </div>
+            <div class="field">
+                <label>Имя</label>
+
+            </div>
+            <div class="field">
+                <label>Отчество</label>
+
+            </div>
+        </div>
 
     <c:forEach var = "queue" items="${queue}">
         <form name="queue" action="controller" method="post">
 
             <div><input type="hidden" name="specialityId" value="">
+
+                <div class="four fields">
+                        <div class="field">
+
                 <c:out value = "${queue.getSumOfScores()}"/>
+                        </div>
+                        <div class="field">
                 <c:out value = "${queue.getSurname()}"/>
+                        </div>
+                        <div class="field">
                 <c:out value = "${queue.getFirstName()}"/>
+                        </div>
+                        <div class="field">
                 <c:out value = "${queue.getLastName()}"/>
-                <input type="submit" value="Посмотреть очередь на факультет">
-            </div>
+                        </div>
+                    </div>
+                </div>
+
         </form>
+        <a href="controller?command=queue"></a>
     </c:forEach>
-</table>
+    </div>
+
 </body>
 </html>
 

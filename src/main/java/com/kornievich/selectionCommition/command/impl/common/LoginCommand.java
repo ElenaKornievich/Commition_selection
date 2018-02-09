@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
+import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
@@ -15,6 +16,8 @@ import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.AdminService;
 import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +25,7 @@ import java.util.ArrayList;
 
 public class LoginCommand implements BaseCommand {
 
-
-    //  private static Logger logger = Logger.getLogger(LoginCommand.class);
+    static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
 
     private static LoginCommand instance = new LoginCommand();
 
@@ -32,13 +34,9 @@ public class LoginCommand implements BaseCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         String page = null;
-       // UserDAO userDAO = new UserDAO();
-
         try {
-           // users = UserService.getInstance().readAllUsers();
-           // EntrantDAO entrantDAO = new EntrantDAO();
-            //request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
             String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
             String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
             User user = UserService.getInstance().findUser(login, password);
@@ -92,10 +90,10 @@ public class LoginCommand implements BaseCommand {
 
     @Override
     public String getPage(HttpServletRequest request) {
-        UserDAO userDAO = new UserDAO();
+        LOGGER.info("The getPage() method is called");
         ArrayList<User> users = null;
         try {
-            users = userDAO.readAllUsers();
+            users = UserService.getInstance().readAllUsers();
         } catch (DAOException e) {
             e.printStackTrace();
         }

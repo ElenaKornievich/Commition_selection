@@ -3,6 +3,8 @@ package com.kornievich.selectionCommition.pool.impl;
 
 import com.kornievich.selectionCommition.pool.ConnectionPoolException;
 import com.kornievich.selectionCommition.pool.constant.DBConst;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import javax.annotation.PostConstruct;
@@ -20,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 public class ConnectionPool {
-    // private static Logger logger = Logger.getLogger(ConnectionPool2.class);
+    static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
     private static Lock lock = new ReentrantLock();
 
@@ -39,6 +41,7 @@ public class ConnectionPool {
 
 
     public static ConnectionPool getInstance() {
+        LOGGER.info("The getInstance() method is called");
 
         if (!instanceCreated.get()) {
             lock.lock();
@@ -56,6 +59,7 @@ public class ConnectionPool {
     }
 
     private ConnectionPool() {
+
         try {
             ResourceBundle bundle = ResourceBundle.getBundle(DBConst.BUNDLE);
             this.url = bundle.getString(DBConst.URL);
@@ -78,20 +82,20 @@ public class ConnectionPool {
 
     @PostConstruct
     private void initPool() throws ConnectionPoolException {
-       // logger.info("Creating pool pool");
+       LOGGER.info("Creating pool pool");
         try {
             Class.forName(locationOfDriver);
             Locale.setDefault(Locale.ENGLISH);
             for (int i = 0; i < connectionAmount; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 availableConnectionsQueue.put(connection);
-               // logger.info("Connection " + i + " is created and put into the queue.");
+               LOGGER.info("Connection " + i + " is created and put into the queue.");
             }
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("JDBC: Can't find driver class ", e);
         } catch (SQLException | InterruptedException e) {
-          //  logger.error("SQLException or InterruptedException occurred" +
-           //         "while initializing pool pool");
+         LOGGER.error("SQLException or InterruptedException occurred" +
+                   "while initializing pool pool");
         }
     }
 
@@ -101,36 +105,36 @@ public class ConnectionPool {
             connection = availableConnectionsQueue.take();
             usedConnectionsQueue.put(connection);
         } catch (InterruptedException e) {
-          //  logger.error("Interrupted exception occurred while taking connection from the pool ", e);
+          LOGGER.error("Interrupted exception occurred while taking connection from the pool ", e);
         }
-     //   logger.info("Connection is taken.");
+     LOGGER.info("Connection is taken.");
         return connection;
     }
 
 
     public void returnConnection(Connection connection) {
         try {
-          //  logger.info("Trying to return connection to the connection pool...");
+          LOGGER.info("Trying to return connection to the connection pool...");
             availableConnectionsQueue.put(connection);
             usedConnectionsQueue.remove(connection);
-          //  logger.info("Connection is successfully returned.");
+          LOGGER.info("Connection is successfully returned.");
         } catch (InterruptedException e) {
-          //  logger.error("InterruptedException occurred while returning a connection");
+          LOGGER.error("InterruptedException occurred while returning a connection");
         }
 
     }
 
 
     public void destroyPool() throws ConnectionPoolException {
-      //  logger.info("Destroying connection pool.");
+      LOGGER.info("Destroying connection pool.");
         try {
             for (int i = 0; i < connectionAmount; i++) {
                 Connection connection = ConnectionPool.getInstance().takeConnection();
                 connection.close();
-             //   logger.info("Connection " + i + " is destroyed.");
+             LOGGER.info("Connection " + i + " is destroyed.");
             }
         } catch (SQLException e) {
-            //logger.warn("Can't destroy connection pool.");
+            LOGGER.warn("Can't destroy connection pool.");
             throw new ConnectionPoolException("Can't destroy connection pool.", e);
         }
     }

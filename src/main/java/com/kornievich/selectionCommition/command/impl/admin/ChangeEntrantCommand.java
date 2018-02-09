@@ -11,13 +11,15 @@ import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.CTPointService;
 import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class ChangeEntrantCommand implements BaseCommand{ //  private static Logger logger = Logger.getLogger(LoginCommand.class);
-
+public class ChangeEntrantCommand implements BaseCommand{
+    static final Logger LOGGER = LogManager.getLogger(ChangeEntrantCommand.class);
     private static ChangeEntrantCommand instance = new ChangeEntrantCommand();
 
     public ChangeEntrantCommand() {
@@ -26,14 +28,14 @@ public class ChangeEntrantCommand implements BaseCommand{ //  private static Log
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
-
+        LOGGER.info("The getPage() method is called");
         int idEntrant =Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_CHANGE_ENTRANT));
-       // CTPointDAO ctPointDAO=new CTPointDAO();
         try {
             ArrayList<Entrant> entrants = EntrantService.getInstance().readAllEntrants();
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);

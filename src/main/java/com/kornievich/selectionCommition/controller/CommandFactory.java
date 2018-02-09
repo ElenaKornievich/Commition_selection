@@ -3,15 +3,17 @@ package com.kornievich.selectionCommition.controller;
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.CommandEnum;
 import com.kornievich.selectionCommition.command.EmptyCommand;
+import com.kornievich.selectionCommition.command.impl.common.RegistrationCommand;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class CommandFactory {
 
-  //  private static Logger logger = Logger.getLogger(CommandFactory.class);
-
-
+    static final Logger LOGGER = LogManager.getLogger(CommandFactory.class);
     public BaseCommand defineCommand(HttpServletRequest request){
+        LOGGER.info("The defineCommand() method is called");
         BaseCommand command = EmptyCommand.getInstance();
         String action = request.getParameter("command");
        // logger.info("Processing command: " + action);

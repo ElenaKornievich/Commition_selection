@@ -3,45 +3,41 @@ package com.kornievich.selectionCommition.command.impl.admin;
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
-import com.kornievich.selectionCommition.constant.ParameterConstant;
+import com.kornievich.selectionCommition.entity.Admin;
 import com.kornievich.selectionCommition.exception.DAOException;
-import com.kornievich.selectionCommition.service.SpecialityService;
+import com.kornievich.selectionCommition.service.AdminService;
+import com.kornievich.selectionCommition.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SpecialityCommand implements BaseCommand{
-    static final Logger LOGGER = LogManager.getLogger(SpecialityCommand.class);
+public class AdminInformationCommand implements BaseCommand {
+    static final Logger LOGGER = LogManager.getLogger(AdminInformationCommand.class);
 
-    private static SpecialityCommand instance = new SpecialityCommand();
+    private static AdminInformationCommand instance = new AdminInformationCommand();
 
-    public SpecialityCommand() {
+    private AdminInformationCommand() {
     }
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("The execute() method is called");
-        int specialityId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
-        try {
-            SpecialityService.getInstance().deleteSpeciality(specialityId);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,11);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
+        int id = (int) request.getSession().getAttribute("id");
         try {
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAllSpecialities());
+            Admin admin = AdminService.getInstance().findAdminById(id);
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
         } catch (DAOException e) {
             e.printStackTrace();
+           LOGGER.error("Can't admin with such input value"+e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,13);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 3);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }
@@ -51,7 +47,7 @@ public class SpecialityCommand implements BaseCommand{
         return super.toString();
     }
 
-    public static SpecialityCommand getInstance() {
+    public static AdminInformationCommand getInstance() {
         return instance;
     }
 
