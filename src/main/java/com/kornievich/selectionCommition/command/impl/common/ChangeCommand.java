@@ -7,6 +7,7 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
+import com.kornievich.selectionCommition.exception.DAOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +40,11 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
         //int specialityId = specialityDAO.findSpecialityByName(specialityName).getId();
         Entrant entrant = new Entrant((Integer)request.getSession().getAttribute(ParameterConstant.PARAMETER_ID), "2018-11-11", specialityId, pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
         EntrantDAO entrantDAO = new EntrantDAO();
-        entrantDAO.update(entrant);
+        try {
+            entrantDAO.updateEntrant(entrant);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 0);
         return PageConstant.PAGE_PERSONAL_AREA;
@@ -47,7 +52,11 @@ public class ChangeCommand  implements BaseCommand{//  private static Logger log
     @Override
     public String getPage(HttpServletRequest request) {
         SpecialityDAO specialityDAO=new SpecialityDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAllSpecialities());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
         return PageConstant.PAGE_PERSONAL_AREA;

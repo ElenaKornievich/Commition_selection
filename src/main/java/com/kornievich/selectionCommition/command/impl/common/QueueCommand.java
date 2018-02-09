@@ -6,6 +6,7 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
 import com.kornievich.selectionCommition.entity.EntrantInQueueModal;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SpecialityService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,12 @@ public class QueueCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int specialityId = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
         RequestsDAO requestsDAO = new RequestsDAO();
-        ArrayList<EntrantInQueueModal> queue = requestsDAO.allScoreBySpesialty(specialityId);
+        ArrayList<EntrantInQueueModal> queue = null;
+        try {
+            queue = requestsDAO.allEntrantsScoreBySpecialty(specialityId);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         if(queue!=null){
         request.setAttribute(AttributeConstant.ATTRIBUTE_QUEUE, queue);
         return PageConstant.PAGE_TURN_FOR_SPECIALITY;
@@ -34,7 +40,11 @@ public class QueueCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAll());
+        try {
+            request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_QUEUE;
 
     }

@@ -6,6 +6,7 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
+import com.kornievich.selectionCommition.exception.DAOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,23 +16,29 @@ public class ChangeEntrantSpeciality implements BaseCommand {
 
     private static ChangeEntrantSpeciality instance = new ChangeEntrantSpeciality();
 
-    public ChangeEntrantSpeciality() {
+    private ChangeEntrantSpeciality() {
     }
-
-    ;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int specialityId=Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
         EntrantDAO entrantDAO=new EntrantDAO();
         int entrantId=(Integer) request.getSession().getAttribute(ParameterConstant.PARAMETER_ID);
-        entrantDAO.changeSpeciality(entrantId, specialityId);
+        try {
+            entrantDAO.changeEntrantSpeciality(entrantId, specialityId);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_PERSONAL_AREA;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SpecialityDAO specialityDAO=new SpecialityDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAllSpecialities());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
         return PageConstant.PAGE_PERSONAL_AREA;

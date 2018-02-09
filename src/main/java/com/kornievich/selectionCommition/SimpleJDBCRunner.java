@@ -20,20 +20,20 @@ public class SimpleJDBCRunner {
        // User user = new User(6, "ignat", , Roles.ENTRANT);
       //  MainFacultyCommand faculty = new MainFacultyCommand(3, "Seio", "2018-12-12", "2018-11-11");
         //FacultyDAO facultyDAO=new FacultyDAO();
-       // facultyDAO.create(faculty);
+       // facultyDAO.createAdmin(faculty);
         //SpecialityCommand speciality=new SpecialityCommand(3,"mn", 2,12, 12);
         //SpecialityDAO specialityDAO = new SpecialityDAO();
-       // specialityDAO.create(speciality);
-        //facultyDAO.delete(faculty);
+       // specialityDAO.createAdmin(speciality);
+        //facultyDAO.deleteAdmin(faculty);
         //FacultySubjectDAO facultySubjectDAO=new FacultySubjectDAO();
-       // System.out.println(facultySubjectDAO.findBySubjectId(2));
+       // System.out.println(facultySubjectDAO.findFacultySubjectsBySubjectId(2));
         /*FacultySubject facultySubject=new FacultySubject(3,1);
         FacultySubject facultySubject2=new FacultySubject(3,2);
         FacultySubject facultySubject3=new FacultySubject(3,3);
         FacultySubjectDAO facultySubjectDAO=new FacultySubjectDAO();
-        facultySubjectDAO.create(facultySubject);
-        facultySubjectDAO.create(facultySubject2);
-        facultySubjectDAO.create(facultySubject3);*/
+        facultySubjectDAO.createAdmin(facultySubject);
+        facultySubjectDAO.createAdmin(facultySubject2);
+        facultySubjectDAO.createAdmin(facultySubject3);*/
 
 
 
@@ -42,7 +42,7 @@ public class SimpleJDBCRunner {
                 "belarusian", "+37529279992", "Minsk,Oct.1-/2",
                 9.8,false,"ivanovivan@gmail.com");
         EntrantDAO entrantDAO =new EntrantDAO();
-        entrantDAO.delete(entrant);*/
+        entrantDAO.deleteAdmin(entrant);*/
         //System.out.println(entrantDAO.findEntrantByName("Elena"));
         //SpecialityDAO specialityDAO=new SpecialityDAO();
         //System.out.println(specialityDAO.findSpecialityByName("1").getId());
@@ -56,8 +56,8 @@ public class SimpleJDBCRunner {
 
        // System.out.println("Текущая дата " + formatForDateNow.format(dateNow));
 //UserDAO userDAO=new UserDAO();
-       // User user = userDAO.create("aaaa","qqqq");
-       // userDAO.changeRole(user, "admin");
+       // User user = userDAO.createAdmin("aaaa","qqqq");
+       // userDAO.changeUserRole(user, "admin");
         System.out.println(Roles.ADMIN.getText());
     }
 }

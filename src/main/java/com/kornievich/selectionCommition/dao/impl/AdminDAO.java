@@ -2,13 +2,11 @@ package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.IAdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
-import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
-import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AdminDAO implements IAdminDAO {
 
@@ -22,59 +20,38 @@ public class AdminDAO implements IAdminDAO {
 
 
     @Override
-    public boolean create(Admin admin) {
-       // Connection cn = null;
-        //Statement st = null;
-
-            //cn = ConnectionPool2.getInstance().getConnection();
-            Connection cn = ConnectionPool.getInstance().takeConnection();
-            try{
-            if (cn != null) {
-                PreparedStatement preparedStatement =
-                        cn.prepareStatement(CREATE_ADMIN);
-                preparedStatement.setInt(1, admin.getId());
-                preparedStatement.setString(2,admin.getSurname());
-                preparedStatement.setString(3, admin.getFirstName());
-                preparedStatement.setString(4, admin.getSecondName());
-                preparedStatement.executeUpdate();
+    public boolean createAdmin(Admin admin) throws DAOException {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+        try {
+            PreparedStatement preparedStatement =
+                    cn.prepareStatement(CREATE_ADMIN);
+            preparedStatement.setInt(1, admin.getId());
+            preparedStatement.setString(2, admin.getSurname());
+            preparedStatement.setString(3, admin.getFirstName());
+            preparedStatement.setString(4, admin.getSecondName());
+            preparedStatement.executeUpdate();
             return true;
-            } else System.out.println("Всё плохо, здесь ошибка в коннесшне");
 
         } catch (SQLException e) {
-            System.err.println("DB connection error: " + e);
+            throw new DAOException("SQLException occurred while creating admin in a database", e);
         } finally {
             ConnectionPool.getInstance().returnConnection(cn);
-          /*  if (cn != null) {
-                try {
-                    cn.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-*/
         }
 
-        return false;
     }
 
-    private ArrayList<Admin> createAdmins(ResultSet resultSet) throws SQLException {
-
-        if(resultSet!=null) {
-            ArrayList<Admin> listAdmin = new ArrayList<>();
-            while (resultSet.next()) {
-                Admin admin = new Admin(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getString(4));
-                listAdmin.add(admin);
-            }
-            return listAdmin;
+    private ArrayList<Admin> initAdmins(ResultSet resultSet) throws SQLException {
+        ArrayList<Admin> listAdmin = new ArrayList<>();
+        while (resultSet.next()) {
+            Admin admin = new Admin(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getString(3), resultSet.getString(4));
+            listAdmin.add(admin);
         }
-        return null;
+        return listAdmin;
     }
 
-    private Admin createAdmin(ResultSet resultSet) throws SQLException {
+    private Admin initAdmin(ResultSet resultSet) throws SQLException {
         if (resultSet.next()) {
-            ArrayList<Admin> listAdmin = new ArrayList<>();
-
             return new Admin(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getString(4));
         }
@@ -82,28 +59,24 @@ public class AdminDAO implements IAdminDAO {
     }
 
     @Override
-    public ArrayList<Admin> readAll() {
+    public ArrayList<Admin> readAllAdmins() throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            //cn = ConnectionPool2.getInstance().getConnection();
-            Statement statement=cn.createStatement();
+            Statement statement = cn.createStatement();
             ResultSet resultSet = statement.executeQuery(READ_ADMIN_ALL);
-            return createAdmins(resultSet);
+            return initAdmins(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+            throw new DAOException("SQLException occurred while reading admins from a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
     }
 
     @Override
-    public boolean update(Admin admin) {
+    public boolean updateAdmin(Admin admin) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-
-            PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_ADMIN);
+            PreparedStatement preparedStatement = cn.prepareStatement(UPDATE_ADMIN);
             preparedStatement.setString(1, admin.getSurname());
             preparedStatement.setString(2, admin.getFirstName());
             preparedStatement.setString(3, admin.getSecondName());
@@ -111,63 +84,53 @@ public class AdminDAO implements IAdminDAO {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            ConnectionPool.getInstance().returnConnection(cn);
-        }
-        return false;
-    }
-
-    @Override
-    public Admin delete(Admin admin) {
-        Connection cn = ConnectionPool.getInstance().takeConnection();
-        try {
-           // Connection cn= ConnectionPool2.getInstance().getConnection();
-            PreparedStatement preparedStatement=cn.prepareStatement(DELETE_ADMIN);
-            preparedStatement.setInt(1, admin.getId());
-            return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("SQLException occurred while updating admin in a database", e);
         } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return admin;
     }
 
     @Override
-    public Admin findAdminById(int id) {
+    public Admin deleteAdmin(Admin admin) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            //cn = ConnectionPool2.getInstance().getConnection();
-            PreparedStatement preparedStatement=cn.prepareStatement(FIND_ADMIN_BY_ID);
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet=preparedStatement.executeQuery();
-            return createAdmin(resultSet);
+            PreparedStatement preparedStatement = cn.prepareStatement(DELETE_ADMIN);
+            preparedStatement.setInt(1, admin.getId());
+            return null;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+            throw new DAOException("SQLException occurred while deleting admin from a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
     }
 
     @Override
-    public ArrayList<Admin> findAdminByName(String name) {
+    public Admin findAdminById(int id) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            //cn = ConnectionPool2.getInstance().getConnection();
-            PreparedStatement preparedStatement=cn.prepareStatement(FIND_ADMIN_BY_NAME);
-            preparedStatement.setString(1,name);
-            ResultSet resultSet=preparedStatement.executeQuery();
-            return createAdmins(resultSet);
+            PreparedStatement preparedStatement = cn.prepareStatement(FIND_ADMIN_BY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return initAdmin(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+            throw new DAOException("SQLException occurred while finding admin with such id", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
+    }
+
+    @Override
+    public ArrayList<Admin> findAdminByName(String name) throws DAOException {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+        try {
+            PreparedStatement preparedStatement = cn.prepareStatement(FIND_ADMIN_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return initAdmins(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException("SQLException occurred while finding admin with such name", e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.entity.Admin;
@@ -23,12 +24,7 @@ public class AdminPanelCommand implements BaseCommand{ //  private static Logger
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        try {
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        request.setAttribute("nav", 0);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 0);
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

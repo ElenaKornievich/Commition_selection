@@ -2,9 +2,8 @@ package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.dao.ICTPointDAO;
 import com.kornievich.selectionCommition.entity.CTPoint;
-import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
-import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,132 +21,109 @@ public class CTPointDAO implements ICTPointDAO {
 
 
     @Override
-    public boolean create(CTPoint ctPoint) {
+    public boolean createCTPoint(CTPoint ctPoint) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
-            PreparedStatement preparedStatement=cn.prepareStatement(CREATE_CTPOINT);
+            PreparedStatement preparedStatement = cn.prepareStatement(CREATE_CTPOINT);
             preparedStatement.setInt(1, ctPoint.getSubjectId());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
             preparedStatement.setInt(3, ctPoint.getScope());
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while creating CTPoint in a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
+    }
 
-        return false;
-    }
-    private ArrayList<CTPoint> readCTPoint(ResultSet resultSet) throws SQLException {
-        if(resultSet!=null) {
-            ArrayList<CTPoint> listCTPoint = new ArrayList<>();
-            while (resultSet.next()) {
-                CTPoint ctPoint = new CTPoint(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
-                listCTPoint.add(ctPoint);
-            }
-            return listCTPoint;
+    private ArrayList<CTPoint> initCTPoints(ResultSet resultSet) throws SQLException {
+        ArrayList<CTPoint> listCTPoint = new ArrayList<>();
+        while (resultSet.next()) {
+            CTPoint ctPoint = new CTPoint(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3));
+            listCTPoint.add(ctPoint);
         }
-        return null;
+        return listCTPoint;
     }
-    private CTPoint createCTPoint(ResultSet resultSet) throws SQLException {
+
+    private CTPoint initCTPoint(ResultSet resultSet) throws SQLException {
         if (resultSet.next()) {
             return new CTPoint(resultSet.getInt(2), resultSet.getInt(1), resultSet.getInt(3));
         }
         return null;
     }
+
     @Override
-    public ArrayList<CTPoint> readAll() {
+    public ArrayList<CTPoint> readAllCTPoints() throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
             Statement statement = cn.createStatement();
-
             ResultSet resultSet = statement.executeQuery(READ_ALL);
-          return readCTPoint(resultSet);
+            return initCTPoints(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while reading CTPoints from a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
     }
 
     @Override
-    public boolean update(CTPoint ctPoint) {
+    public boolean updateCTPoint(CTPoint ctPoint) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
-            PreparedStatement preparedStatement=cn.prepareStatement(UPDATE_CTPOINT);
-
+            PreparedStatement preparedStatement = cn.prepareStatement(UPDATE_CTPOINT);
             preparedStatement.setInt(1, ctPoint.getScope());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
             preparedStatement.setInt(3, ctPoint.getSubjectId());
-
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while updating CTPoint in a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-
-        return false;
     }
 
-    public ArrayList<CTPoint> findCTPointByEntrantId(int entrantId){
-        ArrayList<CTPoint> ctPoints=new ArrayList<>();
+    public ArrayList<CTPoint> findCTPointByEntrantId(int entrantId) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
-            PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_ENTRANT_ID);
-            preparedStatement.setInt(1,entrantId);
-            ResultSet resultSet=preparedStatement.executeQuery();
-           return readCTPoint(resultSet);
+            PreparedStatement preparedStatement = cn.prepareStatement(FIND_CTPOINT_BY_ENTRANT_ID);
+            preparedStatement.setInt(1, entrantId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return initCTPoints(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while finding CTPoint with such entrant id", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
     }
 
-    public ArrayList<CTPoint> findCTPointBySubjectId(int subjectId){
-        ArrayList<CTPoint> ctPoints=new ArrayList<>();
+    public ArrayList<CTPoint> findCTPointBySubjectId(int subjectId) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
-            PreparedStatement preparedStatement =cn.prepareStatement(FIND_CTPOINT_BY_SUBJECT_ID);
-            preparedStatement.setInt(1,subjectId);
-            ResultSet resultSet=preparedStatement.executeQuery();
-            return readCTPoint(resultSet);
+            PreparedStatement preparedStatement = cn.prepareStatement(FIND_CTPOINT_BY_SUBJECT_ID);
+            preparedStatement.setInt(1, subjectId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return initCTPoints(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while finding CTPoint with such subject id", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
     }
 
     @Override
-    public CTPoint delete(CTPoint ctPoint) {
+    public CTPoint deleteCTPoint(CTPoint ctPoint) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
-
         try {
-
-            PreparedStatement preparedStatement=cn.prepareStatement(DELETE_CTPOINT);
-            preparedStatement.setInt(1,ctPoint.getEntrantId());
+            PreparedStatement preparedStatement = cn.prepareStatement(DELETE_CTPOINT);
+            preparedStatement.setInt(1, ctPoint.getEntrantId());
             preparedStatement.setInt(2, ctPoint.getSubjectId());
             preparedStatement.executeUpdate();
             return null;
         } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+            throw new DAOException("SQLException occurred while deleting CTPoint from a database", e);
+        } finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return ctPoint;
     }
 }

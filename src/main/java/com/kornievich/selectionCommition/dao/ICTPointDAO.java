@@ -1,16 +1,17 @@
 package com.kornievich.selectionCommition.dao;
 
 import com.kornievich.selectionCommition.entity.CTPoint;
-import javafx.scene.shape.ClosePathBuilder;
+import com.kornievich.selectionCommition.exception.DAOException;
+
 
 import java.util.ArrayList;
 
 public interface ICTPointDAO {
-     boolean create(CTPoint ctPoint);
-     ArrayList<CTPoint> readAll();
-     boolean update(CTPoint ctPoint);
-     CTPoint delete(CTPoint ctPoint);
-    public ArrayList<CTPoint> findCTPointByEntrantId(int entrantId);
-    public ArrayList<CTPoint> findCTPointBySubjectId(int subjectId);
+     boolean createCTPoint(CTPoint ctPoint) throws DAOException;
+     ArrayList<CTPoint> readAllCTPoints() throws DAOException;
+     boolean updateCTPoint(CTPoint ctPoint) throws DAOException;
+     CTPoint deleteCTPoint(CTPoint ctPoint) throws DAOException;
+     ArrayList<CTPoint> findCTPointByEntrantId(int entrantId) throws DAOException;
+     ArrayList<CTPoint> findCTPointBySubjectId(int subjectId) throws DAOException;
 
 }

@@ -5,12 +5,8 @@ import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
-import com.kornievich.selectionCommition.entity.Faculty;
-import com.kornievich.selectionCommition.entity.FacultySubject;
-import com.kornievich.selectionCommition.service.FacultyService;
-import com.kornievich.selectionCommition.service.FacultySubjectsService;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SubjectService;
-import sun.nio.cs.ext.PCK;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,23 +16,31 @@ public class CreateSubjectCommand implements BaseCommand {
 
     private static CreateSubjectCommand instance = new CreateSubjectCommand();
 
-    public CreateSubjectCommand() {
+    private CreateSubjectCommand() {
     }
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String nameSubject= request.getParameter(ParameterConstant.PARAMETER_SUBJECT_NAME);
-        if(SubjectService.getInstance().findSubjectByName(nameSubject)!=null){
-            return PageConstant.PAGE_ERROR;
+        try {
+            if(SubjectService.getInstance().findSubjectByName(nameSubject)!=null){
+                return PageConstant.PAGE_ERROR;
+            }
+        SubjectService.getInstance().createSubject(nameSubject);
+        } catch (DAOException e) {
+            e.printStackTrace();
         }
-        SubjectService.getInstance().create(nameSubject);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 7);
         return PageConstant.PAGE_ADMIN_PANEL;
 

@@ -1,45 +1,43 @@
 package com.kornievich.selectionCommition.service;
 
-import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.Speciality;
-import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SpecialityService {
     // private static Logger logger = Logger.getLogger(UserService.class);
 
-    //  private IUserDAO dao;
-    private static SpecialityService instance = new SpecialityService();
-    SpecialityDAO specialityDAO;
+    private static SpecialityService instance;
+    private SpecialityDAO specialityDAO;
     private SpecialityService() {
         specialityDAO =new SpecialityDAO();
     }
     public static SpecialityService getInstance() {
+        if(instance==null){
+            instance = new SpecialityService();
+        }
         return instance;
     }
 
-    public Speciality create(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace){
-        specialityDAO.create(name, facultyId, numberOfBudgetPlace, numberOfPainPlace);
+    public Speciality createSpeciality(String name, int facultyId, int numberOfBudgetPlace, int numberOfPainPlace) throws DAOException {
+        specialityDAO.createSpeciality(name, facultyId, numberOfBudgetPlace, numberOfPainPlace);
         return specialityDAO.findSpecialityByName(name);
     }
-    public ArrayList<Speciality> readAll(){
-        return specialityDAO.readAll();
+    public ArrayList<Speciality> readAllSpecialities() throws DAOException {
+        return specialityDAO.readAllSpecialities();
     }
-    public boolean update(Speciality speciality){
-        return specialityDAO.update(speciality);
+    public boolean updateSpeciality(Speciality speciality) throws DAOException {
+        return specialityDAO.updateSpeciality(speciality);
     }
-    public boolean delete(int specialityId){
-        return specialityDAO.delete(specialityId);
+    public boolean deleteSpeciality(int specialityId) throws DAOException {
+        return specialityDAO.deleteSpeciality(specialityId);
     }
-    public Speciality findSpecialityById(int id){
+    public Speciality findSpecialityById(int id) throws DAOException {
         return specialityDAO.findSpecialityById(id);
     }
-    public Speciality findSpecialityByName(String name){
+    public Speciality findSpecialityByName(String name) throws DAOException {
         return specialityDAO.findSpecialityByName(name);
     }
 

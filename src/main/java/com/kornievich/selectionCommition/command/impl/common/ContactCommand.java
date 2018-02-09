@@ -1,23 +1,19 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.AdminService;
-import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 public class ContactCommand implements BaseCommand {  //  private static Logger logger = Logger.getLogger(LoginCommand.class);
 
     private static ContactCommand instance = new ContactCommand();
 
-    public ContactCommand() {
+    private ContactCommand() {
     }
 
     @Override
@@ -27,7 +23,11 @@ public class ContactCommand implements BaseCommand {  //  private static Logger 
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_ADMIN, AdminService.getInstance().readAll());
+        try {
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_ADMIN, AdminService.getInstance().readAllAdmins());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_CONTACT;
 
     }

@@ -11,6 +11,8 @@ import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.CTPoint;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.RegistrationService;
 import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +51,7 @@ public class RegistrationCommand implements BaseCommand {
         int subjectThreeValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_THREE_VALUE));
         try {
            // User user = new User(login, password, Roles.ENTRANT);
-            User user = UserService.getInstance().addUser(login, password, pasportSeria,
+            User user = RegistrationService.getInstance().registrationEntrant(login, password, pasportSeria,
                     pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,
                     dataOfBirth, nationality, telephoneNumber, residenceAddress, score, goldMedal, email);
             if (user!=null) {
@@ -58,13 +60,13 @@ public class RegistrationCommand implements BaseCommand {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ENTRANT);
 
             SpecialityDAO specialityDAO=new SpecialityDAO();
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAll());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAllSpecialities());
             EntrantDAO entrantDAO = new EntrantDAO();
             Entrant entrant=entrantDAO.findEntrantById(user.getId());
             CTPointDAO ctPointDao=new CTPointDAO();
-            ctPointDao.create(new CTPoint(entrant.getId(),subjectOne, subjectOneValue));
-            ctPointDao.create(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
-            ctPointDao.create(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
+            ctPointDao.createCTPoint(new CTPoint(entrant.getId(),subjectOne, subjectOneValue));
+            ctPointDao.createCTPoint(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
+            ctPointDao.createCTPoint(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
 
                 page = PageConstant.PAGE_SELECT_SPECIALITY;
             }
@@ -80,7 +82,11 @@ public class RegistrationCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_REGISTRATION;
     }
 

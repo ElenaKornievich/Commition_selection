@@ -1,20 +1,16 @@
 package com.kornievich.selectionCommition.service;
 
-import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.Faculty;
-import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FacultyService {
     // private static Logger logger = Logger.getLogger(UserService.class);
 
     //  private IUserDAO dao;
-    private static FacultyService instance = new FacultyService();
+    private static FacultyService instance;
     FacultyDAO facultyDAO;
     private FacultyService() {
         facultyDAO =new FacultyDAO();
@@ -22,27 +18,30 @@ public class FacultyService {
     }
 
     public static FacultyService getInstance() {
+        if(instance==null){
+            instance = new FacultyService();
+        }
         return instance;
     }
 
 
-    public Faculty findFacultyByName(String name){
+    public Faculty findFacultyByName(String name) throws DAOException {
         return facultyDAO.findFacultyByName(name);
     }
-    public Faculty findFacultyById(int id){
+    public Faculty findFacultyById(int id) throws DAOException {
         return facultyDAO.findFacultyById(id);
     }
-    public Faculty create(String name, String startDate, String endDate){
-        return facultyDAO.create(name, startDate, endDate);
+    public Faculty createFaculty(String name, String startDate, String endDate) throws DAOException {
+        return facultyDAO.createFaculty(name, startDate, endDate);
     }
-    public ArrayList<Faculty> readAll(){
-        return facultyDAO.readAll();
+    public ArrayList<Faculty> readAllFaculties() throws DAOException {
+        return facultyDAO.readAllFaculties();
     }
 
-    public boolean update(Faculty faculty){
-        return facultyDAO.update(faculty);
+    public boolean updateFaculty(Faculty faculty) throws DAOException {
+        return facultyDAO.updateFaculty(faculty);
     }
-    public boolean delete(int facultyId){
-        return facultyDAO.delete(facultyId);
+    public boolean deleteFaculty(int facultyId) throws DAOException {
+        return facultyDAO.deleteFaculty(facultyId);
     }
 }

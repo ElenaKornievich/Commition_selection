@@ -1,17 +1,17 @@
 package com.kornievich.selectionCommition.dao;
 
-import com.kornievich.selectionCommition.entity.CTPoint;
-import com.kornievich.selectionCommition.entity.Faculty;
 
-import java.awt.image.AreaAveragingScaleFilter;
+import com.kornievich.selectionCommition.entity.Faculty;
+import com.kornievich.selectionCommition.exception.DAOException;
+
 import java.util.ArrayList;
 
 public interface IFacultyDAO {
-    Faculty create(String name, String startDate, String endDate);
-    ArrayList<Faculty> readAll();
-    boolean update(Faculty faculty);
-    boolean delete(int facultyId);
-    Faculty findFacultyById(int id);
-    Faculty findFacultyByName(String name);
+    Faculty createFaculty(String name, String startDate, String endDate) throws DAOException;
+    ArrayList<Faculty> readAllFaculties() throws DAOException;
+    boolean updateFaculty(Faculty faculty) throws DAOException;
+    boolean deleteFaculty(int facultyId) throws DAOException;
+    Faculty findFacultyById(int id) throws DAOException;
+    Faculty findFacultyByName(String name) throws DAOException;
 
 }

@@ -7,11 +7,13 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
-import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Admin;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.AdminService;
+import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,28 +33,29 @@ public class LoginCommand implements BaseCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
-        UserDAO userDAO = new UserDAO();
-        ArrayList<User> users = userDAO.readUsers();
-        EntrantDAO entrantDAO = new EntrantDAO();
-        ArrayList<Entrant> entrants = entrantDAO.readEntrant();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
-        String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
-        String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
+       // UserDAO userDAO = new UserDAO();
+
         try {
+           // users = UserService.getInstance().readAllUsers();
+           // EntrantDAO entrantDAO = new EntrantDAO();
+            //request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
+            String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
+            String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
             User user = UserService.getInstance().findUser(login, password);
             if (user != null) {
                 request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
                 request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());
                 if (user.getRole() == Roles.ADMIN) {
-                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
+                    //ArrayList<Entrant> entrants = EntrantService.getInstance().readAllEntrants();
+                   // request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
                     request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ADMIN);
-                    AdminDAO adminDAO = new AdminDAO();
-                    Admin admin = adminDAO.findAdminById(user.getId());
-                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
+                    //AdminDAO adminDAO = new AdminDAO();
+                   // Admin admin = AdminService.getInstance().findAdminById(user.getId());
+                   // request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
                     page = PageConstant.PAGE_ADMIN_PANEL;
                 } else {
-                    Entrant entrant = entrantDAO.findEntrantById(user.getId());
-                    request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, entrant);
+                    Entrant entrant = EntrantService.getInstance().findEntrantById(user.getId());
+                  //  request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, entrant);
                     // request.getSession().setAttribute("surname", entrant.getSurname());
                     // request.getSession().setAttribute("firstName", entrant.getFirstName());
                     //request.getSession().setAttribute("lastName", entrant.getLastName());
@@ -81,8 +84,8 @@ public class LoginCommand implements BaseCommand {
             } else {
                 page = PageConstant.PAGE_ERROR;
             }
-        } catch (Exception e) {
-            System.out.println("ppp");
+        } catch (DAOException e) {
+            e.printStackTrace();
         }
         return page;
     }
@@ -90,7 +93,12 @@ public class LoginCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         UserDAO userDAO = new UserDAO();
-        ArrayList<User> users = userDAO.readUsers();
+        ArrayList<User> users = null;
+        try {
+            users = userDAO.readAllUsers();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
         request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_LOGIN, AttributeConstant.ATTRIBUTE_LOGON);
         String page = PageConstant.PAGE_AUTHORIZATION;

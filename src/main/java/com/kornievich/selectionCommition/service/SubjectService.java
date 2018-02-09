@@ -1,21 +1,16 @@
 package com.kornievich.selectionCommition.service;
 
-import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
-import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.Subject;
-import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SubjectService {
     // private static Logger logger = Logger.getLogger(UserService.class);
 
-    //  private IUserDAO dao;
-    private static SubjectService instance = new SubjectService();
-    SubjectDAO subjectDAO;
+    private static SubjectService instance;
+    private SubjectDAO subjectDAO;
     private SubjectService() {
         subjectDAO =new SubjectDAO();
 
@@ -23,29 +18,32 @@ public class SubjectService {
 
 
     public static SubjectService getInstance() {
+        if(instance==null){
+            instance = new SubjectService();
+        }
         return instance;
     }
 
 
-    public Subject create(String name){
-        return subjectDAO.create(name);
+    public Subject createSubject(String name) throws DAOException {
+        return subjectDAO.createSubject(name);
     }
-    public ArrayList<Subject> readAll(){
-        return subjectDAO.readAll();
+    public ArrayList<Subject> readAllSubjects() throws DAOException {
+        return subjectDAO.readAllSubjects();
     }
-    public boolean updateSubjectName(Subject subject){
+    public boolean updateSubjectName(Subject subject) throws DAOException {
         return subjectDAO.updateSubjectName(subject);
     }
-    public boolean updateSubjectId(Subject subject){
+    public boolean updateSubjectId(Subject subject) throws DAOException {
         return subjectDAO.updateSubjectId(subject);
     }
-    public boolean delete(int subjectId){
-        return subjectDAO.delete(subjectId);
+    public boolean deleteSubject(int subjectId) throws DAOException {
+        return subjectDAO.deleteSubject(subjectId);
     }
-    public Subject findSubjectById(int id){
+    public Subject findSubjectById(int id) throws DAOException {
         return subjectDAO.findSubjectById(id);
     }
-    public Subject findSubjectByName(String name){
+    public Subject findSubjectByName(String name) throws DAOException {
         return subjectDAO.findSubjectByName(name);
     }
 

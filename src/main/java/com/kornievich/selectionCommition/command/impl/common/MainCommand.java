@@ -5,9 +5,9 @@ import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
-import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
 import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,12 @@ public class MainCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         UserDAO userDAO=new UserDAO();
-        ArrayList<User> users = userDAO.readUsers();
+        ArrayList<User> users = null;
+        try {
+            users = userDAO.readAllUsers();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
         String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
         String password = request.getParameter(ParameterConstant.PARAMETER_PASSWORD);
@@ -54,7 +59,7 @@ public class MainCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
        // RequestsDAO requestsDAO = new RequestsDAO();
        // ArrayList<Integer> entrant;
-        //ArrayList<Integer> allIdSpesiality = requestsDAO.allIdSpesialty();
+        //ArrayList<Integer> allIdSpesiality = requestsDAO.readAllIdSpecialties();
        // entrant= requestsDAO.allScoreBySpesialty(1);
        // request.setAttribute("entrant", entrant);
        // request.setAttribute("spesiality", allIdSpesiality);

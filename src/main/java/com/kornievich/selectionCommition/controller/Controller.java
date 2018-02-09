@@ -1,6 +1,7 @@
 package com.kornievich.selectionCommition.controller;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
+import com.kornievich.selectionCommition.exception.CommandException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +37,12 @@ public class Controller extends HttpServlet {
         CommandFactory commandFactory=new CommandFactory();
         //commandFactory.defineCommand(request);
         BaseCommand baseCommand= commandFactory.defineCommand(request);
-        String page= baseCommand.execute(request,response);
+        String page= null;
+        try {
+            page = baseCommand.execute(request,response);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
 
         request.getRequestDispatcher(page).forward(request,response);
 

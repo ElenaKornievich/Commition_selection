@@ -5,11 +5,7 @@ import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
-import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
-import com.kornievich.selectionCommition.entity.Faculty;
-import com.kornievich.selectionCommition.entity.FacultySubject;
-import com.kornievich.selectionCommition.service.FacultyService;
-import com.kornievich.selectionCommition.service.FacultySubjectsService;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.SpecialityService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,17 +26,24 @@ public class CreateSpecialityCommand  implements BaseCommand{
         int numberOfPainPlaces = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_NUMBER_PAIN_PLACE));
         int facultyId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
         String nameSpeciality= request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_NAME);
-        if(SpecialityService.getInstance().findSpecialityByName(nameSpeciality)!=null){
-            return PageConstant.PAGE_ERROR;
+        try {
+            if(SpecialityService.getInstance().findSpecialityByName(nameSpeciality)!=null){
+                return PageConstant.PAGE_ERROR;
+            }
+        SpecialityService.getInstance().createSpeciality(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);
+        } catch (DAOException e) {
+            e.printStackTrace();
         }
-        SpecialityService.getInstance().create(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);
-
          return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         FacultyDAO facultyDAO=new FacultyDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES,facultyDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES,facultyDAO.readAllFaculties());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 8);
         return PageConstant.PAGE_ADMIN_PANEL;
 

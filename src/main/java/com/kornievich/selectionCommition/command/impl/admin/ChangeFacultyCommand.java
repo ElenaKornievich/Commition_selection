@@ -7,6 +7,7 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.FacultySubjectsService;
 import com.kornievich.selectionCommition.service.SubjectService;
@@ -35,10 +36,14 @@ public class ChangeFacultyCommand implements BaseCommand {
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         int idFaculty = Integer.parseInt(request.getParameter("facultyId"));
-        FacultyService.getInstance().update(new Faculty(idFaculty, name,startDate,endDate));
-        FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty,subjectOneId));
-        FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectTwoId));
-        FacultySubjectsService.getInstance().update(new FacultySubject(idFaculty, subjectThreeId));
+        try {
+            FacultyService.getInstance().updateFaculty(new Faculty(idFaculty, name,startDate,endDate));
+        FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty,subjectOneId));
+        FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty, subjectTwoId));
+        FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty, subjectThreeId));
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
@@ -47,16 +52,21 @@ public class ChangeFacultyCommand implements BaseCommand {
        // String name= request.getParameter("facultyName");
         //String startDate = request.getParameter("startDateOfFiling");
         //String endDate = request.getParameter("endDateOfFiling");
-        Faculty faculty= FacultyService.getInstance().findFacultyById(facultyId);
-        ArrayList<FacultySubject> subjects =  FacultySubjectsService.getInstance().findByFacultyId(facultyId);
-        FacultyService.getInstance().update(faculty);
+        Faculty faculty= null;
+        try {
+            faculty = FacultyService.getInstance().findFacultyById(facultyId);
+        ArrayList<FacultySubject> subjects =  FacultySubjectsService.getInstance().findFacultySubjectsByFacultyId(facultyId);
+        FacultyService.getInstance().updateFaculty(faculty);
         request.setAttribute(AttributeConstant.ATTRIBUTE_FACULTY, faculty);
         request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_ONE, SubjectService.getInstance().findSubjectById(subjects.get(0).getSubjectId()));
         request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_TWO, SubjectService.getInstance().findSubjectById(subjects.get(1).getSubjectId()));
         request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT_THREE, SubjectService.getInstance().findSubjectById(subjects.get(2).getSubjectId()));
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,9);
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
+        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return PageConstant.PAGE_ADMIN_PANEL;
 
     }

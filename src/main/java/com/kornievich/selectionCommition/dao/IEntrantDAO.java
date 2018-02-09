@@ -1,20 +1,17 @@
 package com.kornievich.selectionCommition.dao;
 
-import com.kornievich.selectionCommition.command.Roles;
-import com.kornievich.selectionCommition.entity.Entrant;
-import com.kornievich.selectionCommition.entity.User;
-import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.kornievich.selectionCommition.entity.Entrant;
+import com.kornievich.selectionCommition.exception.DAOException;
+
 import java.util.ArrayList;
 
 public interface IEntrantDAO {
-    public boolean create(Entrant entrant);
-    public Entrant findEntrantById(int id);
-    public ArrayList<Entrant> findEntrantByName(String name);
-    public boolean update(Entrant entrant);
-    public boolean delete(int id);
-    public ArrayList<Entrant> readEntrant();
-    public boolean changeSpeciality(int entrantId, int specialityId);
+    boolean createEntrant(Entrant entrant) throws DAOException;
+    Entrant findEntrantById(int id) throws DAOException;
+    ArrayList<Entrant> findEntrantByName(String name) throws DAOException;
+    boolean updateEntrant(Entrant entrant) throws DAOException;
+    boolean deleteEntrant(int id) throws DAOException;
+    ArrayList<Entrant> readAllEntrants() throws DAOException;
+    boolean changeEntrantSpeciality(int entrantId, int specialityId) throws DAOException;
 }

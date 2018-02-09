@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,11 @@ public class MainFacultyCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTY, FacultyService.getInstance().readAll());
+        try {
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTY, FacultyService.getInstance().readAllFaculties());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return "jsp/mainFaculty.jsp";
 
     }

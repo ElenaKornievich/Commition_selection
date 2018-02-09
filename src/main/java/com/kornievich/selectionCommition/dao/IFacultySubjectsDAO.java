@@ -1,15 +1,16 @@
 package com.kornievich.selectionCommition.dao;
 
 import com.kornievich.selectionCommition.entity.FacultySubject;
+import com.kornievich.selectionCommition.exception.DAOException;
 
 import java.util.ArrayList;
 
 public interface IFacultySubjectsDAO {
-    boolean create(FacultySubject facultySubject);
-    ArrayList<FacultySubject> readAll();
-    FacultySubject delete(FacultySubject facultySubject);
-    ArrayList<FacultySubject> findByFacultyId(int id);
-    ArrayList<FacultySubject> findBySubjectId(int id);
-    boolean update(FacultySubject facultySubject);
+    boolean createFacultySubject(FacultySubject facultySubject) throws DAOException;
+    ArrayList<FacultySubject> readAllFacultySubject() throws DAOException;
+    FacultySubject deleteFacultySubject(FacultySubject facultySubject) throws DAOException;
+    ArrayList<FacultySubject> findFacultySubjectsByFacultyId(int id) throws DAOException;
+    ArrayList<FacultySubject> findFacultySubjectsBySubjectId(int id) throws DAOException;
+    boolean updateFacultySubject(FacultySubject facultySubject) throws DAOException;
 
 }

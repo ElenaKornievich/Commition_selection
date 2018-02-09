@@ -7,6 +7,7 @@ import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.FacultySubjectsService;
 
@@ -30,17 +31,26 @@ public class CreateFacultyCommand implements BaseCommand {
         String name= request.getParameter(ParameterConstant.PARAMETER_NAME_FACULTY);
         String startDate = request.getParameter(ParameterConstant.PARAMETER_START_DATE_FOR_SUBMISSION_OF_DOCUMENTS);
         String endDate = request.getParameter(ParameterConstant.PARAMETER_END_DATE_FOR_SUBMISSION_OF_DOCUMENTS);
-        if(FacultyService.getInstance().findFacultyByName(name)!=null) { return PageConstant.PAGE_ERROR;}
-            Faculty faculty = FacultyService.getInstance().create(name, startDate, endDate);
-            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectOneId));
-            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectTwoId));
-            FacultySubjectsService.getInstance().create(new FacultySubject(faculty.getId(), subjectThreeId));
+        try {
+            if(FacultyService.getInstance().findFacultyByName(name)!=null) { return PageConstant.PAGE_ERROR;}
+
+        Faculty faculty = FacultyService.getInstance().createFaculty(name, startDate, endDate);
+            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectOneId));
+            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectTwoId));
+            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectThreeId));
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
             return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         SubjectDAO subjectDAO=new SubjectDAO();
-        request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAll());
+        try {
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 6);
         return PageConstant.PAGE_ADMIN_PANEL;
 

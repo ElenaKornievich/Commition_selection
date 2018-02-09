@@ -1,46 +1,47 @@
 package com.kornievich.selectionCommition.service;
 
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
-import com.kornievich.selectionCommition.dao.impl.UserDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
-import com.kornievich.selectionCommition.entity.User;
+import com.kornievich.selectionCommition.exception.DAOException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EntrantService {
     // private static Logger logger = Logger.getLogger(UserService.class);
 
     //  private IUserDAO dao;
-    private static EntrantService instance = new EntrantService();
+    private static EntrantService instance;
     EntrantDAO entrantDAO;
     private EntrantService() {
         entrantDAO =new EntrantDAO();
     }
     public static EntrantService getInstance() {
+        if(instance==null){
+            instance=new EntrantService();
+        }
         return instance;
     }
 
-    public boolean create(Entrant entrant){
-        return entrantDAO.create(entrant);
+    public boolean create(Entrant entrant) throws DAOException {
+        return entrantDAO.createEntrant(entrant);
     }
-    public Entrant findEntrantById(int id){
+    public Entrant findEntrantById(int id) throws DAOException {
         return entrantDAO.findEntrantById(id);
     }
-    public ArrayList<Entrant> findEntrantByName(String name){
+    public ArrayList<Entrant> findEntrantByName(String name) throws DAOException {
         return entrantDAO.findEntrantByName(name);
     }
-    public boolean update(Entrant entrant){
-        return entrantDAO.update(entrant);
+    public boolean updateEntrant(Entrant entrant) throws DAOException {
+        return entrantDAO.updateEntrant(entrant);
     }
-    public boolean delete(int id){
-        return entrantDAO.delete(id);
+    public boolean deleteEntrant(int id) throws DAOException {
+        return entrantDAO.deleteEntrant(id);
     }
-    public ArrayList<Entrant> readEntrant(){
-        return entrantDAO.readEntrant();
+    public ArrayList<Entrant> readAllEntrants() throws DAOException {
+        return entrantDAO.readAllEntrants();
     }
-    public boolean changeSpeciality(int entrantId, int specialityId){
-        return entrantDAO.changeSpeciality(entrantId, specialityId);
+    public boolean changeEntrantSpeciality(int entrantId, int specialityId) throws DAOException {
+        return entrantDAO.changeEntrantSpeciality(entrantId, specialityId);
     }
 
 }

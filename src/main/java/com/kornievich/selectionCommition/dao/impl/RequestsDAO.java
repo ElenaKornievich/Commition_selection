@@ -1,9 +1,8 @@
 package com.kornievich.selectionCommition.dao.impl;
 
 import com.kornievich.selectionCommition.entity.EntrantInQueueModal;
-import com.kornievich.selectionCommition.exception.ConnectionUnavailException;
+import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.pool.impl.ConnectionPool;
-import com.kornievich.selectionCommition.poolMy.ConnectionPool2;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,14 +16,13 @@ public class RequestsDAO {
             "  WHERE en.SpecialtyID=?\n" +
             "GROUP BY en.EntrantID\n" +
             "ORDER BY Scores DESC;";
-    private static final String ALL_SPESIALTY = "SELECT SpecialtyID FROM specialties";
-    public  ArrayList<EntrantInQueueModal> allScoreBySpesialty(int idSpesialty){
+
+    public  ArrayList<EntrantInQueueModal> allEntrantsScoreBySpecialty(int idSpecialty) throws DAOException{
         Connection cn = ConnectionPool.getInstance().takeConnection();
         ArrayList<EntrantInQueueModal> entrant = new ArrayList<>();
         try {
-
             PreparedStatement preparedStatement=cn.prepareStatement(ALL_ENTRANT_SCORE_BY_SPESIALTY);
-            preparedStatement.setInt(1, idSpesialty);
+            preparedStatement.setInt(1, idSpecialty);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet!=null) {
                 while (resultSet.next()) {
@@ -34,33 +32,10 @@ public class RequestsDAO {
             }
             return null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("SQLException occurred while reading entrants score with such speciality", e);
         }
         finally {
             ConnectionPool.getInstance().returnConnection(cn);
         }
-        return null;
-    }
-    public ArrayList<Integer> allIdSpesialty(){
-        Connection cn = ConnectionPool.getInstance().takeConnection();
-        try {
-            Statement statement=cn.createStatement();
-           ResultSet resultSet= statement.executeQuery(ALL_SPESIALTY);
-           if(resultSet!=null) {
-               ArrayList<Integer> allIdSpesialty = new ArrayList<>();
-               while (resultSet.next()) {
-                   allIdSpesialty.add(resultSet.getInt(1));
-               }
-               return allIdSpesialty;
-           }
-           return null;
-        }  catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            ConnectionPool.getInstance().returnConnection(cn);
-        }
-        return null;
-
     }
 }
