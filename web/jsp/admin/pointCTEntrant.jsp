@@ -1,5 +1,5 @@
 <script src="/js/validation.js"></script>
-
+<div class="form-position">
     ${entrant.getSurname()} ${entrant.getFirstName()} ${ entrant.getLastName()}
     <div class="title active">
     <i class="dropdown icon"></i>
@@ -19,3 +19,4 @@
         </c:forEach>
         </tbody></table>
     </div>
+</div>

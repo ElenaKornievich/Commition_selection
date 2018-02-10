@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<div class="form-position">
 Специальности:
 <c:set var="speciality" value="${speciality}"/>
 <script src="/js/validation.js"></script>
@@ -46,3 +46,4 @@
 
 </form>
 
+</div>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<div class="form-position">
 <h3>Создать предмет</h3>
 <script src="/js/validation.js"></script>
 <form name="createSubject" action="controller" method="post" onsubmit="return validateCreateSubject()">
@@ -24,3 +24,4 @@
     <input type="submit" class="ui positive button" name="change" value="Change"/>
     </div>-->
 </form>
+</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<div class="form-position">
 <form name="changeAdminInform" method="post" action="controller" onsubmit="return validateAdminInformation()">
     <c:set value="${admin}" var="admin"/>
     <input type="hidden" name="idAdmin" value="${admin.getId()}">
@@ -45,3 +46,4 @@
             </div>
 
 </form>
+</div>

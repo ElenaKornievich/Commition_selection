@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/SemanticUI/accordion/UI-Accordion-master/accordion.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/accordion/UI-Accordion-master/accordion.min.css">
 
-
+<div class="form-position">
 <div class="ui styled accordion">
 
     <c:forEach items="${entrants}" var="entrant">
@@ -109,4 +109,5 @@
 
 
     </c:forEach>
+</div>
 </div>

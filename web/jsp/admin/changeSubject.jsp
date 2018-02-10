@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<div class="form-position">
 Внесите необходимые изменение в предмет:
 <c:set var="subject" scope="page" value="${subject}"/>
 <script src="/js/validation.js"></script>
@@ -31,3 +31,4 @@
 
 </form>
 
+</div>

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/js/validation.js"></script>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<div class="form-position">
 Предметы:
 <c:forEach var="subject" items="${listSubject}">
     <form name="deleteSubject" action="controller" method="post">
@@ -22,3 +22,4 @@
 </c:forEach>
 
 <div class="ui active button" ><a href="controller?command=createSubject">Create new subject</a></div>
+</div>

@@ -78,44 +78,7 @@
 
 
 <fmt:message key="login.label.login"/>
-<!-- <div class="nav">
-        <form name="changeButton" action="controller" method="get">
-            <input type="hidden" name="command" value="changeButton" />
-            <br/><input name="navParameter" value="changeEntrant" type="submit" >
-        </form>
 
-        <form name="changeAdmin" action="controller" method="get">
-            <input type="hidden" name="command" value="changeAdmin" />
-
-            <br/><input value="changeAdmin" type="submit"  >
-        </form>
-
-        <form name="about" action="controller" method="get">
-            <input type="hidden" name="command" value="about" />
-            <br/><input value="aboutMe" type="submit" name="navParameter">
-        </form>
-
-        <form name="createFaculty" action="controller" method="get">
-            <input type="hidden" name="command" value="createFaculty" />
-            <br/><input value="createFaculty" type="submit" name="navParameter">
-        </form>
-
-        <form name="createSubject" action="controller" method="get">
-            <input type="hidden" name="command" value="createSubject" />
-            <br/><input value="createSubject" type="submit" name="navParameter">
-        </form>
-
-        <form name="createSpeciality" action="controller" method="get">
-            <input type="hidden" name="command" value="createSpeciality" />
-            <br/><input value="createSpeciality" type="submit" name="navParameter">
-        </form>
-
-        <form name="createAdmin" action="controller" method="get">
-            <input type="hidden" name="command" value="createAdmin" />
-            <br/><input value="createAdmin" type="submit" name="navParameter">
-        </form>
-    </div>
-    <div> -->
 <div class="content">
         <c:set var = "nav" scope = "page" value = "${nav}"/>
         <c:choose>

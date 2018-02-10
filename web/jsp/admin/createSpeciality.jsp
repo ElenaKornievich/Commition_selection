@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<div class="form-position">
 <h3>Создание новой специальности</h3>
 <script src="/js/validation.js"></script>
 <form name="createSpeciality" action="controller" method="post" onsubmit="return validateCreateSpeciality()">
@@ -47,3 +47,4 @@
         </div>
     </div>
 </form>
+</div>

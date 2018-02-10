@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div class="form-position">
 <h3> Создать администратора</h3>
 
 <script src="/js/validation.js"></script>
@@ -75,3 +76,4 @@
        <input type="submit" class="ui positive button" name="change" value="Change"/>
    </div> -->
 </form>
+</div>
