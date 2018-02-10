@@ -39,6 +39,7 @@ public class ChangeEntrantSpeciality implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         try {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {

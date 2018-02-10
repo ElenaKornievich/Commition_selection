@@ -98,7 +98,7 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    public User createUser(String login, String password, String role) throws DAOException {
+    public boolean createUser(String login, String password, String role) throws DAOException {
         Connection cn = ConnectionPool.getInstance().takeConnection();
         try {
             PreparedStatement preparedStatement =
@@ -107,8 +107,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, role);
             preparedStatement.executeUpdate();
-            ConnectionPool.getInstance().returnConnection(cn);
-            return findUserByLogin(login);
+            return true;
 
         } catch (SQLException e) {
             throw new DAOException("SQLException occurred while creating user from a database", e);

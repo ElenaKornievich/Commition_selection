@@ -1,9 +1,4 @@
 function validateRegistrationForm() {
-    var name = document.forms["registration"]["name"].value;
-    if (name == "") {
-        alert("name must be filled out");
-        return false;
-    }
     var login = document.forms["registration"]["login"].value;
     if (login == "") {
         alert("login must be filled out");

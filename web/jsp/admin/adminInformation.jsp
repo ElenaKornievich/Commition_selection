@@ -6,19 +6,19 @@
     <div class="ui form">
         <div class="fields">
             <div class="field">
-                <label>Фамилия</label>
+                <label> <fmt:message key="common.label.surname"/></label>
                 <div class="ui input">
                     <c:out value="${admin.getSurname()}"/>
                 </div>
             </div>
             <div class="field">
-                <label>Имя</label>
+                <label> <fmt:message key="common.label.firstName"/></label>
                 <div class="ui input">
                     <c:out value="${admin.getFirstName()}"/>
                 </div>
             </div>
             <div class="field">
-                <label>Отчество</label>
+                <label> <fmt:message key="common.label.lastName"/></label>
                 <div class="ui input">
                     <c:out value="${admin.getSecondName()}"/>
                 </div>

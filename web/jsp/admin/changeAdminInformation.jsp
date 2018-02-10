@@ -7,19 +7,19 @@
     <div class="ui form">
         <div class="fields">
             <div class="field">
-                <label>Фамилия</label>
+                <label> <fmt:message key="common.label.surname"/></label>
                 <div class="ui input">
                     <input type="text" name="surname" value="${admin.getSurname()}">
                 </div>
             </div>
             <div class="field">
-                <label>Имя</label>
+                <label> <fmt:message key="common.label.firstName"/></label>
                 <div class="ui input">
                     <input type="text" name="firstName" value="${admin.getFirstName()}">
                 </div>
             </div>
             <div class="field">
-                <label>Отчество</label>
+                <label> <fmt:message key="common.label.lastName"/></label>
                 <div class="ui input">
                     <input type="text" name="lastName" value="${admin.getSecondName()}">
                 </div>
@@ -33,10 +33,10 @@
                 <div class="ui buttons">
 
                     <div class="ui button">
-                        <a href="controller?command=adminPanel">Отмена</a>
+                        <a href="controller?command=adminPanel"> <fmt:message key="common.button.cancel"/></a>
                     </div>
                     <div class="or"></div>
-                    <input type="submit" class="ui positive button" name="change" value="Сохранить"/>
+                    <input type="submit" class="ui positive button" name="change" value=" <fmt:message key="common.button.change"/>"/>
 
                     <c:set var="execute" value="${execute}"/>
                     <c:if test="${execute>0}">

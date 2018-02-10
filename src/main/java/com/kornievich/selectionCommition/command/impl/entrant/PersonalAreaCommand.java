@@ -24,6 +24,7 @@ public class PersonalAreaCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
         request.setAttribute("nav", 0);
         return PageConstant.PAGE_PERSONAL_AREA;
 

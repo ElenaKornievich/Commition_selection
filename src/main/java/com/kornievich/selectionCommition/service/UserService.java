@@ -88,7 +88,8 @@ public class UserService {
     }
     public User createUser(String login, String password, String role) throws DAOException{
         LOGGER.info("The createUser() method is called");
-        return userDAO.createUser(login, password, role);
+        userDAO.createUser(login, password, role);
+        return userDAO.findUserByLogin(login);
     }
 
 

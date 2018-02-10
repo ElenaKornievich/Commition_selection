@@ -6,10 +6,10 @@
 <head>
     <c:set var="language"
            value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-           scope="page"/>
+           scope="session"/>
     <fmt:setLocale value="${language}"/>
     <fmt:setBundle basename="text"/>
-    <form >
+    <form>
         <select id="language" name="language" onchange="submit()">
             <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
             <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
@@ -31,7 +31,7 @@
     <div class="ui container">
 
         <a href="controller?command=main" class="item">
-            <i class="home icon"></i> Главная
+            <i class="home icon"></i> <fmt:message key="header.button.main"/>
         </a>
         <c:set var = "personalArea" scope = "session" value = "${role}"/>
         <c:set var = "adminPanel" scope = "session" value = "admin"/>
@@ -39,32 +39,29 @@
         <c:choose>
         <c:when test="${role == adminPanel}">
         <a href="controller?command=adminPanel" class="item">
-            Панель администратора</a>
+            <fmt:message key="header.button.adminPanel"/></a>
         </c:when>
         <c:when test="${role == personalArea}">
         <a href="controller?command=personalArea" class="item">
-           Личный кабинет</a>
+            <fmt:message key="header.button.personalArea"/></a>
         </c:when>
             <c:otherwise>
             </c:otherwise>
         </c:choose>
-      <!--  <a href="controller?command=personalArea" class="item">
-            <i class="mail icon"></i> Личный кабинет
-        </a>-->
         <a href="controller?command=queue" class="item">
-            Очередь
+            <fmt:message key="header.button.queue"/>
         </a>
         <a href="controller?command=mainFaculty" class="item">
-            О Факультетах
+            <fmt:message key="header.button.mainFaculty"/>
         </a>
         <a href="controller?command=contact" class="item">
-            Контакты
+            <fmt:message key="header.button.contact"/>
         </a>
         <c:set var = "user" scope = "session" value = "${user}"/>
-        <c:if test="${empty user}"><a href="controller?command=login" class="item">Вход</a>
+        <c:if test="${empty user}"><a href="controller?command=login" class="item"><fmt:message key="header.button.login"/></a>
 
-        <a href="controller?command=registration" class="item">Регистрация</a></c:if>
-        <c:if test="${not empty user}"><a href="controller?command=logout" class="item">Выход</a></c:if>
+        <a href="controller?command=registration" class="item"><fmt:message key="header.button.registration"/></a></c:if>
+        <c:if test="${not empty user}"><a href="controller?command=logout" class="item"><fmt:message key="header.button.logout"/></a></c:if>
 
     </div>
 </div>

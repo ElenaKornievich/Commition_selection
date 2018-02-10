@@ -24,20 +24,20 @@
 <div class="nav">
 <div class="ui vertical menu">
         <a class="teal item active" href="controller?command=changeAdmin">
-    changeAdmin
+    <fmt:message key="admin.button.changeAdmin"/>
 
     </a>
     <a class="item" href="controller?command=adminInformation">
-        My information
+        <fmt:message key="admin.button.adminInformation"/>
 
     </a>
     <a class="item" href="controller?command=changeButton">
-        changeEntrant
+        <fmt:message key="admin.button.changeButton"/>
 
     </a>
     </a>
     <a class="item" href="controller?command=speciality">
-        Speciality
+        <fmt:message key="admin.button.speciality"/>
 
     </a>
    <!-- <a class="item" href="controller?command=deleteFaculty">
@@ -45,7 +45,7 @@
 
     </a> -->
     <a class="item" href="controller?command=subject" >
-        Subject
+        <fmt:message key="admin.button.subject"/>
 
     </a>
   <!--  <a class="item" href="controller?command=createFaculty">
@@ -53,7 +53,7 @@
 
     </a>-->
     <a class="item" href="controller?command=faculty">
-        Faculty
+        <fmt:message key="admin.button.faculty"/>
 
     </a>
    <!-- <a class="item" href="controller?command=createSubject">
@@ -65,7 +65,7 @@
 
     </a>-->
     <a class="item" href="controller?command=createAdmin">
-        createAdmin
+        <fmt:message key="admin.button.createAdmin"/>
     </a>
    <!-- <div class="item">
         <div class="ui transparent icon input">
@@ -76,8 +76,6 @@
 </div>
 </div>
 
-
-<fmt:message key="login.label.login"/>
 
 <div class="content">
         <c:set var = "nav" scope = "page" value = "${nav}"/>
@@ -125,18 +123,19 @@
                 <%@include file="subject.jsp"%>
             </c:when>
             <c:otherwise>
-                <h3><ctg:role role="${role}"/></h3>
-
-
-                <form >
+<head>
+                <c:set var="language"
+                       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
+                       scope="page"/>
+                <fmt:setLocale value="${language}"/>
+                <fmt:setBundle basename="text"/>
+                <form>
                     <select id="language" name="language" onchange="submit()">
                         <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
                         <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                     </select>
-                    <fmt:setLocale value="${language}"/>
-                    <fmt:setBundle basename="text"/>
-
                 </form>
+</head>
                 <fmt:message key="login.label.login"/>
             </c:otherwise>
         </c:choose>

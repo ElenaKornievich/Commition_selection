@@ -9,6 +9,7 @@ import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.SpecialityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,8 +58,17 @@ public class ChangeCommand  implements BaseCommand{
     }
     @Override
     public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
+        int entrantId = (int) request.getSession().getAttribute(AttributeConstant.ATTRIBUTE_ID);
+        System.out.println(entrantId+"jjjjj");
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, EntrantService.getInstance().findEntrantById(entrantId));
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        try {
+
+            request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't read all specialities. "+e);

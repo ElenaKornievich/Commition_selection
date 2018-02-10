@@ -40,7 +40,8 @@ public class RegistrationService {
         }
         Date date = new Date();
         SimpleDateFormat dateNow = new SimpleDateFormat("yyyy-MM-dd");
-        User user=userDAO.createUser(login, SHA256Util.encrypt(password), Roles.ENTRANT.getText());
+        userDAO.createUser(login, SHA256Util.encrypt(password), Roles.ENTRANT.getText());
+        User user = userDAO.findUserByLogin(login);
         Entrant entrant = new Entrant(user.getId(), dateNow.format(date), pasportSeria, pasportNumber, surname, firstName, lastName, dataOfIssue,
                 identificationNumber, dataOfBirth, nationality, telephoneNumber, residenceAddress, scope, goldMedal, email);
         System.out.println(entrant.toString());
