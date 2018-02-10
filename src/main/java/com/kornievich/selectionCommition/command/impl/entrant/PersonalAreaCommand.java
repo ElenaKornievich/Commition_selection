@@ -24,11 +24,6 @@ public class PersonalAreaCommand implements BaseCommand {
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        try {
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
         request.setAttribute("nav", 0);
         return PageConstant.PAGE_PERSONAL_AREA;
 

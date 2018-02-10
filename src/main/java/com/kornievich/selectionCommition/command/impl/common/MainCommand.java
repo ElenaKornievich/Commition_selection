@@ -34,6 +34,7 @@ public class MainCommand implements BaseCommand {
             users = UserService.getInstance().readAllUsers();
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all users. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
         String login = request.getParameter(ParameterConstant.PARAMETER_LOGIN);
@@ -54,15 +55,16 @@ public class MainCommand implements BaseCommand {
             } else {
                 page = PageConstant.PAGE_ERROR;
             }
-        } catch (Exception e) {
-            System.out.println("ppp");
+        } catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't find user with such input value. "+e);
         }
         return page;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
-       // RequestsDAO requestsDAO = new RequestsDAO();
+       // RequestDAO requestsDAO = new RequestDAO();
        // ArrayList<Integer> entrant;
         //ArrayList<Integer> allIdSpesiality = requestsDAO.readAllIdSpecialties();
        // entrant= requestsDAO.allScoreBySpesialty(1);

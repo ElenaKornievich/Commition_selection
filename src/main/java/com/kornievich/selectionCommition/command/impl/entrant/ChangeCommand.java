@@ -9,6 +9,7 @@ import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.SpecialityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,6 +49,7 @@ public class ChangeCommand  implements BaseCommand{
             entrantDAO.updateEntrant(entrant);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't update entrant with such input value. "+e);
         }
 
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 0);
@@ -55,11 +57,11 @@ public class ChangeCommand  implements BaseCommand{
     }
     @Override
     public String getPage(HttpServletRequest request) {
-        SpecialityDAO specialityDAO=new SpecialityDAO();
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,specialityDAO.readAllSpecialities());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all specialities. "+e);
         }
 
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);

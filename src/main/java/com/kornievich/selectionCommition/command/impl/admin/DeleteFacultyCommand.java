@@ -29,6 +29,7 @@ public class DeleteFacultyCommand implements BaseCommand{
         request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all faculties. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
         return PageConstant.PAGE_ADMIN_PANEL;
@@ -40,6 +41,7 @@ public class DeleteFacultyCommand implements BaseCommand{
             request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all faculties. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
         return PageConstant.PAGE_ADMIN_PANEL;

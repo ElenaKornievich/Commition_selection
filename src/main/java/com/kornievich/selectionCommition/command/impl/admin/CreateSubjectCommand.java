@@ -33,6 +33,7 @@ public class CreateSubjectCommand implements BaseCommand {
         SubjectService.getInstance().createSubject(nameSubject);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't create subject with such input value. "+e);
         }
         return PageConstant.PAGE_ADMIN_PANEL;
     }
@@ -43,6 +44,7 @@ public class CreateSubjectCommand implements BaseCommand {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all subjects. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 7);
         return PageConstant.PAGE_ADMIN_PANEL;

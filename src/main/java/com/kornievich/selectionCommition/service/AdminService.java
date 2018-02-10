@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class AdminService {
     static final Logger LOGGER = LogManager.getLogger(AdminService.class);
 
-    //  private IUserDAO dao;
     private static AdminService instance;
     private AdminDAO adminDAO;
     private AdminService() {

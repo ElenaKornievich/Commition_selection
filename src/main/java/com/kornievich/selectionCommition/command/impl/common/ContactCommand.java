@@ -31,6 +31,7 @@ public class ContactCommand implements BaseCommand {
             request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_ADMIN, AdminService.getInstance().readAllAdmins());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all admins. "+e);
         }
         return PageConstant.PAGE_CONTACT;
 

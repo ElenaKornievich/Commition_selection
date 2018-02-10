@@ -32,6 +32,7 @@ public class DeleteEntrantCommand implements BaseCommand {
         EntrantService.getInstance().deleteEntrant(idEntrant);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't delete entrant with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
         return PageConstant.PAGE_ADMIN_PANEL;
@@ -46,6 +47,7 @@ public class DeleteEntrantCommand implements BaseCommand {
         EntrantService.getInstance().deleteEntrant(idEntrant);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't delete User with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
         return PageConstant.PAGE_ADMIN_PANEL;

@@ -29,7 +29,7 @@ public class LoginCommand implements BaseCommand {
 
     private static LoginCommand instance = new LoginCommand();
 
-    public LoginCommand() {
+    private LoginCommand() {
     }
 
     @Override
@@ -84,6 +84,7 @@ public class LoginCommand implements BaseCommand {
             }
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't login command with such value. "+e);
         }
         return page;
     }
@@ -96,6 +97,7 @@ public class LoginCommand implements BaseCommand {
             users = UserService.getInstance().readAllUsers();
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all users. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_USERS, users);
         request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_LOGIN, AttributeConstant.ATTRIBUTE_LOGON);

@@ -34,6 +34,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
             SpecialityService.getInstance().updateSpeciality(new Speciality(specialityId, specialityName, facultyId, numberOfBudgetPlaces,numberOfPaidPlaces));
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't find faculty with such input id. "+e);
         }
         return PageConstant.PAGE_ADMIN_PANEL;
     }
@@ -48,6 +49,7 @@ public class ChangeSpecialityCommand implements BaseCommand {
             speciality = SpecialityService.getInstance().findSpecialityById(specialityId);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't find speciality with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITY, speciality);
         return PageConstant.PAGE_ADMIN_PANEL;

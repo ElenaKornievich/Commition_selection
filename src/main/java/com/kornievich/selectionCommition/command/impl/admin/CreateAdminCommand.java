@@ -36,17 +36,25 @@ public class CreateAdminCommand implements BaseCommand {
         String lastName = request.getParameter(ParameterConstant.PARAMETER_LAST_NAME);
         System.out.println(surname + firstName + lastName);
 
+
         try {
             if(UserService.getInstance().findUserByLogin(login)!=null)
                 return PageConstant.PAGE_ERROR;
-            User user=UserService.getInstance().createUser(login, password, Roles.ADMIN.getText());
-            Admin admin = new Admin(user.getId(), surname, firstName, lastName);
-            AdminService.getInstance().createAdmin(admin);
-            return PageConstant.PAGE_ADMIN_PANEL;
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't find user with such input login. "+e);
         }
-        return null;
+        User user= null;
+        try {
+            user = UserService.getInstance().createUser(login, password, Roles.ADMIN.getText());
+        Admin admin = new Admin(user.getId(), surname, firstName, lastName);
+            AdminService.getInstance().createAdmin(admin);
+        } catch (DAOException e) {
+        e.printStackTrace();
+        LOGGER.error("Can't create admin with such input value. "+e);
+    }
+        return PageConstant.PAGE_ADMIN_PANEL;
+
     }
     @Override
     public String getPage(HttpServletRequest request) {

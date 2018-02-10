@@ -19,7 +19,6 @@ public enum CommandEnum {
     CHANGE(ChangeCommand.getInstance()),
     CHANGEENTRANTSPECIALITY(ChangeEntrantSpeciality.getInstance()),
     ABOUT(AboutCommand.getInstance()),
-    TEST(TestCommand.getInstance()),
     CHANGEENTRANT(ChangeEntrantCommand.getInstance()),
     CHANGEBUTTON(ChangeButtonCommand.getInstance()),
     CHANGEADMIN(ChangeAdminCommand.getInstance()),

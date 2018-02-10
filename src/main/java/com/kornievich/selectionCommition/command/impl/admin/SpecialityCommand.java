@@ -29,6 +29,7 @@ public class SpecialityCommand implements BaseCommand{
             SpecialityService.getInstance().deleteSpeciality(specialityId);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't delete speciality with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,11);
         return PageConstant.PAGE_ADMIN_PANEL;
@@ -40,6 +41,7 @@ public class SpecialityCommand implements BaseCommand{
             request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all specialities. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,13);
         return PageConstant.PAGE_ADMIN_PANEL;

@@ -32,6 +32,7 @@ public class ChangeAdminCommand implements BaseCommand{
             AdminService.getInstance().updateAdmin(admin);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't update admin with such input value. "+e);
         }
 
         request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);

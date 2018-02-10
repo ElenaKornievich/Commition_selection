@@ -6,6 +6,7 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
 import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.FacultyService;
 import com.kornievich.selectionCommition.service.SpecialityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,17 +37,18 @@ public class CreateSpecialityCommand  implements BaseCommand{
         SpecialityService.getInstance().createSpeciality(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't create speciality with such input value. "+e);
         }
          return PageConstant.PAGE_ADMIN_PANEL;
     }
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
-        FacultyDAO facultyDAO=new FacultyDAO();
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES,facultyDAO.readAllFaculties());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_FACULTIES, FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all faculties. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 8);
         return PageConstant.PAGE_ADMIN_PANEL;

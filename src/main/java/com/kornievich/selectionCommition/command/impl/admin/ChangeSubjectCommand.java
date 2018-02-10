@@ -31,6 +31,7 @@ public class ChangeSubjectCommand implements BaseCommand {
             SubjectService.getInstance().updateSubjectName(new Subject(subjectId, subjectName));
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't update subject name. "+e);
         }
 
         return PageConstant.PAGE_ADMIN_PANEL;
@@ -44,6 +45,7 @@ public class ChangeSubjectCommand implements BaseCommand {
             request.setAttribute(AttributeConstant.ATTRIBUTE_SUBJECT, SubjectService.getInstance().findSubjectById(subjectId));
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't find subject with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,10);
         return PageConstant.PAGE_ADMIN_PANEL;

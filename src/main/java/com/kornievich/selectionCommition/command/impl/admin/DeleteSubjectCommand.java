@@ -29,6 +29,7 @@ public class DeleteSubjectCommand implements BaseCommand {
         request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SUBJECT, SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all subjects. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,14);
         return PageConstant.PAGE_ADMIN_PANEL;
@@ -40,6 +41,7 @@ public class DeleteSubjectCommand implements BaseCommand {
             request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SUBJECT, SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all subjects. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,14);
         return PageConstant.PAGE_ADMIN_PANEL;

@@ -13,10 +13,7 @@ import com.kornievich.selectionCommition.entity.CTPoint;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
 import com.kornievich.selectionCommition.exception.DAOException;
-import com.kornievich.selectionCommition.service.CTPointService;
-import com.kornievich.selectionCommition.service.EntrantService;
-import com.kornievich.selectionCommition.service.RegistrationService;
-import com.kornievich.selectionCommition.service.SpecialityService;
+import com.kornievich.selectionCommition.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,7 +73,8 @@ public class RegistrationCommand implements BaseCommand {
                 page = PageConstant.PAGE_ERROR;
             }
         } catch (DAOException e) {
-            LOGGER.error("DAOException");
+            e.printStackTrace();
+            LOGGER.error("Can't registration entrant with such input value. "+e);
         }
         return page;
     }
@@ -84,11 +82,11 @@ public class RegistrationCommand implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
-        SubjectDAO subjectDAO = new SubjectDAO();
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS, subjectDAO.readAllSubjects());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS, SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all subjects. "+e);
         }
         return PageConstant.PAGE_REGISTRATION;
     }

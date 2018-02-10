@@ -1,13 +1,13 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
-import com.kornievich.selectionCommition.dao.impl.RequestsDAO;
+import com.kornievich.selectionCommition.dao.impl.RequestDAO;
 import com.kornievich.selectionCommition.entity.EntrantInQueueModal;
 import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.RequestService;
 import com.kornievich.selectionCommition.service.SpecialityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,12 +28,13 @@ public class QueueCommand implements BaseCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("The execute() method is called");
         int specialityId = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
-        RequestsDAO requestsDAO = new RequestsDAO();
+        //RequestDAO requestDAO = new RequestDAO();
         ArrayList<EntrantInQueueModal> queue = null;
         try {
-            queue = requestsDAO.allEntrantsScoreBySpecialty(specialityId);
+            queue = RequestService.getInstance().allEntrantsScoreBySpecialty(specialityId);
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't calculate all entrants scope by speciality with such input id. "+e);
         }
         if(queue!=null){
         request.setAttribute(AttributeConstant.ATTRIBUTE_QUEUE, queue);
@@ -48,6 +49,7 @@ public class QueueCommand implements BaseCommand {
             request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all specialities. "+e);
         }
         return PageConstant.PAGE_QUEUE;
 

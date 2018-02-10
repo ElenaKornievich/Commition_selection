@@ -43,6 +43,7 @@ public class ChangeEntrantCommand implements BaseCommand{
             request.setAttribute(AttributeConstant.ATTRIBUTE_CTPOINT_ENTRANT, CTPointService.getInstance().findCTPointByEntrantId(idEntrant));
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all entrants. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 4);
         return PageConstant.PAGE_ADMIN_PANEL;

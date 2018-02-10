@@ -40,12 +40,18 @@ public class ChangeFacultyCommand implements BaseCommand {
         String endDate = request.getParameter("endDate");
         int idFaculty = Integer.parseInt(request.getParameter("facultyId"));
         try {
-            FacultyService.getInstance().updateFaculty(new Faculty(idFaculty, name,startDate,endDate));
+            FacultyService.getInstance().updateFaculty(new Faculty(idFaculty, name, startDate, endDate));
+        }catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't update faculty with such input values"+e);
+        }
+        try{
         FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty,subjectOneId));
         FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty, subjectTwoId));
         FacultySubjectsService.getInstance().updateFacultySubjects(new FacultySubject(idFaculty, subjectThreeId));
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't update faculty subjects with such input value. "+e);
         }
         return PageConstant.PAGE_ADMIN_PANEL;
     }
@@ -53,9 +59,7 @@ public class ChangeFacultyCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         int facultyId = Integer.parseInt(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
-       // String name= request.getParameter("facultyName");
-        //String startDate = request.getParameter("startDateOfFiling");
-        //String endDate = request.getParameter("endDateOfFiling");
+
         Faculty faculty= null;
         try {
             faculty = FacultyService.getInstance().findFacultyById(facultyId);
@@ -70,6 +74,7 @@ public class ChangeFacultyCommand implements BaseCommand {
         request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,subjectDAO.readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't find faculty with such input id. "+e);
         }
         return PageConstant.PAGE_ADMIN_PANEL;
 

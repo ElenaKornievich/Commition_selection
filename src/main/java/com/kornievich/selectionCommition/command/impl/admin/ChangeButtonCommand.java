@@ -33,6 +33,7 @@ public class ChangeButtonCommand implements BaseCommand {
             entrants = EntrantService.getInstance().readAllEntrants();
         } catch (DAOException e) {
             e.printStackTrace();
+            LOGGER.error("Can't read all entrants. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
 

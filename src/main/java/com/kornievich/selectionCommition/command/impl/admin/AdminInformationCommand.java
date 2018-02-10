@@ -35,7 +35,7 @@ public class AdminInformationCommand implements BaseCommand {
             request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ADMIN, admin);
         } catch (DAOException e) {
             e.printStackTrace();
-           LOGGER.error("Can't admin with such input value"+e);
+           LOGGER.error("Can't search admin with such input id. "+e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 3);
         return PageConstant.PAGE_ADMIN_PANEL;
