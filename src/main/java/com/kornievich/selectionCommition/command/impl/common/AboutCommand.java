@@ -4,6 +4,8 @@ import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
+import com.kornievich.selectionCommition.exception.DAOException;
+import com.kornievich.selectionCommition.service.EntrantService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,6 +30,13 @@ public class AboutCommand implements BaseCommand{
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
+        int entrantId = (int) request.getSession().getAttribute(AttributeConstant.ATTRIBUTE_ID);
+        try {
+            request.setAttribute(AttributeConstant.ATTRIBUTE_ENTRANT, EntrantService.getInstance().findEntrantById(entrantId));
+        } catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't find entrant with such input id. "+e);
+        }
         request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 3);
         return PageConstant.PAGE_PERSONAL_AREA;
 

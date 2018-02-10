@@ -44,7 +44,7 @@ public class Entrant {
         this.id = id;
         this.dateOfFilling = dateOfFilling;
         this.specialityId = 0;
-                this.pasportSeries = pasportSeries;
+        this.pasportSeries = pasportSeries;
         this.passportNumber = passportNumber;
         this.surname = surname;
         this.firstName = firstName;

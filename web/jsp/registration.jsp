@@ -129,10 +129,5 @@
     </form>
 </div>
 
-<table>
-    <c:forEach var="i" items="${users}">
-        Item <c:out value="${i.login}"/>
-    </c:forEach>
-</table>
 </body>
 </html>

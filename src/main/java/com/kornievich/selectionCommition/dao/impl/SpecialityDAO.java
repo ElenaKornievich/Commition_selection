@@ -12,6 +12,8 @@ public class SpecialityDAO implements ISpecialityDAO {
 
     private static final String READ_SPECIALITY_ALL = "SELECT * FROM selection_commition.specialties";
     private static final String FIND_SPECIALITY_BY_ID = "SELECT * FROM selection_commition.specialties WHERE SpecialtyID=?";
+    private static final String FIND_SPECIALITY_BY_FACULTY_ID = "SELECT * FROM selection_commition.specialties WHERE FacultyID=?";
+
     private static final String FIND_SPECIALITY_BY_NAME = "SELECT * FROM selection_commition.specialties WHERE SpecialtyName=?";
     private static final String CREATE_SPECIALITY = "INSERT INTO selection_commition.specialties (SpecialtyName , FacultyID, NumberOfBudgetPlaces, NumberOfPaidPlaces) VALUES (?,?,?,?)";
     private static final String UPDATE_SPECIALITY = "UPDATE selection_commition.specialties SET selection_commition.specialties.SpecialtyName = ?, " +
@@ -114,6 +116,20 @@ public class SpecialityDAO implements ISpecialityDAO {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return initSpeciality(resultSet);
+        } catch (SQLException e) {
+            throw new DAOException("SQLException occurred while finding speciality with such id", e);
+        } finally {
+            ConnectionPool.getInstance().returnConnection(cn);
+        }
+    }
+    @Override
+    public ArrayList<Speciality> findSpecialityByFacultyId(int id) throws DAOException {
+        Connection cn = ConnectionPool.getInstance().takeConnection();
+        try {
+            PreparedStatement preparedStatement = cn.prepareStatement(FIND_SPECIALITY_BY_FACULTY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return initSpecialities(resultSet);
         } catch (SQLException e) {
             throw new DAOException("SQLException occurred while finding speciality with such id", e);
         } finally {

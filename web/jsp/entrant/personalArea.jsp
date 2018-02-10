@@ -32,7 +32,6 @@
     <c:set var="nav" scope="page" value="${nav}"/>
     <c:choose>
         <c:when test="${nav == 1}">
-            <%@include file="aboutMe.jsp" %>
             <%@include file="formChangePersonalInformation.jsp" %>
         </c:when>
         <c:when test="${nav == 2}">
@@ -40,7 +39,6 @@
         </c:when>
         <c:when test="${nav == 3}">
             <%@include file="aboutMe.jsp" %>
-            <c:out value="${sexNow}"/>
         </c:when>
         <c:otherwise>
             <h3><ctg:role role="${role}"/></h3>

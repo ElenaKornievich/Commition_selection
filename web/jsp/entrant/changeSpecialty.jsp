@@ -6,6 +6,7 @@
         <div class="fields">
             <div class="field">
                 <label>Специальность</label>
+                ${speciality}
                 <select name="specialityId">
                     <c:forEach var="speciality" items="${specialities}">
                         <option value="${speciality.getId()}"> ${speciality.getName()}</option>

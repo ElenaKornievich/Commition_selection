@@ -23,6 +23,9 @@
     </div>
 </div>
     <c:forEach var = "faculty" items="${listFaculty}">
+        <form>
+            <input type="hidden" name="command" value="facultyInformation">
+            <input type="hidden" name="facultyId" value="${faculty.getId()}">
         <div class="ui form">
         <div class="three fields">
         <div class="field">
@@ -39,6 +42,13 @@
         </div>
         </div>
         </div>
+            <div class="ui active button">
+                <c:url value="controller?command=facultyInformation" var="more">
+                    <c:param name="facultyId" value="${faculty.getId()}"/>
+                </c:url>
+                <a href=${more}>More</a>
+            </div>
+        </form>
     </c:forEach>
 
 </body>

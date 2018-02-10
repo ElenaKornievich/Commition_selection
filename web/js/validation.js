@@ -44,7 +44,7 @@ function validateRegistrationForm() {
     var dataOfBirth = document.forms["registration"]["dataOfBirth"].value;
 //начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
 //от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
-    if (!r.test(dataOfBirth)) {
+    if (dateOfBirth == "") {
         alert("Wrong dataOfBirth");
         return false;
     }
@@ -79,13 +79,14 @@ function validateRegistrationForm() {
         alert("telephoneNumber must be filled out");
         return false;
     }
+
     var subjectOneId = document.forms["registration"]["subjectOneId"].value;
     if (subjectOneId == "") {
         alert("subjectOneId must be filled out");
         return false;
     }
     var subjectOneValue = document.forms["registration"]["subjectOneValue"].value;
-    if (subjectOneValue == "" && subjectOneValue>15 && subjectOneValue<=100) {
+    if (subjectOneValue == "" || subjectOneValue<15 || subjectOneValue>100) {
         alert("subjectOneValue must be filled out");
         return false;
     }
@@ -95,7 +96,7 @@ function validateRegistrationForm() {
         return false;
     }
     var subjectTwoValue = document.forms["registration"]["subjectTwoValue"].value;
-    if (subjectTwoValue == "" && subjectTwoValue>15 && subjectTwoValue<=100) {
+    if (subjectTwoValue == "" || subjectTwoValue<15 || subjectTwoValue>100) {
         alert("subjectTwoValue must be filled out");
         return false;
     }
@@ -105,11 +106,14 @@ function validateRegistrationForm() {
         return false;
     }
     var subjectThreeValue = document.forms["registration"]["subjectThreeValue"].value;
-    if (subjectThreeValue == "" && subjectThreeValue>15 && subjectThreeValue<=100) {
+    if (subjectThreeValue == "" || subjectThreeValue<15 || subjectThreeValue>100) {
         alert("subjectThreeValue must be filled out");
         return false;
     }
-
+    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId ) {
+        alert("subject must be filled out");
+        return false;
+    }
 }
 function validateChangePersonalInformation() {
     var firstName = document.forms["changePersonalInformation"]["firstName"].value;
@@ -186,36 +190,6 @@ function validateChangePersonalInformation() {
     var telephoneNumber = document.forms["changePersonalInformation"]["telephoneNumber"].value;
     if (telephoneNumber == "") {
         alert("telephoneNumber must be filled out");
-        return false;
-    }
-    var subjectOneId = document.forms["changePersonalInformation"]["subjectOneId"].value;
-    if (subjectOneId == "") {
-        alert("subjectOneId must be filled out");
-        return false;
-    }
-    var subjectOneValue = document.forms["changePersonalInformation"]["subjectOneValue"].value;
-    if (subjectOneValue == "" && subjectOneValue>15 && subjectOneValue<=100) {
-        alert("subjectOneValue must be filled out");
-        return false;
-    }
-    var subjectTwoId = document.forms["changePersonalInformation"]["subjectTwoId"].value;
-    if (subjectTwoId == "") {
-        alert("subjectTwoId must be filled out");
-        return false;
-    }
-    var subjectTwoValue = document.forms["registration"]["subjectTwoValue"].value;
-    if (subjectTwoValue == "" && subjectTwoValue>15 && subjectTwoValue<=100) {
-        alert("subjectTwoValue must be filled out");
-        return false;
-    }
-    var subjectThreeId = document.forms["changePersonalInformation"]["subjectThreeId"].value;
-    if (subjectThreeId == "") {
-        alert("subjectThreeId must be filled out");
-        return false;
-    }
-    var subjectThreeValue = document.forms["changePersonalInformation"]["subjectThreeValue"].value;
-    if (subjectThreeValue == "" && subjectThreeValue>15 && subjectThreeValue<=100) {
-        alert("subjectThreeValue must be filled out");
         return false;
     }
 
@@ -377,12 +351,4 @@ function validateCreateSubject() {
         alert("name must be filled out");
         return false;
     }
-}
-function validationChangeEntrant() {
-    var surname = document.forms["changeEntrant"]["surname"].value;
-    if (surname == "") {
-        alert("surname must be filled out");
-        return false;
-    }
-
 }

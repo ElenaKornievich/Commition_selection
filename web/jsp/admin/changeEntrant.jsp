@@ -26,7 +26,7 @@
                     <c:url value="controller?command=deleteEntrant" var="delete">
                         <c:param name="idEntrant" value="${entrant.getId()}"/>
                     </c:url>
-                    <a href=${delete}>Удалить</a></div>
+                    <a href=${delete}><fmt:message key="common.button.delete"/></a></div>
 
             </div>
         </div>
@@ -35,11 +35,11 @@
             <p class="transition visible" style="display: block !important;">
             <table>
                 <tr>
-                    <td>Id</td>
+                    <td><fmt:message key="common.label.id"/></td>
                     <td>${entrant.getId()}</td>
                 </tr>
                 <tr>
-                    <td>Дата подачи</td>
+                    <td><fmt:message key="entrant.label.dateOfFilling"/></td>
                     <td>${entrant.getDateOfFilling()}</td>
                 </tr>
                 <tr>
@@ -47,59 +47,59 @@
                     <td>${entrant.getSpecialityId()}</td>
                 </tr>
                 <tr>
-                    <td>Серия паспорта</td>
+                    <td><fmt:message key="entrant.label.pasportSeria"/></td>
                     <td>${entrant.getPasportSeries()}</td>
                 </tr>
                 <tr>
-                    <td>Номер паспорта</td>
+                    <td><fmt:message key="entrant.label.pasportNomer"/></td>
                     <td>${entrant.getPassportNumber()}</td>
                 </tr>
                 <tr>
-                    <td>Фамилия</td>
+                    <td><fmt:message key="common.label.surname"/></td>
                     <td>${entrant.getSurname()}</td>
                 </tr>
                 <tr>
-                    <td>Имя</td>
+                    <td><fmt:message key="common.label.firstName"/></td>
                     <td>${entrant.getFirstName()}</td>
                 </tr>
                 <tr>
-                    <td>Отчество</td>
+                    <td><fmt:message key="common.label.lastName"/></td>
                     <td>${ entrant.getLastName()}</td>
                 </tr>
                 <tr>
-                    <td>Дата выдачи паспорта</td>
+                    <td><fmt:message key="entrant.label.dataOfIssue"/></td>
                     <td>${entrant.getDateOfIssue()}</td>
                 </tr>
                 <tr>
-                    <td>Идентификационный номер</td>
+                    <td><fmt:message key="entrant.label.identificationNumber"/></td>
                     <td>${entrant.getIdentificationNumber()}</td>
                 </tr>
                 <tr>
-                    <td>Дата рождения</td>
+                    <td><fmt:message key="entrant.label.dateOfBirth"/></td>
                     <td>${entrant.getDateOfBirth()}</td>
                 </tr>
                 <tr>
-                    <td>Национальность</td>
+                    <td><fmt:message key="entrant.label.nationality"/></td>
                     <td>${entrant.getNationality()}</td>
                 </tr>
                 <tr>
-                    <td>Телефон</td>
+                    <td><fmt:message key="entrant.label.telephoneNumber"/></td>
                     <td>${entrant.getTelephoneNumber()}</td>
                 </tr>
                 <tr>
-                    <td>Адрес прописки</td>
+                    <td><fmt:message key="entrant.label.residenceAddress"/></td>
                     <td>${entrant.getResidenceAddress()}</td>
                 </tr>
                 <tr>
-                    <td>Балл аттестата</td>
+                    <td><fmt:message key="entrant.label.score"/></td>
                     <td>${entrant.getScore()}</td>
                 </tr>
                 <tr>
-                    <td>Есть/нет золотая медаль</td>
+                    <td><fmt:message key="entrant.label.goldMedal"/></td>
                     <td>${entrant.isGoldMedal()}</td>
                 </tr>
                 <tr>
-                    <td>Почта</td>
+                    <td><fmt:message key="entrant.label.email"/></td>
                     <td>${entrant.getEmail()}</td>
                 </tr>
 

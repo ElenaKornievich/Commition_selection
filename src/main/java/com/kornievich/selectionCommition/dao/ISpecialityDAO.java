@@ -12,5 +12,6 @@ public interface ISpecialityDAO {
     boolean deleteSpeciality(int specialityId) throws DAOException;
     Speciality findSpecialityById(int id) throws DAOException;
     Speciality findSpecialityByName(String name) throws DAOException;
+    ArrayList<Speciality> findSpecialityByFacultyId(int id) throws DAOException;
 
 }

@@ -48,6 +48,10 @@ public class SpecialityService {
         LOGGER.info("The findSpecialityByName() method is called");
         return specialityDAO.findSpecialityByName(name);
     }
+    public ArrayList<Speciality> findSpecialityByFacultyId(int id) throws DAOException {
+        LOGGER.info("The findSpecialityByFacultyId() method is called");
+        return specialityDAO.findSpecialityByFacultyId(id);
+    }
 
 
 

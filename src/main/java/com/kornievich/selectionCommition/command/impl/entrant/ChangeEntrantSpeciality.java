@@ -7,6 +7,7 @@ import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
 import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
+import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.exception.DAOException;
 import com.kornievich.selectionCommition.service.EntrantService;
 import com.kornievich.selectionCommition.service.SpecialityService;
@@ -40,8 +41,20 @@ public class ChangeEntrantSpeciality implements BaseCommand {
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
+
+            int entrantId = (int) request.getSession().getAttribute(AttributeConstant.ATTRIBUTE_ID);
+        System.out.println(entrantId);
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
+            Entrant entrant = EntrantService.getInstance().findEntrantById(entrantId);
+            request.setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITY, SpecialityService.getInstance()
+                    .findSpecialityById(entrant.getSpecialityId())
+                    .getName());
+        } catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't find entrant speciality. "+e);
+        }
+        try {
+                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't read all specialities. "+e);
