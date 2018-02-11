@@ -43,7 +43,7 @@
                     <td>${entrant.getDateOfFilling()}</td>
                 </tr>
                 <tr>
-                    <td>Id специальности</td>
+                    <td><fmt:message key="speciality.label.specialityId"/></td>
                     <td>${entrant.getSpecialityId()}</td>
                 </tr>
                 <tr>

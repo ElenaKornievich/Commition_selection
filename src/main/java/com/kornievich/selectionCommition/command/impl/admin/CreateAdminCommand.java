@@ -3,6 +3,7 @@ package com.kornievich.selectionCommition.command.impl.admin;
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.entity.Admin;
@@ -39,7 +40,9 @@ public class CreateAdminCommand implements BaseCommand {
 
         try {
             if(UserService.getInstance().findUserByLogin(login)!=null)
-                return PageConstant.PAGE_ERROR;
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.CREATE_ADMIN_ERROR);
+
+            return PageConstant.PAGE_ERROR;
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't find user with such input login. "+e);

@@ -9,7 +9,7 @@
 
 <%@include file="header.jsp" %>
 
-<h1>Администраторы сайта</h1>
+<h1><fmt:message key="common.text.listAdmin"/></h1>
 <table>
 
         <c:forEach var="admin" items="${listAdmin}"><tr>

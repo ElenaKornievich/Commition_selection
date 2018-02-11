@@ -6,7 +6,7 @@
 <head>
     <c:set var="language"
            value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-           scope="session"/>
+           scope="application"/>
     <fmt:setLocale value="${language}"/>
     <fmt:setBundle basename="text"/>
     <form>

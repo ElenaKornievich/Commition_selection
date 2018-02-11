@@ -40,39 +40,21 @@
         <fmt:message key="admin.button.speciality"/>
 
     </a>
-   <!-- <a class="item" href="controller?command=deleteFaculty">
-        DeleteFaculty
 
-    </a> -->
     <a class="item" href="controller?command=subject" >
         <fmt:message key="admin.button.subject"/>
 
     </a>
-  <!--  <a class="item" href="controller?command=createFaculty">
-        createFaculty
 
-    </a>-->
     <a class="item" href="controller?command=faculty">
         <fmt:message key="admin.button.faculty"/>
 
     </a>
-   <!-- <a class="item" href="controller?command=createSubject">
-        createSubject
 
-    </a>
-    <a class="item" href="controller?command=createSpeciality">
-        createSpeciality
-
-    </a>-->
     <a class="item" href="controller?command=createAdmin">
         <fmt:message key="admin.button.createAdmin"/>
     </a>
-   <!-- <div class="item">
-        <div class="ui transparent icon input">
-            <input type="text" placeholder="Search mail...">
-            <i class="search icon"></i>
-        </div>
-    </div>-->
+
 </div>
 </div>
 

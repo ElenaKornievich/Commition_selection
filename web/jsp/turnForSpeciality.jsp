@@ -13,19 +13,19 @@
     <div class="ui form">
         <div class="four fields">
             <div class="field">
-                <label>Сумма баллов</label>
+                <label><fmt:message key="turn.label.sumPoints"/></label>
 
             </div>
             <div class="field">
-                <label>Фамилия</label>
+                <label><fmt:message key="common.label.surname"/></label>
 
             </div>
             <div class="field">
-                <label>Имя</label>
+                <label><fmt:message key="common.label.firstName"/></label>
 
             </div>
             <div class="field">
-                <label>Отчество</label>
+                <label><fmt:message key="common.label.lastName"/></label>
 
             </div>
         </div>

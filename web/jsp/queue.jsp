@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="/css/style.css">
 <%@include file="header.jsp" %>
-<h1>Здесь должна быть очередь!!!!</h1>
+<h1><fmt:message key="queue.text.listSpecialities"/></h1>
 
     <c:forEach var="speciality" items="${specialities}">
         <div class="form-position">
@@ -15,7 +15,7 @@
             <div class="ui form">
                 <div class="fields">
                     <div class="field">
-                        <label>Название</label>
+                        <label><fmt:message key="speciality.label.specialityName"/></label>
                         <input type="hidden" name="command" value="queue">
                         <div><input type="hidden" name="specialityId" value="${speciality.getId()}">
                             <c:out value="${speciality.getName()}"/>
@@ -24,15 +24,9 @@
                     <div class="ui field" style="margin-left: 17.6%">
 
                         <div class="ui buttons">
-                            <input class="ui button" type="submit" value="Посмотреть очередь на факультет"/>
+                            <input class="ui button" type="submit" value="<fmt:message key="queue.button.viewQueue"/>"/>
                         </div>
 
-                        <div class="ui active button">
-                            <c:url value="controller?command=turnForSpeciality" var="change">
-                                <c:param name="specialityId" value="${speciality.getId()}"/>
-                            </c:url>
-                            <a href=${change}>Change</a>
-                        </div>
 
                     </div>
                 </div>

@@ -8,14 +8,14 @@
 
 
 <%@include file="header.jsp" %>
-<h2>Факультет ${faculty.getName()}</h2>
-<h3>Необходимые предметы:</h3>
+<h2><fmt:message key="faculty.text.faculty"/> ${faculty.getName()}</h2>
+<h3><fmt:message key="faculty.label.subjects"/>:</h3>
 <c:forEach var="subject" items="${facultySubjectName}">
     <form name="deleteSubject" action="controller" method="post">
          ${subject}
     </form>
 </c:forEach>
-<h3>Специальности на факультете</h3>
+<h3><fmt:message key="faculty.text.facultySpecialities"/></h3>
 <c:forEach var="speciality" items="${listSubjects}">
     <form name="deleteSubject" action="controller" method="post">
             ${speciality.getName()}

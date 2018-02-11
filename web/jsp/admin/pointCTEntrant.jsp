@@ -6,7 +6,7 @@
         <table class="ui definition table">
             <thead>
             <tr><th></th>
-                <th>Id предмета</th>
+                <th><fmt:message key="subject.label.subjectId"/></th>
                 <th>балл</th>
             </tr></thead>
 

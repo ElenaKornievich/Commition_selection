@@ -4,6 +4,7 @@ import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.command.Roles;
 import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.AdminDAO;
@@ -80,6 +81,8 @@ public class LoginCommand implements BaseCommand {
                 //page = "WEB-INF/jsp/main.jsp";
                 return page;
             } else {
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.LOGIN_ERROR);
+
                 page = PageConstant.PAGE_ERROR;
             }
         } catch (DAOException e) {

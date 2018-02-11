@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="form-position">
-<h2>Привет ${user}</h2>
+<h2><fmt:message key="common.label.hello"/> ${user}</h2>
 <div class="title active">
     ${entrant.getSurname()} ${entrant.getFirstName()} ${ entrant.getLastName()}
 

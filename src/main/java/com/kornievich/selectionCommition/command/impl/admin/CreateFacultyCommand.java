@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
@@ -37,6 +38,7 @@ public class CreateFacultyCommand implements BaseCommand {
         String endDate = request.getParameter(ParameterConstant.PARAMETER_END_DATE_FOR_SUBMISSION_OF_DOCUMENTS);
         try {
             if (FacultyService.getInstance().findFacultyByName(name) != null) {
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.CREATE_FACULTY_ERROR);
                 return PageConstant.PAGE_ERROR;
             }
             Faculty faculty = null;

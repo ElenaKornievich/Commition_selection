@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.FacultyDAO;
@@ -32,6 +33,8 @@ public class CreateSpecialityCommand  implements BaseCommand{
         String nameSpeciality= request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_NAME);
         try {
             if(SpecialityService.getInstance().findSpecialityByName(nameSpeciality)!=null){
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.CREATE_SPECIALITY_ERROR);
+
                 return PageConstant.PAGE_ERROR;
             }
         SpecialityService.getInstance().createSpeciality(nameSpeciality, facultyId, numberOfBudgetPlaces,numberOfPainPlaces);

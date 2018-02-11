@@ -2,6 +2,7 @@ package com.kornievich.selectionCommition.command.impl.admin;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
+import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
 import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
@@ -28,6 +29,7 @@ public class CreateSubjectCommand implements BaseCommand {
         String nameSubject= request.getParameter(ParameterConstant.PARAMETER_SUBJECT_NAME);
         try {
             if(SubjectService.getInstance().findSubjectByName(nameSubject)!=null){
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.CREATE_SUBJECT_ERROR);
                 return PageConstant.PAGE_ERROR;
             }
         SubjectService.getInstance().createSubject(nameSubject);

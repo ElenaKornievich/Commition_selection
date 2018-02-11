@@ -5,19 +5,19 @@
 
 <%@include file="header.jsp"%>
 
-<h1>Список всех факультетов</h1>
+<h1><fmt:message key="faculty.text.listFaculties"/></h1>
 <div class="ui form">
     <div class="three fields">
         <div class="field">
-            <label>Название</label>
+            <label><fmt:message key="faculty.label.nameFaculty"/></label>
 
         </div>
         <div class="field">
-            <label>Дата начала приёма документов</label>
+            <label><fmt:message key="faculty.label.startDate"/></label>
 
         </div>
         <div class="field">
-            <label>Дата окончания приёма документов</label>
+            <label><fmt:message key="faculty.label.endDate"/></label>
 
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <c:url value="controller?command=facultyInformation" var="more">
                     <c:param name="facultyId" value="${faculty.getId()}"/>
                 </c:url>
-                <a href=${more}>More</a>
+                <a href=${more}><fmt:message key="common.text.more"/></a>
             </div>
         </form>
     </c:forEach>

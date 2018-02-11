@@ -97,7 +97,7 @@
              <h2 class="ui teal image header">
 
                  <div class="content">
-                     Log-in to your account
+                     <fmt:message key="login.text.loginToYourAccount"/>
                  </div>
              </h2>
              <form class="ui large form">
@@ -112,10 +112,10 @@
                      <div class="field">
                          <div class="ui left icon input">
                              <i class="lock icon"></i>
-    <input type="password" name="password"  placeholder="Password" minlength="4" maxlength="42" value=""/>
+    <input type="password" name="password"  placeholder="<fmt:message key="login.label.password"/>" minlength="4" maxlength="42" value=""/>
                          </div>
                      </div>
-                     <input class="ui fluid large teal submit button" formmethod="post" formaction="controller" type="submit" value="Login"/>
+                     <input class="ui fluid large teal submit button" formmethod="post" formaction="controller" type="submit" value="<fmt:message key="login.label.login"/>"/>
                  </div>
 
                  <div class="ui error message"></div>
@@ -123,7 +123,7 @@
              </form>
 
              <div class="ui message">
-                 New to us? <a href="controller?command=registration">Sign Up</a>
+                 New to us? <a href="controller?command=registration"><fmt:message key="login.button.signUp"/></a>
              </div>
          </div>
      </div>

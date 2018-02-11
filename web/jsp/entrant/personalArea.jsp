@@ -17,11 +17,11 @@
 
 <div class="nav">
     <div class="ui vertical menu">
-        <a class="teal item active" href="controller?command=about">Личная информация</a>
+        <a class="teal item active" href="controller?command=about"><fmt:message key="entrant.button.personalInformation"/></a>
 
-        <a class="teal item" href="controller?command=change">Редактировать личную информацию</a>
+        <a class="teal item" href="controller?command=change"><fmt:message key="entrant.label.changePersonalInformation"/></a>
 
-        <a class="teal item" href="controller?command=changeEntrantSpeciality">Изменить специальность</a>
+        <a class="teal item" href="controller?command=changeEntrantSpeciality"><fmt:message key="speciality.button.changeEntrantSpeciality"/></a>
 
 
 

@@ -2,7 +2,7 @@
 <script src="/js/validation.js"></script>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="form-position">
-Предметы:
+    <fmt:message key="subject.label.subjects"/>
 <c:forEach var="subject" items="${listSubject}">
     <form name="deleteSubject" action="controller" method="post">
         <input type="hidden" name="command" value="deleteSubject">
@@ -11,15 +11,15 @@
 
 
     <div class="ui input">
-        <input class="ui active button" value="Delete" type="submit"/>
+        <input class="ui active button" value="<fmt:message key="common.button.delete"/>" type="submit"/>
         <div class="ui active button">
             <c:url value="controller?command=changeSubject" var="change">
                 <c:param name="subjectId" value="${subject.getId()}"/>
             </c:url>
-            <a href=${change}>Change</a></div>
+            <a href=${change}><fmt:message key="common.button.change"/></a></div>
     </div>
     </form>
 </c:forEach>
 
-<div class="ui active button" ><a href="controller?command=createSubject">Create new subject</a></div>
+<div class="ui active button" ><a href="controller?command=createSubject"><fmt:message key="subject.button.create"/></a></div>
 </div>

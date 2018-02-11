@@ -2,7 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="form-position">
-<h3>Создание новой специальности</h3>
+<h3><fmt:message key="speciality.text.createSpeciality"/></h3>
 <script src="/js/validation.js"></script>
 <form name="createSpeciality" action="controller" method="post" onsubmit="return validateCreateSpeciality()">
 
@@ -11,16 +11,16 @@
     <div class="ui form">
         <div class="fields">
             <div class="field">
-                <label>Имя специальности</label>
-                <input type="text" name="specialityName" value="" placeholder="specialityName"/>
+                <label><fmt:message key="speciality.label.specialityName"/></label>
+                <input type="text" name="specialityName" value="" />
             </div>
             <div class="field">
-                <label>Количество бюджетных мест</label>
-                <input type="text" pattern="[0-9]+" name="numberBudgetPlace" value="" placeholder="numberBudgetPlace"/>
+                <label><fmt:message key="speciality.label.numberBudgetPlace"/>т</label>
+                <input type="text" pattern="[0-9]+" name="numberBudgetPlace" value=""/>
             </div>
             <div class="field">
-                <label>Количество платных мест</label>
-                <input type="text" pattern="[0-9]+" name="numberPaidPlace" value="" placeholder="numberPaidPlace"/>
+                <label><fmt:message key="speciality.label.numberPaidPlace"/></label>
+                <input type="text" pattern="[0-9]+" name="numberPaidPlace" value=""/>
             </div>
         </div>
         <div class="two fields">
@@ -39,9 +39,9 @@
                     <c:url value="controller?command=adminPanel" var="change">
                         <c:param name="changeEntrantParam" value="${entrant.getId()}"/>
                     </c:url>
-                    <div class="ui button"><a href="controller?command=adminPanel">Отмена</a></div>
+                    <div class="ui button"><a href="controller?command=adminPanel"><fmt:message key="common.button.cancel"/></a></div>
                     <div class="or"></div>
-                    <input class="ui positive button" type="submit" value="Сохранить" name="create"/>
+                    <input class="ui positive button" type="submit" value="<fmt:message key="common.button.save"/>" name="create"/>
                 </div>
             </div>
         </div>

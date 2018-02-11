@@ -38,10 +38,6 @@
                     <div class="or"></div>
                     <input type="submit" class="ui positive button" name="change" value=" <fmt:message key="common.button.change"/>"/>
 
-                    <c:set var="execute" value="${execute}"/>
-                    <c:if test="${execute>0}">
-                        Выполнено!!!!
-                    </c:if>
                 </div>
             </div>
 
