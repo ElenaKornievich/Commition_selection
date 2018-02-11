@@ -10,8 +10,16 @@
         <input type="hidden" name="specialityName" value="${speciality.getName()}"/>
         <input type="hidden" name="numberOfBudgetPlace" value="${speciality.getNumberBudgetPlace()}"/>
         <input type="hidden" name="numberOfPaidPlace" value="${speciality.getNumberPaidPlace()}"/>
-            ${speciality.getId()} ${speciality.getName()} ${speciality.getFacultyId()} ${speciality.getNumberBudgetPlace()}
-                    ${speciality.getNumberPaidPlace()}
+           <label><fmt:message key="speciality.label.specialityId"/> </label>
+            ${speciality.getId()}
+            <label><fmt:message key="speciality.label.specialityName"/> </label>
+            ${speciality.getName()}
+            <label><fmt:message key="faculty.label.idFaculty"/> </label>
+            ${speciality.getFacultyId()}
+            <label><fmt:message key="speciality.label.numberBudgetPlace"/> </label>
+            ${speciality.getNumberBudgetPlace()}
+            <label><fmt:message key="speciality.label.numberPaidPlace"/> </label>
+            ${speciality.getNumberPaidPlace()}
                 <input class="ui active button" value="<fmt:message key="common.button.delete"/>" type="submit"/>
 
         <div class="ui active button">

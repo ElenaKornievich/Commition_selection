@@ -15,79 +15,25 @@
 
 <!-- Site Properties -->
 <title>Login Example - Semantic</title>
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/reset.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/site.css">
-
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/container.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/grid.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/header.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/image.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/menu.css">
 
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/divider.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/segment.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/form.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/input.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/button.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/list.css">
 <link rel="stylesheet" type="text/css" href="/SemanticUI/components/message.css">
-<link rel="stylesheet" type="text/css" href="/SemanticUI/components/icon.css">
+<link rel="stylesheet" type="text/css" href="../css/authorization.css">
+
 
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/SemanticUI/components/form.js"></script>
 <script src="/SemanticUI/components/transition.js"></script>
-
+<script src="../js/authorization.js"></script>
 <style type="text/css">
-    body {
-        background-color: #DADADA;
-    }
-    body > .grid {
-        height: 100%;
-    }
-    .image {
-        margin-top: -100px;
-    }
-    .column {
-        max-width: 450px;
-    }
+
 </style>
 <script>
-    $(document)
-        .ready(function() {
-            $('.ui.form')
-                .form({
-                    fields: {
-                        email: {
-                            identifier  : 'email',
-                            rules: [
-                                {
-                                    type   : 'empty',
-                                    prompt : 'Please enter your e-mail'
-                                },
-                                {
-                                    type   : 'email',
-                                    prompt : 'Please enter a valid e-mail'
-                                }
-                            ]
-                        },
-                        password: {
-                            identifier  : 'password',
-                            rules: [
-                                {
-                                    type   : 'empty',
-                                    prompt : 'Please enter your password'
-                                },
-                                {
-                                    type   : 'length[6]',
-                                    prompt : 'Your password must be at least 6 characters'
-                                }
-                            ]
-                        }
-                    }
-                })
-            ;
-        })
-    ;
+
 </script>
 
 <title>Login</title>
@@ -123,7 +69,7 @@
              </form>
 
              <div class="ui message">
-                 New to us? <a href="controller?command=registration"><fmt:message key="login.button.signUp"/></a>
+                 <a href="controller?command=registration"><fmt:message key="login.button.signUp"/></a>
              </div>
          </div>
      </div>

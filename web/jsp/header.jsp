@@ -9,12 +9,7 @@
            scope="application"/>
     <fmt:setLocale value="${language}"/>
     <fmt:setBundle basename="text"/>
-    <form>
-        <select id="language" name="language" onchange="submit()">
-            <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-            <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-        </select>
-    </form>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/js/validation.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -30,7 +25,7 @@
 <div class="ui attached stackable menu">
     <div class="ui container">
 
-        <a href="controller?command=main" class="item">
+        <a href="../index.jsp" class="item">
             <i class="home icon"></i> <fmt:message key="header.button.main"/>
         </a>
         <c:set var = "personalArea" scope = "session" value = "${role}"/>
@@ -65,7 +60,5 @@
 
     </div>
 </div>
-
-
 
 

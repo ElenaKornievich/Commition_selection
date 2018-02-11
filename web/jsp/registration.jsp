@@ -82,7 +82,7 @@
         <div class="two fields">
             <div class="field">
                 <label><fmt:message key="entrant.label.email"/></label>
-                <input type="text" name="ivanov@gmail.com">
+                <input type="text" name="email"  placeholder="ivanov@gmail.com">
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.telephoneNumber"/></label>
@@ -99,7 +99,7 @@
                     </c:forEach>
                 </select>
                 <label><fmt:message key="registration.label.score"/></label>
-                <input type="text" name="subjectOneValue" value="">
+                <input type="text" name="subjectOneValue" pattern="[0-9]{2,3}" value="">
             </div>
             <div>
                 <select name="subjectTwoId">
@@ -108,7 +108,7 @@
                     </c:forEach>
                 </select>
                 <label><fmt:message key="registration.label.score"/></label>
-                <input type="text" name="subjectTwoValue" value="">
+                <input type="text" name="subjectTwoValue" pattern="[0-9]{2,3}" value="">
             </div>
             <div>
                 <select name="subjectThreeId">
@@ -117,7 +117,7 @@
                     </c:forEach>
                 </select>
                 <label><fmt:message key="registration.label.score"/></label>
-                <input type="text" name="subjectThreeValue" value="">
+                <input type="text" name="subjectThreeValue" pattern="[0-9]{2,3}" value="">
             </div>
         </div>
         <div class="ui field" style="margin-left: 17.6%">

@@ -71,7 +71,8 @@ public class RegistrationCommand implements BaseCommand {
                 CTPointService.getInstance().createCTPoint(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
                 CTPointService.getInstance().createCTPoint(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
 
-                page = PageConstant.PAGE_SELECT_SPECIALITY;
+                request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
+                page = PageConstant.PAGE_PERSONAL_AREA;
             }
             else {
                 request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.REGISTRATION_ERROR);

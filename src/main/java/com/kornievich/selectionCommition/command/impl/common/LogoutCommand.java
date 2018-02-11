@@ -34,7 +34,7 @@ public class LogoutCommand implements BaseCommand {
         if(request.getSession().getAttribute(AttributeConstant.ATTRIBUTE_ID)!=null){
             HttpSession session=request.getSession();
             session.invalidate();
-            return PageConstant.PAGE_INDEX;
+            return PageConstant.PAGE_AUTHORIZATION;
         }
         return null;
     }

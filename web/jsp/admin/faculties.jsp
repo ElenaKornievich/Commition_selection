@@ -10,11 +10,11 @@
                 <div class="fields">
                     <div class="field">
                         <input type="hidden" name="command" value="deleteFaculty"/>
-                        <fmt:message key="faculty.label.idFaculty"/> <input type="text" name="facultyId" value="${faculty.getId()}"/>
-                        <fmt:message key="faculty.label.nameFaculty"/> <input type="text" name="facultyName" value="${faculty.getName()}"/>
-                        <fmt:message key="faculty.label.startDate"/> <input type="text" name="startDateOfFiling"
+                        <fmt:message key="faculty.label.idFaculty"/> <input type="text" readonly name="facultyId" value="${faculty.getId()}"/>
+                        <fmt:message key="faculty.label.nameFaculty"/> <input type="text" readonly name="facultyName" value="${faculty.getName()}"/>
+                        <fmt:message key="faculty.label.startDate"/> <input type="text" readonly name="startDateOfFiling"
                                                              value="${faculty.getStartDateOfFiling()}"/>
-                        <fmt:message key="faculty.label.endDate"/> <input type="text" name="endDateOfFiling"
+                        <fmt:message key="faculty.label.endDate"/> <input type="text" readonly name="endDateOfFiling"
                                                                 value="${faculty.getEndDateOfFiling()}"/>
                     </div>
                 </div>
