@@ -28,6 +28,7 @@ public class CTPointDAO implements ICTPointDAO {
             preparedStatement.setInt(1, ctPoint.getSubjectId());
             preparedStatement.setInt(2, ctPoint.getEntrantId());
             preparedStatement.setInt(3, ctPoint.getScope());
+            preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
             throw new DAOException("SQLException occurred while creating CTPoint in a database", e);

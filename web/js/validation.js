@@ -30,8 +30,8 @@ function validateRegistrationForm() {
         return false;
     }
     var pasportNomer = document.forms["registration"]["pasportNomer"].value;
-    var pasNumPat=/[0-9]{7}/i;
-    if (!pasNumPat.test(pasportNomer) ) {
+    var pasNumPat = /[0-9]{7}/i;
+    if (!pasNumPat.test(pasportNomer)) {
         alert("pasportNomer must be filled out");
         return false;
     }
@@ -42,9 +42,7 @@ function validateRegistrationForm() {
         return false;
     }
     var dataOfBirth = document.forms["registration"]["dataOfBirth"].value;
-//начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
-//от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
-    if (dateOfBirth == "") {
+    if (dataOfBirth == "") {
         alert("Wrong dataOfBirth");
         return false;
     }
@@ -80,41 +78,33 @@ function validateRegistrationForm() {
         return false;
     }
 
-    var subjectOneId = document.forms["registration"]["subjectOneId"].value;
-    if (subjectOneId == "") {
-        alert("subjectOneId must be filled out");
-        return false;
-    }
     var subjectOneValue = document.forms["registration"]["subjectOneValue"].value;
-    if (subjectOneValue == "" || subjectOneValue<15 || subjectOneValue>100) {
+    if (subjectOneValue == "" || subjectOneValue < 15 || subjectOneValue > 100) {
         alert("subjectOneValue must be filled out");
         return false;
     }
-    var subjectTwoId = document.forms["registration"]["subjectTwoId"].value;
-    if (subjectTwoId == "") {
-        alert("subjectTwoId must be filled out");
-        return false;
-    }
+
     var subjectTwoValue = document.forms["registration"]["subjectTwoValue"].value;
-    if (subjectTwoValue == "" || subjectTwoValue<15 || subjectTwoValue>100) {
+    if (subjectTwoValue == "" || subjectTwoValue < 15 || subjectTwoValue > 100) {
         alert("subjectTwoValue must be filled out");
         return false;
     }
-    var subjectThreeId = document.forms["registration"]["subjectThreeId"].value;
-    if (subjectThreeId == "") {
-        alert("subjectThreeId must be filled out");
-        return false;
-    }
+
     var subjectThreeValue = document.forms["registration"]["subjectThreeValue"].value;
-    if (subjectThreeValue == "" || subjectThreeValue<15 || subjectThreeValue>100) {
+    if (subjectThreeValue == "" || subjectThreeValue < 15 || subjectThreeValue > 100) {
         alert("subjectThreeValue must be filled out");
         return false;
     }
-    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId ) {
+    var subjectOneId = document.forms["registration"]["subjectOneId"].value;
+    var subjectTwoId = document.forms["registration"]["subjectTwoId"].value;
+    var subjectThreeId = document.forms["registration"]["subjectThreeId"].value;
+
+    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId) {
         alert("subject must be filled out");
         return false;
     }
 }
+
 function validateChangePersonalInformation() {
     var firstName = document.forms["changePersonalInformation"]["firstName"].value;
     if (firstName == "") {
@@ -137,15 +127,15 @@ function validateChangePersonalInformation() {
         return false;
     }
     var pasportNomer = document.forms["changePersonalInformation"]["pasportNomer"].value;
-    var pasNumPat=/[0-9]{7}/i;
-    if (!pasNumPat.test(pasportNomer) ) {
+    var pasNumPat = /[0-9]{7}/i;
+    if (!pasNumPat.test(pasportNomer)) {
         alert("pasportNomer must be 7 numbers");
         return false;
     }
     var dataOfIssue = document.forms["changePersonalInformation"]["dataOfIssue"].value;
 //начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
 //от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
-    if (dataOfIssue=="") {
+    if (dataOfIssue == "") {
         alert("Wrong dataOfIssue");
         return false;
     }
@@ -157,7 +147,7 @@ function validateChangePersonalInformation() {
     var dataOfBirth = document.forms["changePersonalInformation"]["dataOfBirth"].value;
 //начало строки, символы от одного до бесконечности, @, опять символы от одного до бесконечности, точка,
 //от двух до четырёх символов (если почта где-нибудь на .info), конец строки (регистр нк учитывается)
-    if (dataOfBirth=="") {
+    if (dataOfBirth == "") {
         alert("Wrong dataOfBirth");
         return false;
     }
@@ -194,6 +184,7 @@ function validateChangePersonalInformation() {
     }
 
 }
+
 function validateChangeSubject() {
     var subjectName = document.forms["changeSubject"]["subjectName"].value;
     if (subjectName == "") {
@@ -229,6 +220,7 @@ function validateChangeSpeciality() {
         return false;
     }
 }
+
 function validateChangeFaculty() {
     var nameFaculty = document.forms["changeFaculty"]["nameFaculty"].value;
     if (nameFaculty == "") {
@@ -248,12 +240,13 @@ function validateChangeFaculty() {
     var subjectOneId = document.forms["changeFaculty"]["subjectOneId"].value;
     var subjectTwoId = document.forms["changeFaculty"]["subjectTwoId"].value;
     var subjectThreeId = document.forms["changeFaculty"]["subjectThreeId"].value;
-    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId ) {
+    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId) {
         alert("subject must be filled out");
         return false;
     }
 
 }
+
 function validateAdminInformation() {
     var surname = document.forms["changeAdminInform"]["surname"].value;
     if (surname == "") {
@@ -271,6 +264,7 @@ function validateAdminInformation() {
         return false;
     }
 }
+
 function validateCrateAdmin() {
     var login = document.forms["createAdmin"]["login"].value;
     if (login == "") {
@@ -298,6 +292,7 @@ function validateCrateAdmin() {
         return false;
     }
 }
+
 function validateCreateFaculty() {
     var nameFaculty = document.forms["createFaculty"]["nameFaculty"].value;
     if (nameFaculty == "") {
@@ -317,12 +312,13 @@ function validateCreateFaculty() {
     var subjectOneId = document.forms["createFaculty"]["subjectOneId"].value;
     var subjectTwoId = document.forms["createFaculty"]["subjectTwoId"].value;
     var subjectThreeId = document.forms["createFaculty"]["subjectThreeId"].value;
-    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId ) {
+    if (subjectThreeId == subjectOneId || subjectOneId == subjectTwoId || subjectTwoId == subjectThreeId) {
         alert("subject must be filled out");
         return false;
     }
 
 }
+
 function validateCreateSpeciality() {
     var specialityName = document.forms["createSpeciality"]["specialityName"].value;
     if (specialityName == "") {
@@ -345,6 +341,7 @@ function validateCreateSpeciality() {
         return false;
     }
 }
+
 function validateCreateSubject() {
     var subjectName = document.forms["createSubject"]["subjectName"].value;
     if (subjectName == "") {

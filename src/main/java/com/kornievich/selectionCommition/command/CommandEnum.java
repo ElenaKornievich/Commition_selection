@@ -37,6 +37,7 @@ public enum CommandEnum {
     SUBJECT(SubjectCommand.getInstance()),
     FACULTY(FacultyCommand.getInstance()),
     FACULTYINFORMATION(FacultyInformationCommand.getInstance()),
+    TURNFORSPECIALITY(TurnForSpecialityCommand.getInstance()),
     ADMININFORMATION(AdminInformationCommand.getInstance()),
     SPECIALITY(SpecialityCommand.getInstance());
         BaseCommand command;

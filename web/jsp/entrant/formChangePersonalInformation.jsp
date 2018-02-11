@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div class="form-position">
 <h3>Редактировать личную информацию</h3>
 <script src="/js/validation.js"></script>
 <form name="changePersonalInformation" action="controller" method="post" onsubmit="return validateChangePersonalInformation()">
@@ -35,4 +36,4 @@
     </div>
 
 </form>
-
+</div>

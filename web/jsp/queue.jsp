@@ -26,6 +26,14 @@
                         <div class="ui buttons">
                             <input class="ui button" type="submit" value="Посмотреть очередь на факультет"/>
                         </div>
+
+                        <div class="ui active button">
+                            <c:url value="controller?command=turnForSpeciality" var="change">
+                                <c:param name="specialityId" value="${speciality.getId()}"/>
+                            </c:url>
+                            <a href=${change}>Change</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

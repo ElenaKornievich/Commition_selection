@@ -53,6 +53,9 @@ public class RegistrationCommand implements BaseCommand {
         int subjectOneValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ONE_VALUE));
         int subjectTwoValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_TWO_VALUE));
         int subjectThreeValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_THREE_VALUE));
+        System.out.println(subjectOne + " " +subjectOneValue);
+        System.out.println(subjectTwo+ " "+subjectTwoValue);
+        System.out.println(subjectThree+" "+subjectThreeValue);
         try {
             User user = RegistrationService.getInstance().registrationEntrant(login, password, pasportSeria,
                     pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,

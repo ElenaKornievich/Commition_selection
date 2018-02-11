@@ -32,22 +32,19 @@
 
     <c:forEach var = "queue" items="${queue}">
         <form name="queue" action="controller" method="post">
-
             <div><input type="hidden" name="specialityId" value="">
-
                 <div class="four fields">
                         <div class="field">
-
-                <c:out value = "${queue.getSumOfScores()}"/>
+                ${queue.getSumOfScores()}
                         </div>
                         <div class="field">
-                <c:out value = "${queue.getSurname()}"/>
+                ${queue.getSurname()}
                         </div>
                         <div class="field">
-                <c:out value = "${queue.getFirstName()}"/>
+                ${queue.getFirstName()}
                         </div>
                         <div class="field">
-                <c:out value = "${queue.getLastName()}"/>
+                ${queue.getLastName()}
                         </div>
                     </div>
                 </div>

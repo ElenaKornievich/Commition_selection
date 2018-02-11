@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="/js/validation.js"></script>
+<div class="form-position">
 <form name="changeEntrantSpeciality" action="controller" method="post" >
     <input type="hidden" name="command" value="changeEntrantSpeciality">
     <div class="ui form">
@@ -18,3 +19,4 @@
 
     <input class="ui active button" type="submit" name="command" value="changeEntrantSpeciality"/>
 </form>
+</div>

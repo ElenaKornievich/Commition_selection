@@ -6,8 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <link type="text/css" rel="stylesheet" href="/css/personalArea.css">
 <script src="/js/jquery-3.2.1.min.js"></script>
-<%@include file="../header.jsp" %>
-
+<div class="form-position">
 <script src="/js/validation.js"></script>
 <form name="test" action="controller" method="post" >
     <input type="hidden" name="command" value="changeEntrantSpeciality">
@@ -20,5 +19,4 @@
 
     <input type="submit" name="command" value="changeSpeciality"/>
 </form>
-</body>
-</html>
+</div>

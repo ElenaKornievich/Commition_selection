@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<div class="form-position">
 <h2>Привет ${user}</h2>
 <div class="title active">
     ${entrant.getSurname()} ${entrant.getFirstName()} ${ entrant.getLastName()}
@@ -68,4 +68,5 @@
 
     </table>
 
+</div>
 </div>
