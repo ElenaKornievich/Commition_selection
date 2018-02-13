@@ -1,13 +1,8 @@
-package com.kornievich.selectionCommition.command;
+package com.kornievich.selectionCommition.filter;
 
 import java.io.*;
 import javax.servlet.*;
 
-/**
- * FormEncodingSetterFilter
- *
- * @author Eugene Matyushkin
- */
 public class FormEncodingSetterFilter implements Filter{
 
     private static final String FILTERABLE_CONTENT_TYPE="application/x-www-form-urlencoded";
@@ -23,7 +18,6 @@ public class FormEncodingSetterFilter implements Filter{
 
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain) throws ServletException, IOException{
-        System.out.println("Мы в фильтре");
         String contentType = req.getContentType();
         if (contentType != null && contentType.startsWith(FILTERABLE_CONTENT_TYPE))
             req.setCharacterEncoding(encoding);
@@ -31,7 +25,7 @@ public class FormEncodingSetterFilter implements Filter{
 
     }
 
-    public void init(FilterConfig config) throws ServletException{
+    public void init(FilterConfig config){
         encoding = config.getInitParameter(ENCODING_INIT_PARAM_NAME);
         if (encoding == null)
             encoding = ENCODING_DEFAULT;

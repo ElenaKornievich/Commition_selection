@@ -1,8 +1,9 @@
 package com.kornievich.selectionCommition.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Admin {
+public class Admin implements Serializable, Cloneable{
     private int id;
     private String surname;
     private String firstName;

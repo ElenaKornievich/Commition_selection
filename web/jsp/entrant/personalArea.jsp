@@ -38,7 +38,7 @@
             <%@include file="changeSpecialty.jsp" %>
         </c:when>
         <c:when test="${nav == 3}">
-            <%@include file="aboutMe.jsp" %>
+            <%@include file="entrantPersonalInformation.jsp" %>
         </c:when>
         <c:otherwise>
             <h3><ctg:role role="${role}"/></h3>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteSpecialityCommand implements BaseCommand {
+
     static final Logger LOGGER = LogManager.getLogger(DeleteSpecialityCommand.class);
 
     private static DeleteSpecialityCommand instance = new DeleteSpecialityCommand();
@@ -20,6 +21,9 @@ public class DeleteSpecialityCommand implements BaseCommand {
     private DeleteSpecialityCommand() {
     }
 
+    public static DeleteSpecialityCommand getInstance() {
+        return instance;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -27,12 +31,14 @@ public class DeleteSpecialityCommand implements BaseCommand {
         int specialityId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SPECIALITY_ID));
         try {
             SpecialityService.getInstance().deleteSpeciality(specialityId);
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAllSpecialities());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY,
+                    SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't delete speciality with such input id. "+e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 13);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,
+                PageConstant.PAGE_ADMIN_PANEL_SPECIALITIES);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
 
@@ -40,24 +46,15 @@ public class DeleteSpecialityCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         try {
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY, SpecialityService.getInstance().readAllSpecialities());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SPECIALITY,
+                    SpecialityService.getInstance().readAllSpecialities());
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't read all specialities. "+e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 13);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,
+                PageConstant.PAGE_ADMIN_PANEL_SPECIALITIES);
         return PageConstant.PAGE_ADMIN_PANEL;
-
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public static DeleteSpecialityCommand getInstance() {
-        return instance;
-    }
-
 }
 

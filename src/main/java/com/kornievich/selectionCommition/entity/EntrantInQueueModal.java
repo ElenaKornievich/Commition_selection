@@ -1,13 +1,14 @@
 package com.kornievich.selectionCommition.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class EntrantInQueueModal {
-    int entrantId;
-    String surname;
-    String firstName;
-    String lastName;
-    int sumOfScores;
+public class EntrantInQueueModal implements Serializable, Cloneable {
+    private int entrantId;
+    private String surname;
+    private String firstName;
+    private String lastName;
+    private int sumOfScores;
 
     public EntrantInQueueModal(int entrantId, String surname, String firstName, String lastName, int sumOfScores) {
         this.entrantId = entrantId;

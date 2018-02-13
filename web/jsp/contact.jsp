@@ -2,13 +2,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 
 <%@include file="header.jsp" %>
-
+<div class="form-position">
 <h1><fmt:message key="common.text.listAdmin"/></h1>
 <table>
 
@@ -19,5 +18,6 @@
         </tr>  </c:forEach>
 
 </table>
+</div>
 </body>
 </html>

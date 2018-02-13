@@ -14,17 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 public class ChangeButtonCommand implements BaseCommand {
+
     static final Logger LOGGER = LogManager.getLogger(ChangeButtonCommand.class);
 
     private static ChangeButtonCommand instance = new ChangeButtonCommand();
 
-    private ChangeButtonCommand() {}
+    private ChangeButtonCommand() {
+    }
+
+    public static ChangeButtonCommand getInstance() {
+        return instance;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("The execute() method is called");
         return null;
     }
+
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
@@ -33,21 +40,11 @@ public class ChangeButtonCommand implements BaseCommand {
             entrants = EntrantService.getInstance().readAllEntrants();
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't read all entrants. "+e);
+            LOGGER.error("Can't read all entrants. " + e);
         }
         request.setAttribute(AttributeConstant.ATTRIBUTE_ENTRANTS, entrants);
 
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 1);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, PageConstant.PAGE_ADMIN_PANEL_CHANGE_ENTRANT);
         return PageConstant.PAGE_ADMIN_PANEL;
-
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public static ChangeButtonCommand getInstance() {
-        return instance;
     }
 }

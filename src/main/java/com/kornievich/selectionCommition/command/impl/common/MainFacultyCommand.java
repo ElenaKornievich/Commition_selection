@@ -12,30 +12,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class MainFacultyCommand implements BaseCommand {
+
     private static final Logger LOGGER = LogManager.getLogger(MainFacultyCommand.class);
+
     private static MainFacultyCommand instance = new MainFacultyCommand();
 
     private MainFacultyCommand() {
     }
-
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("The execute() method is called");
        return null;
     }
+
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         try {
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTY, FacultyService.getInstance().readAllFaculties());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTY,
+                    FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't read all faculties. "+e);
         }
         return PageConstant.PAGE_MAIN_FACULTY;
-
     }
 
     @Override

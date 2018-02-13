@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <script src="/js/validation.js"></script>
 
 <link rel="stylesheet" href="/css/style.css">
 <%@include file="header.jsp" %>
+<div class="form-position">
 <h1><fmt:message key="queue.text.listSpecialities"/></h1>
-
+</div>
     <c:forEach var="speciality" items="${specialities}">
         <div class="form-position">
         <form name="queue" action="controller" method="post">

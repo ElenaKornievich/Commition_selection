@@ -5,7 +5,6 @@ import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
-import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.Faculty;
 import com.kornievich.selectionCommition.entity.FacultySubject;
 import com.kornievich.selectionCommition.exception.DAOException;
@@ -19,11 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateFacultyCommand implements BaseCommand {
+
     static final Logger LOGGER = LogManager.getLogger(CreateFacultyCommand.class);
 
     private static CreateFacultyCommand instance = new CreateFacultyCommand();
 
-    public CreateFacultyCommand() {
+    private CreateFacultyCommand() {
+    }
+
+    public static CreateFacultyCommand getInstance() {
+        return instance;
     }
 
 
@@ -38,14 +42,18 @@ public class CreateFacultyCommand implements BaseCommand {
         String endDate = request.getParameter(ParameterConstant.PARAMETER_END_DATE_FOR_SUBMISSION_OF_DOCUMENTS);
         try {
             if (FacultyService.getInstance().findFacultyByName(name) != null) {
-                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.CREATE_FACULTY_ERROR);
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE,
+                        ErrorMassageConstant.CREATE_FACULTY_ERROR);
                 return PageConstant.PAGE_ERROR;
             }
-            Faculty faculty = null;
+            Faculty faculty;
             faculty = FacultyService.getInstance().createFaculty(name, startDate, endDate);
-            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectOneId));
-            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectTwoId));
-            FacultySubjectsService.getInstance().createFacultySubject(new FacultySubject(faculty.getId(), subjectThreeId));
+            FacultySubjectsService.getInstance()
+                    .createFacultySubject(new FacultySubject(faculty.getId(), subjectOneId));
+            FacultySubjectsService.getInstance()
+                    .createFacultySubject(new FacultySubject(faculty.getId(), subjectTwoId));
+            FacultySubjectsService.getInstance()
+                    .createFacultySubject(new FacultySubject(faculty.getId(), subjectThreeId));
         } catch (DAOException e) {
             e.printStackTrace();
             LOGGER.error("Can't create faculty with such input value. " + e);
@@ -57,24 +65,15 @@ public class CreateFacultyCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS, SubjectService.getInstance().readAllSubjects());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,
+                    SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't read all subjects. "+e);
+            LOGGER.error("Can't read all subjects. " + e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 6);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,
+                PageConstant.PAGE_ADMIN_PANEL_CREATE_FACULTY);
         return PageConstant.PAGE_ADMIN_PANEL;
-
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public static CreateFacultyCommand getInstance() {
-        return instance;
-    }
-
 }
 

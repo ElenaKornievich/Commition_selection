@@ -1,8 +1,9 @@
 package com.kornievich.selectionCommition.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CTPoint {
+public class CTPoint implements Serializable, Cloneable{
     private int entrantId;
     private int subjectId;
     private int scope;

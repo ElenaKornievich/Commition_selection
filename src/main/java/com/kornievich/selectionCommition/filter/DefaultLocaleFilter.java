@@ -1,4 +1,4 @@
-package com.kornievich.selectionCommition.command;
+package com.kornievich.selectionCommition.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

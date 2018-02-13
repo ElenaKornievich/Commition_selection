@@ -1,8 +1,9 @@
 package com.kornievich.selectionCommition.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class FacultySubject{
+public class FacultySubject implements Serializable, Cloneable{
     private int facultyId;
     private int subjectId;
 

@@ -12,49 +12,47 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubjectCommand implements BaseCommand{
+public class SubjectCommand implements BaseCommand {
+
     static final Logger LOGGER = LogManager.getLogger(SubjectCommand.class);
 
     private static SubjectCommand instance = new SubjectCommand();
 
-    public SubjectCommand() {
-    }
-
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("The execute() method is called");
-        int subjectId =Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ID));
-        try {
-            SubjectService.getInstance().deleteSubject(subjectId);
-        } catch (DAOException e) {
-            e.printStackTrace();
-            LOGGER.error("Can't delete subject with such input id. "+e);
-        }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,10);
-        return PageConstant.PAGE_ADMIN_PANEL;
-    }
-    @Override
-    public String getPage(HttpServletRequest request) {
-        LOGGER.info("The getPage() method is called");
-        try {
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SUBJECT, SubjectService.getInstance().readAllSubjects());
-        } catch (DAOException e) {
-            e.printStackTrace();
-            LOGGER.error("Can't read all subjects. "+e);
-        }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,14);
-        return PageConstant.PAGE_ADMIN_PANEL;
-
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
+    private SubjectCommand() {
     }
 
     public static SubjectCommand getInstance() {
         return instance;
     }
 
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("The execute() method is called");
+        int subjectId = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ID));
+        try {
+            SubjectService.getInstance().deleteSubject(subjectId);
+        } catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't delete subject with such input id. " + e);
+        }
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,
+                PageConstant.PAGE_ADMIN_PANEL_CHANGE_SUBJECT);
+        return PageConstant.PAGE_ADMIN_PANEL;
+    }
+
+    @Override
+    public String getPage(HttpServletRequest request) {
+        LOGGER.info("The getPage() method is called");
+        try {
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_SUBJECT,
+                    SubjectService.getInstance().readAllSubjects());
+        } catch (DAOException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't read all subjects. " + e);
+        }
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,
+                PageConstant.PAGE_ADMIN_PANEL_SUBJECTS);
+        return PageConstant.PAGE_ADMIN_PANEL;
+    }
 }
 

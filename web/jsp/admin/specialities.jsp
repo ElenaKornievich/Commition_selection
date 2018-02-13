@@ -1,7 +1,7 @@
 <script src="/js/validation.js"></script>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="form-position">
-    <fmt:message key="speciality.label.specialities"/>
+    <h3><fmt:message key="speciality.label.specialities"/></h3>
 <c:forEach var="speciality" items="${listSpeciality}">
     <form action="controller" method="post">
         <input type="hidden" name="command" value="deleteSpeciality">
@@ -11,15 +11,15 @@
         <input type="hidden" name="numberOfBudgetPlace" value="${speciality.getNumberBudgetPlace()}"/>
         <input type="hidden" name="numberOfPaidPlace" value="${speciality.getNumberPaidPlace()}"/>
            <label><fmt:message key="speciality.label.specialityId"/> </label>
-            ${speciality.getId()}
+        <input type="text" readonly value="${speciality.getId()}"/><br/>
             <label><fmt:message key="speciality.label.specialityName"/> </label>
-            ${speciality.getName()}
+            <input type="text" readonly value="${speciality.getName()}"/><br/>
             <label><fmt:message key="faculty.label.idFaculty"/> </label>
-            ${speciality.getFacultyId()}
+        <input type="text" readonly value="${speciality.getFacultyId()}"/><br/>
             <label><fmt:message key="speciality.label.numberBudgetPlace"/> </label>
-            ${speciality.getNumberBudgetPlace()}
+        <input type="text" readonly value="${speciality.getNumberBudgetPlace()}"/><br/>
             <label><fmt:message key="speciality.label.numberPaidPlace"/> </label>
-            ${speciality.getNumberPaidPlace()}
+        <input type="text" readonly value="${speciality.getNumberPaidPlace()}"/><br/>
                 <input class="ui active button" value="<fmt:message key="common.button.delete"/>" type="submit"/>
 
         <div class="ui active button">

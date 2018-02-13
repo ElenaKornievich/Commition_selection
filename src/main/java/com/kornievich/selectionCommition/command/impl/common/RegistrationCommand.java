@@ -1,15 +1,10 @@
 package com.kornievich.selectionCommition.command.impl.common;
 
 import com.kornievich.selectionCommition.command.BaseCommand;
-import com.kornievich.selectionCommition.command.impl.admin.ChangeEntrantCommand;
 import com.kornievich.selectionCommition.constant.AttributeConstant;
 import com.kornievich.selectionCommition.constant.ErrorMassageConstant;
 import com.kornievich.selectionCommition.constant.PageConstant;
 import com.kornievich.selectionCommition.constant.ParameterConstant;
-import com.kornievich.selectionCommition.dao.impl.CTPointDAO;
-import com.kornievich.selectionCommition.dao.impl.EntrantDAO;
-import com.kornievich.selectionCommition.dao.impl.SpecialityDAO;
-import com.kornievich.selectionCommition.dao.impl.SubjectDAO;
 import com.kornievich.selectionCommition.entity.CTPoint;
 import com.kornievich.selectionCommition.entity.Entrant;
 import com.kornievich.selectionCommition.entity.User;
@@ -26,6 +21,10 @@ public class RegistrationCommand implements BaseCommand {
     private static RegistrationCommand instance = new RegistrationCommand();
 
     private RegistrationCommand() {
+    }
+
+    public static RegistrationCommand getInstance() {
+        return instance;
     }
 
     @Override
@@ -54,9 +53,6 @@ public class RegistrationCommand implements BaseCommand {
         int subjectOneValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_ONE_VALUE));
         int subjectTwoValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_TWO_VALUE));
         int subjectThreeValue = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_SUBJECT_THREE_VALUE));
-        System.out.println(subjectOne + " " +subjectOneValue);
-        System.out.println(subjectTwo+ " "+subjectTwoValue);
-        System.out.println(subjectThree+" "+subjectThreeValue);
         try {
             User user = RegistrationService.getInstance().registrationEntrant(login, password, pasportSeria,
                     pasportNumber, surname, firstName, lastName, dataOfIssue, identificationNumber,
@@ -64,23 +60,24 @@ public class RegistrationCommand implements BaseCommand {
             if (user != null) {
                 request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_USER, user.getLogin());
                 request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ID, user.getId());
-                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE, AttributeConstant.ATTRIBUTE_ENTRANT);
-                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES, SpecialityService.getInstance().readAllSpecialities());
+                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_ROLE,
+                        AttributeConstant.ATTRIBUTE_ENTRANT);
+                request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SPECIALITIES,
+                        SpecialityService.getInstance().readAllSpecialities());
                 Entrant entrant = EntrantService.getInstance().findEntrantById(user.getId());
                 CTPointService.getInstance().createCTPoint(new CTPoint(entrant.getId(), subjectOne, subjectOneValue));
                 CTPointService.getInstance().createCTPoint(new CTPoint(entrant.getId(), subjectTwo, subjectTwoValue));
                 CTPointService.getInstance().createCTPoint(new CTPoint(entrant.getId(), subjectThree, subjectThreeValue));
-
-                request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, 2);
+                request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, PageConstant.PAGE_PERSONAL_AREA_CHANGE_SPECIALITY);
                 page = PageConstant.PAGE_PERSONAL_AREA;
-            }
-            else {
-                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE, ErrorMassageConstant.REGISTRATION_ERROR);
+            } else {
+                request.setAttribute(AttributeConstant.ATTRIBUTE_ERROR_MASSAGE,
+                        ErrorMassageConstant.REGISTRATION_ERROR);
                 page = PageConstant.PAGE_ERROR;
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't registration entrant with such input value. "+e);
+            LOGGER.error("Can't registration entrant with such input value. " + e);
         }
         return page;
     }
@@ -89,16 +86,13 @@ public class RegistrationCommand implements BaseCommand {
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         try {
-            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS, SubjectService.getInstance().readAllSubjects());
+            request.getSession().setAttribute(AttributeConstant.ATTRIBUTE_SUBJECTS,
+                    SubjectService.getInstance().readAllSubjects());
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't read all subjects. "+e);
+            LOGGER.error("Can't read all subjects. " + e);
         }
         return PageConstant.PAGE_REGISTRATION;
-    }
-
-    public static RegistrationCommand getInstance() {
-        return instance;
     }
 }
 

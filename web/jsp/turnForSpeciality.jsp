@@ -7,8 +7,12 @@
 
 <%@include file="header.jsp"%>
 
-
-
+<div class="form-position">
+<c:set value="${speciality}" var="speciality"/>
+Количество бюджетных мест
+${speciality.getNumberBudgetPlace()}
+количество платных мест
+${speciality.getNumberPaidPlace()}
 
     <div class="ui form">
         <div class="four fields">
@@ -53,7 +57,7 @@
         <a href="controller?command=queue"></a>
     </c:forEach>
     </div>
-
+</div>
 </body>
 </html>
 

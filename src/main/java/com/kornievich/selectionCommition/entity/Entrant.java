@@ -1,8 +1,9 @@
 package com.kornievich.selectionCommition.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Entrant {
+public class Entrant implements Serializable, Cloneable{
     private int id;
     private String dateOfFilling;
     private int specialityId;

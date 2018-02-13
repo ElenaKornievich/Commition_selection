@@ -12,7 +12,7 @@ public class SpecialityDAO implements ISpecialityDAO {
 
     private static final String READ_SPECIALITY_ALL = "SELECT * FROM selection_commition.specialties";
     private static final String FIND_SPECIALITY_BY_ID = "SELECT * FROM selection_commition.specialties WHERE SpecialtyID=?";
-    private static final String FIND_SPECIALITY_BY_FACULTY_ID = "SELECT * FROM selection_commition.specialties WHERE FacultyID=?";
+    private static final String FIND_SPECIALITY_BY_FACULTY_ID = "SELECT * FROM selection_commition.specialties WHERE FacultyID=? AND SpecialtyID<>0";
 
     private static final String FIND_SPECIALITY_BY_NAME = "SELECT * FROM selection_commition.specialties WHERE SpecialtyName=?";
     private static final String CREATE_SPECIALITY = "INSERT INTO selection_commition.specialties (SpecialtyName , FacultyID, NumberOfBudgetPlaces, NumberOfPaidPlaces) VALUES (?,?,?,?)";

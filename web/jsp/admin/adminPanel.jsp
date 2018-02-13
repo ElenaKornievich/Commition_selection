@@ -99,26 +99,13 @@
                 <%@include file="changeSpeciality.jsp"%>
             </c:when>
             <c:when test="${nav == 13}">
-                <%@include file="speciality.jsp"%>
+                <%@include file="specialities.jsp"%>
             </c:when>
             <c:when test="${nav == 14}">
-                <%@include file="subject.jsp"%>
+                <%@include file="subjects.jsp"%>
             </c:when>
             <c:otherwise>
-<head>
-                <c:set var="language"
-                       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-                       scope="page"/>
-                <fmt:setLocale value="${language}"/>
-                <fmt:setBundle basename="text"/>
-                <form>
-                    <select id="language" name="language" onchange="submit()">
-                        <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-                        <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                    </select>
-                </form>
-</head>
-                <fmt:message key="login.label.login"/>
+                <h3><ctg:role role="${role}"/></h3>
             </c:otherwise>
         </c:choose>
     </div>

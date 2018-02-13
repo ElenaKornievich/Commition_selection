@@ -1,6 +1,8 @@
 package com.kornievich.selectionCommition.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable, Cloneable{
     private int id;
     private String login;
     private String password;

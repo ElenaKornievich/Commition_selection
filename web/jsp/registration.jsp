@@ -6,11 +6,11 @@
 <script src="/js/validation.js"></script>
 
 
-<div class="ui horizontal divider">or</div>
+<div class="ui horizontal divider"><fmt:message key="registration.text.registration"/></div>
 <div class="registrationForm">
     <form class="ui form segment" name="registration" onsubmit="return validateRegistrationForm()">
         <input type="hidden" name="command" value="registration">
-        <p><fmt:message key="registration.text.registration"/></p>
+
 
         <div class="two fields">
             <div class="field">
@@ -82,7 +82,7 @@
         <div class="two fields">
             <div class="field">
                 <label><fmt:message key="entrant.label.email"/></label>
-                <input type="text" name="email"  placeholder="ivanov@gmail.com">
+                <input type="text" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"  placeholder="ivanov@gmail.com">
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.telephoneNumber"/></label>

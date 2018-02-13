@@ -12,12 +12,16 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DeleteFacultyCommand implements BaseCommand{
+public class DeleteFacultyCommand implements BaseCommand {
     static final Logger LOGGER = LogManager.getLogger(DeleteFacultyCommand.class);
 
     private static DeleteFacultyCommand instance = new DeleteFacultyCommand();
 
     private DeleteFacultyCommand() {
+    }
+
+    public static DeleteFacultyCommand getInstance() {
+        return instance;
     }
 
     @Override
@@ -26,35 +30,27 @@ public class DeleteFacultyCommand implements BaseCommand{
         int idFaculty = Integer.valueOf(request.getParameter(ParameterConstant.PARAMETER_FACULTY_ID));
         try {
             FacultyService.getInstance().deleteFaculty(idFaculty);
-        request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAllFaculties());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,
+                    FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't read all faculties. "+e);
+            LOGGER.error("Can't read all faculties. " + e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, PageConstant.PAGE_ADMIN_PANEL_FACULTIES);
         return PageConstant.PAGE_ADMIN_PANEL;
     }
+
     @Override
     public String getPage(HttpServletRequest request) {
         LOGGER.info("The getPage() method is called");
         try {
-            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,FacultyService.getInstance().readAllFaculties());
+            request.setAttribute(AttributeConstant.ATTRIBUTE_LIST_FACULTIES,
+                    FacultyService.getInstance().readAllFaculties());
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.error("Can't read all faculties. "+e);
+            LOGGER.error("Can't read all faculties. " + e);
         }
-        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION,12);
+        request.setAttribute(AttributeConstant.ATTRIBUTE_NAVIGATION, PageConstant.PAGE_ADMIN_PANEL_FACULTIES);
         return PageConstant.PAGE_ADMIN_PANEL;
-
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public static DeleteFacultyCommand getInstance() {
-        return instance;
-    }
-
 }
