@@ -47,7 +47,7 @@
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.dataOfIssue"/></label>
-                <input type="text" placeholder="YYYY-MM-DD" name="dataOfIssue" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                <input type="text" placeholder="YYYY-MM-DD" name="dataOfIssue" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
             </div>
         </div>
         <div class="three fields">
@@ -57,12 +57,15 @@
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.dateOfBirth"/></label>
-                <input type="text" placeholder="YYYY-MM-DD" name="dataOfBirth" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                <input type="text" placeholder="YYYY-MM-DD" name="dataOfBirth" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])">
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.nationality"/></label>
-                <input type="text" placeholder="<fmt:message key="registration.text.nationality"/>" name="nationality">
-            </div>
+                <select name="nationality">
+                    <option value="Republic of Belarus">Republic of Belarus</option>
+                    <option value="Russian Federation">Russian Federation</option>
+                </select>
+                </div>
         </div>
         <div class="three fields">
             <div class="field">
@@ -75,8 +78,11 @@
             </div>
             <div class="field">
                 <label><fmt:message key="entrant.label.goldMedal"/></label>
-                <input type="text" placeholder="<fmt:message key="registration.text.goldMedal"/>" name="goldMedal" size="10" pattern="[01]{1}">
-            </div>
+                <select name="goldMedal">
+                    <option value="true"><fmt:message key="registration.label.goldMedalTrue"/></option>
+                    <option value="false"><fmt:message key="registration.label.goldMedalFalse"/></option>
+                </select>
+              </div>
         </div>
 
         <div class="two fields">
